@@ -8,6 +8,9 @@ package Model.Enums;
  *
  * @author camper
  */
-public class EstadoProcedimientos {
-    
+public enum EstadoProcedimientos {
+    PROGRAMADO,
+    ENPROCESO,
+    FINALIZADO,
+    CANCELADO
 }

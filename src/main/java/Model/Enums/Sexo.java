@@ -8,6 +8,7 @@ package Model.Enums;
  *
  * @author camper
  */
-public class Sexo {
-    
+public enum Sexo {
+   MACHO,
+   HEMBRA
 }
