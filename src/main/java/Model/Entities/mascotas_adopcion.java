@@ -10,6 +10,7 @@ import java.util.Date;
  *
  * @author camper
  */
+//modulo 5
 public class mascotas_adopcion {
     private int id;
     private int mascotaId;

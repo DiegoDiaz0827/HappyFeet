@@ -4,6 +4,7 @@
  */
 package Model.Enums;
 
+import Model.Enums.EstadoCanjees;
 /**
  *
  * @author camper
