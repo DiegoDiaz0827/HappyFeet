@@ -8,6 +8,6 @@ package Model.Enums;
  *
  * @author camper
  */
-public class itemsFactura {
-    
+public enum itemsFactura {
+    PRODUCTO,SERVICIO
 }

@@ -8,6 +8,7 @@ package Model.Enums;
  *
  * @author camper
  */
-public class EstadoFacturas {
-    
+public enum EstadoFacturas {
+    PENDIENTE,PAGADA,ANULADA
 }
+

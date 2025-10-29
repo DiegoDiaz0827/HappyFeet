@@ -8,6 +8,7 @@ package Model.Enums;
  *
  * @author camper
  */
-public class TipoTransacciones {
+public enum TipoTransacciones {
+    GANADOS,CANJEADOS,EXPIRADOS,AJUSTES
     
 }

@@ -8,6 +8,6 @@ package Model.Enums;
  *
  * @author camper
  */
-public class EstadoCanjees {
-    
+public enum EstadoCanjees {
+    PENDIENTE,APLICADO,EXPIRADO
 }

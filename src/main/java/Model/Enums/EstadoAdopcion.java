@@ -8,6 +8,9 @@ package Model.Enums;
  *
  * @author camper
  */
-public class EstadoAdopcion {
-    
+public enum EstadoAdopcion {
+    DISPONIBLE,
+    ENPROCESO,
+    ADOPTADA,
+    RETIRADA
 }

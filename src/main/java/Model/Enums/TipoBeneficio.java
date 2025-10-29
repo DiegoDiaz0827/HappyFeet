@@ -8,6 +8,6 @@ package Model.Enums;
  *
  * @author camper
  */
-public class TipoBeneficio {
-    
+public enum TipoBeneficio {
+    DESCUENTO,SERVICIOGRATIS,PRODUCTOSGRATIS,EXTRA
 }

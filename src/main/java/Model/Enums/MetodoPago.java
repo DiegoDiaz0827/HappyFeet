@@ -8,6 +8,7 @@ package Model.Enums;
  *
  * @author camper
  */
-public class MetodoPago {
+public enum MetodoPago {
     
+    EFECTIVO,TARJETA,TRANSFERENCIA,MIXTO
 }

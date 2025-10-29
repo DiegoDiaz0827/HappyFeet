@@ -8,6 +8,7 @@ package Model.Enums;
  *
  * @author camper
  */
-public class EstadoVacunacion {
+public enum EstadoVacunacion {
     
+    PLANIFICADA,ENCURSO,FINALIZADA,CANCELADA
 }
