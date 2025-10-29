@@ -12,17 +12,19 @@ import java.util.Date;
  *
  * @author camper
  */
+
+//modulo 5
 public class canjes_beneficios {
     private int id;
-    private int clubMascotasId;      // Mapea club_mascotas_id
-    private int beneficioId;         // Mapea beneficio_id
-    private Timestamp fechaCanje;    // Mapea DATETIME (fecha_canje)
-    private int puntosCanjeados;     // Mapea puntos_canjeados
-    private EstadoCanjees estado;    // Mapea el ENUM 'estado'
-    private Date fechaExpiracion;    // Mapea DATE (fecha_expiracion)
-    private Integer facturaId;       // Mapea factura_id (ON DELETE SET NULL, por eso Integer)
+    private int clubMascotasId;     
+    private int beneficioId;         
+    private Timestamp fechaCanje;    
+    private int puntosCanjeados;     
+    private EstadoCanjees estado;    
+    private Date fechaExpiracion;    
+    private Integer facturaId;       
 
-    // CONSTRUCTOR COMPLETO (Con ID)
+    // CONSTRUCTORES
     public canjes_beneficios(int pId, int pClubMascotasId, int pBeneficioId, Timestamp pFechaCanje, 
                              int pPuntosCanjeados, EstadoCanjees pEstado, Date pFechaExpiracion, 
                              Integer pFacturaId) {
@@ -36,7 +38,6 @@ public class canjes_beneficios {
         this.facturaId = pFacturaId;
     }
     
-    // CONSTRUCTOR BASE PRIVADO (Inicializa todos los campos sin ID - Para inserción/llamadas internas)
     private canjes_beneficios(int pClubMascotasId, int pBeneficioId, Timestamp pFechaCanje, 
                               int pPuntosCanjeados, EstadoCanjees pEstado, Date pFechaExpiracion, 
                               Integer pFacturaId) {
@@ -49,7 +50,6 @@ public class canjes_beneficios {
         this.facturaId = pFacturaId;
     }
 
-    // Getters
     public int getId() { return id; }
     public int getClubMascotasId() { return clubMascotasId; }
     public int getBeneficioId() { return beneficioId; }
@@ -59,7 +59,6 @@ public class canjes_beneficios {
     public Date getFechaExpiracion() { return fechaExpiracion; }
     public Integer getFacturaId() { return facturaId; }
 
-    // Setters
     public void setId(int id) { this.id = id; }
     public void setClubMascotasId(int clubMascotasId) { this.clubMascotasId = clubMascotasId; }
     public void setBeneficioId(int beneficioId) { this.beneficioId = beneficioId; }
