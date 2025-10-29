@@ -8,6 +8,8 @@ package Model.Entities;
  *
  * @author camper
  */
+
+// tablas consulta
 public class EventosTipos {
     
     private int id;

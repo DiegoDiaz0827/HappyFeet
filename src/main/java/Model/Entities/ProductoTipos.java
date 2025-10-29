@@ -8,6 +8,8 @@ package Model.Entities;
  *
  * @author camper
  */
+
+// tablas consulta
 public class ProductoTipos {
    private int id;
     private String nombre;
