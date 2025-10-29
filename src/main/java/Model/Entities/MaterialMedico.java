@@ -33,29 +33,61 @@ public class MaterialMedico {
     }
 
     // Getters y Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id; 
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() {
+        return nombre; 
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre; 
+    }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public String getTipo() {
+        return tipo; 
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-    public String getUnidadMedida() { return unidadMedida; }
-    public void setUnidadMedida(String unidadMedida) { this.unidadMedida = unidadMedida; }
+    public String getUnidadMedida() { 
+        return unidadMedida; 
+    }
+    public void setUnidadMedida(String unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
 
-    public int getCantidadStock() { return cantidadStock; }
-    public void setCantidadStock(int cantidadStock) { this.cantidadStock = cantidadStock; }
+    public int getCantidadStock() { 
+        return cantidadStock;
+    }
+    public void setCantidadStock(int cantidadStock) { 
+        this.cantidadStock = cantidadStock; 
+    }
 
-    public int getStockMinimo() { return stockMinimo; }
-    public void setStockMinimo(int stockMinimo) { this.stockMinimo = stockMinimo; }
+    public int getStockMinimo() { 
+        return stockMinimo;
+    }
+    public void setStockMinimo(int stockMinimo) { 
+        this.stockMinimo = stockMinimo;
+    }
 
-    public String getProveedor() { return proveedor; }
-    public void setProveedor(String proveedor) { this.proveedor = proveedor; }
+    public String getProveedor() {
+        return proveedor; 
+    }
+    public void setProveedor(String proveedor) { 
+        this.proveedor = proveedor; 
+    }
 
-    public boolean isActivo() { return activo; }
-    public void setActivo(boolean activo) { this.activo = activo; }
+    public boolean isActivo() {
+        return activo; 
+    }
+    public void setActivo(boolean activo) { 
+        this.activo = activo;
+    }
 
     @Override
     public String toString() {

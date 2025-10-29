@@ -40,35 +40,75 @@ public class Vacuna {
     }
 
     // Getters y Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() { 
+        return id; 
+    }
+    public void setId(int id) {
+        this.id = id; 
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() {
+        return nombre; 
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre; 
+    }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public String getTipo() {
+        return tipo;
+    }
+    public void setTipo(String tipo) { 
+        this.tipo = tipo; 
+    }
 
-    public String getFabricante() { return fabricante; }
-    public void setFabricante(String fabricante) { this.fabricante = fabricante; }
+    public String getFabricante() { 
+        return fabricante; 
+    }
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
 
-    public String getLote() { return lote; }
-    public void setLote(String lote) { this.lote = lote; }
+    public String getLote() { 
+        return lote; 
+    }
+    public void setLote(String lote) {
+        this.lote = lote; 
+    }
 
-    public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+    public int getCantidad() { 
+        return cantidad; 
+    }
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad; 
+    }
 
-    public LocalDate getFechaVencimiento() { return fechaVencimiento; }
-    public void setFechaVencimiento(LocalDate fechaVencimiento) { this.fechaVencimiento = fechaVencimiento; }
+    public LocalDate getFechaVencimiento() {
+        return fechaVencimiento; 
+    }
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento; 
+    }
 
-    public double getPrecioCompra() { return precioCompra; }
-    public void setPrecioCompra(double precioCompra) { this.precioCompra = precioCompra; }
+    public double getPrecioCompra() { 
+        return precioCompra; 
+    }
+    public void setPrecioCompra(double precioCompra) { 
+        this.precioCompra = precioCompra; 
+    }
 
-    public double getPrecioVenta() { return precioVenta; }
-    public void setPrecioVenta(double precioVenta) { this.precioVenta = precioVenta; }
+    public double getPrecioVenta() { 
+        return precioVenta; 
+    }
+    public void setPrecioVenta(double precioVenta) { 
+        this.precioVenta = precioVenta; 
+    }
 
-    public boolean isActiva() { return activa; }
-    public void setActiva(boolean activa) { this.activa = activa; }
+    public boolean isActiva() {
+        return activa;
+    }
+    public void setActiva(boolean activa) {
+        this.activa = activa;
+    }
 
     @Override
     public String toString() {

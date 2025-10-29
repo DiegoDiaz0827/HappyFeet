@@ -35,29 +35,61 @@ public class AlertaInventario {
     }
 
     // Getters y Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id; 
+    }
+    public void setId(int id) {
+        this.id = id; 
+    }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public String getTipo() {
+        return tipo; 
+    }
+    public void setTipo(String tipo) { 
+        this.tipo = tipo; 
+    }
 
-    public String getProducto() { return producto; }
-    public void setProducto(String producto) { this.producto = producto; }
+    public String getProducto() { 
+        return producto;
+    }
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public String getCategoria() {
+        return categoria;
+    }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria; 
+    }
 
-    public int getCantidadActual() { return cantidadActual; }
-    public void setCantidadActual(int cantidadActual) { this.cantidadActual = cantidadActual; }
+    public int getCantidadActual() {
+        return cantidadActual;
+    }
+    public void setCantidadActual(int cantidadActual) {
+        this.cantidadActual = cantidadActual;
+    }
 
-    public int getStockMinimo() { return stockMinimo; }
-    public void setStockMinimo(int stockMinimo) { this.stockMinimo = stockMinimo; }
+    public int getStockMinimo() { 
+        return stockMinimo; 
+    }
+    public void setStockMinimo(int stockMinimo) {
+        this.stockMinimo = stockMinimo; 
+    }
 
-    public LocalDate getFechaVencimiento() { return fechaVencimiento; }
-    public void setFechaVencimiento(LocalDate fechaVencimiento) { this.fechaVencimiento = fechaVencimiento; }
+    public LocalDate getFechaVencimiento() { 
+        return fechaVencimiento;
+    }
+    public void setFechaVencimiento(LocalDate fechaVencimiento) { 
+        this.fechaVencimiento = fechaVencimiento; 
+    }
 
-    public boolean isAtendida() { return atendida; }
-    public void setAtendida(boolean atendida) { this.atendida = atendida; }
+    public boolean isAtendida() { 
+        return atendida; 
+    }
+    public void setAtendida(boolean atendida) {
+        this.atendida = atendida; 
+    }
 
     @Override
     public String toString() {
