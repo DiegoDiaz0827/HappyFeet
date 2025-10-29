@@ -19,6 +19,8 @@ import util.ConexionDB;
  *
  * @author camper
  */
+
+// tablas consulta
 public class ProductosTiposDAO {
     
     

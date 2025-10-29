@@ -18,6 +18,8 @@ import util.ConexionDB;
  *
  * @author camper
  */
+
+//tablas consulta
 public class EspeciesDAO {
     
      public void agregar(Especies c){

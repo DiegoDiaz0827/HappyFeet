@@ -19,6 +19,7 @@ import util.ConexionDB;
  *
  * @author camper
  */
+//tablas consulta
 public class RazasDAO {
     
     public void agregar(Razas rz){
