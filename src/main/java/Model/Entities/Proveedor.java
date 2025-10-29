@@ -3,43 +3,54 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model.Entities;
-
+import java.time.LocalDateTime;
 /**
  *
  * @author camper
  */
+
+
+
+
 public class Proveedor {
     private int id;
     private String nombreEmpresa;
     private String contacto;
     private String telefono;
-    private String correoElectronico;
+    private String email;
     private String direccion;
+    private String sitioWeb;
     private boolean activo;
+    private LocalDateTime fechaRegistro;
 
-    public Proveedor() {}
+    // --- Constructor ---
 
-    public Proveedor(int id, String nombreEmpresa, String contacto, String telefono,
-                     String correoElectronico, String direccion, boolean activo) {
-        this.id = id;
-        this.nombreEmpresa = nombreEmpresa;
-        this.contacto = contacto;
-        this.telefono = telefono;
-        this.correoElectronico = correoElectronico;
-        this.direccion = direccion;
-        this.activo = activo;
+    public Proveedor(int pId, String pNombreEmpresa, String pContacto, String pTelefono,
+                     String pEmail, String pDireccion, String pSitioWeb,
+                     boolean pActivo, LocalDateTime pFechaRegistro) {
+        this.id = pId;
+        this.nombreEmpresa = pNombreEmpresa;
+        this.contacto = pContacto;
+        this.telefono = pTelefono;
+        this.email = pEmail;
+        this.direccion = pDireccion;
+        this.sitioWeb = pSitioWeb;
+        this.activo = pActivo;
+        this.fechaRegistro = pFechaRegistro;
     }
 
-    // Getters y Setters
-    public int getId() {
+    // --- Getters y Setters ---
+
+   
+    public int getId() { 
         return id;
     }
     public void setId(int id) {
-        this.id = id; 
+        this.id = id;
     }
 
     public String getNombreEmpresa() {
-        return nombreEmpresa;
+        return nombreEmpresa; 
     }
     public void setNombreEmpresa(String nombreEmpresa) { 
         this.nombreEmpresa = nombreEmpresa; 
@@ -53,24 +64,31 @@ public class Proveedor {
     }
 
     public String getTelefono() { 
-        return telefono; 
+        return telefono;
     }
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setTelefono(String telefono) { 
+        this.telefono = telefono; 
     }
 
-    public String getCorreoElectronico() { 
-        return correoElectronico; 
+    public String getEmail() {
+        return email; 
     }
-    public void setCorreoElectronico(String correoElectronico) { 
-        this.correoElectronico = correoElectronico; 
+    public void setEmail(String email) { 
+        this.email = email; 
     }
 
     public String getDireccion() { 
-        return direccion;
+        return direccion; 
     }
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        this.direccion = direccion; 
+    }
+
+    public String getSitioWeb() {
+        return sitioWeb; 
+    }
+    public void setSitioWeb(String sitioWeb) { 
+        this.sitioWeb = sitioWeb; 
     }
 
     public boolean isActivo() { 
@@ -80,9 +98,10 @@ public class Proveedor {
         this.activo = activo; 
     }
 
-    @Override
-    public String toString() {
-        return nombreEmpresa + " (" + telefono + ")";
-    }
+    public LocalDateTime getFechaRegistro() { 
+        return fechaRegistro; }
     
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro; 
+    }
 }
