@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model.Entities;
+package DAO;
 
 /**
  *
  * @author camper
  */
-//modulo 4
-public class BeneficioClub {
+public class Beneficios_clubDAO {
     
 }
