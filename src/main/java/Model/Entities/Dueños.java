@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 // modulo 1
 public class Dueños {
-     private int id;
+    private int id;
     private String nombreCompleto;
     private String documentoIdentidad;
     private String direccion;
