@@ -4,7 +4,7 @@
  */
 package DAO;
 import Model.Entities.beneficios_club;
-import Model.Enums.TipoBeneficio; // Asume la existencia de este Enum
+import Model.Enums.TipoBeneficio; 
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import util.ConexionDB;
  * @author camper
  */
 public class Beneficios_clubDAO {
-    // Mapeador de ResultSet a objeto beneficios_club
+    // permite devolver los datos en un objeto para usar
     private beneficios_club mapearResultSetABeneficio(ResultSet rs) throws SQLException {
         
         return new beneficios_club(
@@ -34,7 +34,7 @@ public class Beneficios_clubDAO {
         );
     }
     
-    // --- 1. CREATE (Agregar) ➕ ---
+    // --- 1. CREATE 
     public void agregar(beneficios_club b){
         String SQL = "INSERT INTO beneficios_club(nombre, descripcion, nivel_requerido, puntos_necesarios, tipo_beneficio, valor_beneficio, activo) VALUES (?,?,?,?,?,?,?)";
         
@@ -45,7 +45,7 @@ public class Beneficios_clubDAO {
             ps.setString(2, b.getDescripcion());
             ps.setString(3, b.getNivelRequerido());
             ps.setInt(4, b.getPuntosNecesarios());
-            ps.setString(5, b.getTipoBeneficio().name()); // Almacena el Enum como String
+            ps.setString(5, b.getTipoBeneficio().name()); 
             ps.setBigDecimal(6, b.getValorBeneficio());
             ps.setBoolean(7, b.isActivo());
             
@@ -135,9 +135,8 @@ public class Beneficios_clubDAO {
         }
     }
     
-    // --- 5. DELETE (Eliminar por ID) 🗑️ ---
+    // --- 5. DELETE 
     public boolean eliminar(int id) {
-        // En sistemas reales, a menudo se prefiere actualizar a 'activo = FALSE'
         String sql = "DELETE FROM beneficios_club WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {

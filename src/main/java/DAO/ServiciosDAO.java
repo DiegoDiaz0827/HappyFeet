@@ -20,13 +20,12 @@ import util.ConexionDB;
  */
 public class ServiciosDAO {
     public void agregar(Servicios s){
-        // Excluye 'id' (AUTO_INCREMENT) y 'activo' (tiene DEFAULT TRUE en DB,
-        // pero lo incluimos para mayor control o si el usuario lo setea explícitamente)
+
         String SQL = "INSERT INTO servicios(nombre, descripcion, categoria, precio_base, duracion_estimada_minutos, activo) VALUES (?,?,?,?,?,?)";
         
         try(Connection con = ConexionDB.conectar();
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS) ){
-        
+        // valores del ?
             ps.setString(1, s.getNombre());
             ps.setString(2, s.getDescripcion());
             ps.setString(3, s.getCategoria());
@@ -35,11 +34,10 @@ public class ServiciosDAO {
             ps.setBoolean(6, s.isActivo());
             
             int filas = ps.executeUpdate();
-            
+            //genera la base de datos
             try(ResultSet rs = ps.getGeneratedKeys()) {
                if(rs.next()){
                    int idGenerado = rs.getInt(1);
-                   // Asigna el ID generado de vuelta al objeto Servicios
                    s.setId(idGenerado);
                    System.out.println("Servicio insertado con ID = " + idGenerado);
                }
@@ -54,7 +52,7 @@ public class ServiciosDAO {
         }
     }
     
-    // --- 2. READ (Listar todos) 📋 ---
+    // --- 2. READ 
     public List<Servicios> listar(){
         List<Servicios> lista = new ArrayList<>();
         
@@ -85,7 +83,7 @@ public class ServiciosDAO {
         return lista;
     }
 
-    // --- 3. READ (Obtener por ID) 🔍 ---
+    // --- 3. READ 
     public Servicios obtenerPorId(int id) {
         String sql = "SELECT id, nombre, descripcion, categoria, precio_base, duracion_estimada_minutos, activo FROM servicios WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -113,7 +111,7 @@ public class ServiciosDAO {
         return null;
     }
     
-    // --- 4. UPDATE (Actualizar) ✏️ ---
+    // --- 4. UPDATE 
     public boolean actualizar(Servicios servicio) {
         String sql = "UPDATE servicios SET nombre = ?, descripcion = ?, categoria = ?, precio_base = ?, duracion_estimada_minutos = ?, activo = ? WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -125,10 +123,10 @@ public class ServiciosDAO {
             ps.setBigDecimal(4, servicio.getPrecioBase());
             ps.setInt(5, servicio.getDuracionEstimadaMinutos());
             ps.setBoolean(6, servicio.isActivo());
-            ps.setInt(7, servicio.getId()); // Condición WHERE
+            ps.setInt(7, servicio.getId()); 
             
             int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0; // Retorna true si se actualizó una o más filas
+            return filasAfectadas > 0; 
 
         } catch (SQLException e) {
             System.out.println("Error SQL al actualizar servicio: " + e.getMessage());
@@ -137,7 +135,7 @@ public class ServiciosDAO {
         }
     }
     
-    // --- 5. DELETE (Eliminar) 🗑️ ---
+    // --- 5. DELETE 
     public boolean eliminar(int id) {
         String sql = "DELETE FROM servicios WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -145,7 +143,7 @@ public class ServiciosDAO {
 
             ps.setInt(1, id);
             int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0; // Retorna true si se eliminó al menos una fila
+            return filasAfectadas > 0; 
 
         } catch (SQLException e) {
             System.out.println("Error SQL al eliminar servicio: " + e.getMessage());
