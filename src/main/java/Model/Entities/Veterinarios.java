@@ -4,7 +4,8 @@
  */
 package Model.Entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -14,27 +15,29 @@ import java.time.LocalDateTime;
 
 // modulo 2
 public class Veterinarios {
-     private int id;
+    private int id;
     private String nombreCompleto;
+    private String licenciaprofesional;
     private String documentoIdentidad;
     private String telefono;
     private String email;
-    private String direccion;
+    
     private String especialidad;
-    private LocalDateTime fechaRegistro;
+    private LocalDate fechaRegistro;
     private boolean activo;
 
     // Constructor con todos los atributos
     public Veterinarios(int pId, String pNombreCompleto, String pDocumentoIdentidad,
-                        String pTelefono, String pEmail, String pDireccion,
-                        String pEspecialidad, LocalDateTime pFechaRegistro, boolean pActivo) {
+                        String pTelefono, String pEmail, String pLicencia,
+                        String pEspecialidad, LocalDate pFechaRegistro, boolean pActivo) {
 
         id = pId;
         nombreCompleto = pNombreCompleto;
         documentoIdentidad = pDocumentoIdentidad;
+        licenciaprofesional = pLicencia;
         telefono = pTelefono;
         email = pEmail;
-        direccion = pDireccion;
+        
         especialidad = pEspecialidad;
         fechaRegistro = pFechaRegistro;
         activo = pActivo;
@@ -42,14 +45,14 @@ public class Veterinarios {
 
     // Constructor sin id ni fechaRegistro (por ejemplo, al crear un nuevo veterinario)
     public Veterinarios(String pNombreCompleto, String pDocumentoIdentidad,
-                        String pTelefono, String pEmail, String pDireccion,
+                        String pTelefono, String pEmail, 
                         String pEspecialidad, boolean pActivo) {
 
         nombreCompleto = pNombreCompleto;
         documentoIdentidad = pDocumentoIdentidad;
         telefono = pTelefono;
         email = pEmail;
-        direccion = pDireccion;
+        
         especialidad = pEspecialidad;
         activo = pActivo;
     }
@@ -66,6 +69,11 @@ public class Veterinarios {
     public String getDocumentoIdentidad() {
         return documentoIdentidad;
     }
+    
+     public String getlicencia() {
+        return licenciaprofesional;
+    }
+
 
     public String getTelefono() {
         return telefono;
@@ -75,15 +83,13 @@ public class Veterinarios {
         return email;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
+   
 
     public String getEspecialidad() {
         return especialidad;
     }
 
-    public LocalDateTime getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
@@ -103,6 +109,10 @@ public class Veterinarios {
     public void setDocumentoIdentidad(String pDocumentoIdentidad) {
         documentoIdentidad = pDocumentoIdentidad;
     }
+    
+        public void setLicencia(String pLicencia) {
+        licenciaprofesional = pLicencia;
+    }
 
     public void setTelefono(String pTelefono) {
         telefono = pTelefono;
@@ -112,15 +122,13 @@ public class Veterinarios {
         email = pEmail;
     }
 
-    public void setDireccion(String pDireccion) {
-        direccion = pDireccion;
-    }
+   
 
     public void setEspecialidad(String pEspecialidad) {
         especialidad = pEspecialidad;
     }
 
-    public void setFechaRegistro(LocalDateTime pFechaRegistro) {
+    public void setFechaRegistro(LocalDate pFechaRegistro) {
         fechaRegistro = pFechaRegistro;
     }
 
@@ -135,7 +143,7 @@ public class Veterinarios {
                ", documentoIdentidad: " + documentoIdentidad +
                ", telefono: " + telefono +
                ", email: " + email +
-               ", direccion: " + direccion +
+               
                ", especialidad: " + especialidad +
                ", fechaRegistro: " + fechaRegistro +
                ", activo: " + activo + ")";

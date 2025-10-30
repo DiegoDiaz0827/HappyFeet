@@ -19,7 +19,7 @@ import util.ConexionDB;
  *
  * @author camper
  */
-public class CitaEstados {
+public class CitaEstadosDAO {
     
     public void agregar(citaEstados ce){
     
