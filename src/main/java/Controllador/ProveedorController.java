@@ -22,7 +22,7 @@ public class ProveedorController {
         this.proveedorDAO = proveedorDAO;
     }
 
-    // 1️⃣ Registrar un nuevo proveedor
+    // 1️ Registrar un nuevo proveedor
     public boolean registrarProveedor(Proveedor proveedor) {
         if (proveedor.getNombreEmpresa() == null || proveedor.getNombreEmpresa().isBlank()) {
             System.out.println("⚠️ El nombre de la empresa es obligatorio.");
@@ -58,7 +58,7 @@ public class ProveedorController {
     // 3️ Buscar proveedor por ID
     public Proveedor obtenerProveedorPorId(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido.");
+            System.out.println("️ ID inválido.");
             return null;
         }
 
@@ -69,23 +69,23 @@ public class ProveedorController {
                 return p;
             }
         }
-        System.out.println("❌ No se encontró el proveedor con ID: " + id);
+        System.out.println(" No se encontró el proveedor con ID: " + id);
         return null;
     }
 
     // 4️ Actualizar un proveedor existente
     public boolean actualizarProveedor(Proveedor proveedor) {
         if (proveedor.getId() <= 0) {
-            System.out.println("⚠️ El proveedor debe tener un ID válido.");
+            System.out.println(" El proveedor debe tener un ID válido.");
             return false;
         }
         if (proveedor.getNombreEmpresa() == null || proveedor.getNombreEmpresa().isBlank()) {
-            System.out.println("⚠️ El nombre de la empresa es obligatorio.");
+            System.out.println("️ El nombre de la empresa es obligatorio.");
             return false;
         }
 
         boolean exito = proveedorDAO.actualizar(proveedor);
-        System.out.println(exito ? "✅ Proveedor actualizado correctamente." : "❌ No se pudo actualizar el proveedor.");
+        System.out.println(exito ? " Proveedor actualizado correctamente." : " No se pudo actualizar el proveedor.");
         return exito;
     }
 
@@ -97,7 +97,7 @@ public class ProveedorController {
         }
 
         boolean exito = proveedorDAO.eliminar(id);
-        System.out.println(exito ? "🗑️ Proveedor eliminado correctamente." : "❌ No se encontró el proveedor para eliminar.");
+        System.out.println(exito ? "🗑️ Proveedor eliminado correctamente." : " No se encontró el proveedor para eliminar.");
         return exito;
     }
 }
