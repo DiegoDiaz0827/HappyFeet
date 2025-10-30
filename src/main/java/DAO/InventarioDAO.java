@@ -18,7 +18,7 @@ import Model.Entities.Inventario;
 
 /**
  *
- * @author camper
+ * @author camper 
  */
 public class InventarioDAO {
 
