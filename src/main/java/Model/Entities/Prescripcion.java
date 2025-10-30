@@ -22,7 +22,7 @@ public class Prescripcion {
     private String instrucciones;
     private LocalDateTime fechaPrescripcion;
 
-    // --- Constructores ---
+    // --- Constructor ---
      public Prescripcion(int pId, Integer pConsultaId, Integer pProcedimientoId, int pProductoId,
                         int pCantidad, String pDosis, String pFrecuencia, Integer pDuracionDias,
                         String pInstrucciones, LocalDateTime pFechaPrescripcion) {
