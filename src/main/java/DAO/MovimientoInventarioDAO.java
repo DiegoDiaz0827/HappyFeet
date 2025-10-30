@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class MovimientoInventarioDAO {
 
-
     public boolean insertar(MovimientoInventario m) {
         String sql = "INSERT INTO movimientos_inventario (producto_id, tipo_movimiento, cantidad, stock_anterior, stock_nuevo, motivo, referencia_consulta_id, referencia_procedimiento_id, usuario, fecha_movimiento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
