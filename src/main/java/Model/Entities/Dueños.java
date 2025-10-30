@@ -52,6 +52,10 @@ public class Dueños {
         activo = pActivo;
     }
 
+    public Dueños() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     // Getters
     public int getId() {
         return id;

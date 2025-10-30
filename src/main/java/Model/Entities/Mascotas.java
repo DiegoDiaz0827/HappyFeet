@@ -74,6 +74,10 @@ public class Mascotas {
         activo = pActivo;
     }
 
+    public Mascotas() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     // Getters
     public int getId() {
         return id;
