@@ -59,6 +59,34 @@ public class MascotasDAO {
             System.out.println("Error SQL al insertar mascota: " + ex.getMessage());
         }
     }
+        
+        // tranferir mascota
+        public boolean transferirmascota(Mascotas m,int id2) {
+        String SQL = "UPDATE mascotas SET dueno_id = ? WHERE id = ?";
+
+        try (Connection con = ConexionDB.conectar();
+             PreparedStatement ps = con.prepareStatement(SQL)) {
+
+            ps.setInt(1, id2);
+            ps.setInt(2, m.getId());
+            
+
+            int filas = ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idGenerado = rs.getInt(1);
+                    System.out.println("Mascota insertada con ID = " + idGenerado);
+                }
+            }
+
+            System.out.println("Mascota agregada. Filas afectadas: " + filas);
+
+        } catch (SQLException ex) {
+            System.out.println("Error SQL al insertar mascota: " + ex.getMessage());
+        }
+            return false;
+        }
 
     // 🔹 ELIMINAR
     public boolean eliminar(int id) {
