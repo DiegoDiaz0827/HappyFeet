@@ -23,7 +23,8 @@ public class Proveedor {
     private boolean activo;
     private LocalDateTime fechaRegistro;
 
-    // --- Constructor ---
+    // --- Constructores ---
+    public Proveedor(){}
 
     public Proveedor(int pId, String pNombreEmpresa, String pContacto, String pTelefono,
                      String pEmail, String pDireccion, String pSitioWeb,

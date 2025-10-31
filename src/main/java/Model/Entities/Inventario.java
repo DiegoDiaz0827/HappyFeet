@@ -29,7 +29,9 @@ public class Inventario {
     private boolean activo;
     private LocalDateTime fechaRegistro;
 
-    // --- Constructor ---
+    // --- Constructores ---
+    
+    public Inventario(){}
     public Inventario(int pId, String pNombreProducto, int pProductoTipoId, String pDescripcion,
                       String pFabricante, Integer pProveedorId, String pLote, int pCantidadStock,
                       int pStockMinimo, String pUnidadMedida, LocalDate pFechaVencimiento,

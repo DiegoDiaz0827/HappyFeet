@@ -92,7 +92,7 @@ public class ProveedorController {
     // 5️ Eliminar proveedor
     public boolean eliminarProveedor(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido.");
+            System.out.println("️ ID inválido.");
             return false;
         }
 

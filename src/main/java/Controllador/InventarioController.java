@@ -50,7 +50,7 @@ public class InventarioController {
 
         try {
             boolean exito = inventarioDAO.crearInventario(inventario);
-            System.out.println(exito ? "✅ Inventario registrado correctamente." : " No se pudo registrar el inventario.");
+            System.out.println(exito ? " Inventario registrado correctamente." : " No se pudo registrar el inventario.");
             return exito;
         } catch (Exception e) {
             System.out.println(" Error al registrar inventario: " + e.getMessage());
@@ -70,20 +70,20 @@ public class InventarioController {
             return false;
         }
         if (inventario.getNombreProducto() == null || inventario.getNombreProducto().isBlank()) {
-            System.out.println("⚠️ El nombre del producto es obligatorio.");
+            System.out.println("️ El nombre del producto es obligatorio.");
             return false;
         }
         if (inventario.getPrecioVenta() == null || inventario.getPrecioVenta().compareTo(BigDecimal.ZERO) <= 0) {
-            System.out.println("⚠️ El precio de venta debe ser mayor que 0.");
+            System.out.println(" El precio de venta debe ser mayor que 0.");
             return false;
         }
         if (inventario.getFechaVencimiento() != null && inventario.getFechaVencimiento().isBefore(LocalDate.now())) {
-            System.out.println("⚠️ La fecha de vencimiento no puede ser anterior a la actual.");
+            System.out.println("️ La fecha de vencimiento no puede ser anterior a la actual.");
             return false;
         }
 
         boolean exito = inventarioDAO.actualizarInventario(inventario);
-        System.out.println(exito ? "✅ Inventario actualizado correctamente." : " No se pudo actualizar el inventario.");
+        System.out.println(exito ? " Inventario actualizado correctamente." : " No se pudo actualizar el inventario.");
         return exito;
     }
 
