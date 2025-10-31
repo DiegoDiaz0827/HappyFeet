@@ -6,6 +6,9 @@ package Vistas;
 
 import Controllador.DueñosController;
 import Controllador.MascotaController;
+import DAO.MascotasDAO;
+import DAO.DueñoDAO;
+import DAO.RazasDAO;
 import Model.Entities.Dueños;
 import Model.Entities.Mascotas;
 import Model.Enums.Sexo;
@@ -24,14 +27,16 @@ public class Modulo1 {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        
+          MascotasDAO mascotaDAO = new MascotasDAO();
+        DueñoDAO duenoDAO = new DueñoDAO();
+        RazasDAO razaDAO = new RazasDAO();
 
-        // Aquí debes inicializar los DAOs y luego los controladores
-        // Ejemplo:
-        // MascotasDAO mascotaDAO = new MascotasDAOImpl();
-        // DuenoDAO duenoDAO = new DuenoDAOImpl();
-        // mascotaController = new MascotaController(mascotaDAO, duenoDAO, razaDAO);
-        // duenoController = new DuenoController(duenoDAO);
+        // === Inicialización de Controladores ===
+        mascotaController = new MascotaController(mascotaDAO, duenoDAO, razaDAO);
+        duenoController = new DueñosController();
 
+       
         while (true) {
             mostrarMenuPrincipal();
             int opcion = leerEntero("Seleccione una opción: ");
@@ -43,7 +48,8 @@ public class Modulo1 {
                 case 5 -> verMascota();
                 case 6 -> transferirMascota();
                 case 7 -> actualizarMascota();
-                case 8 -> eliminarMascota();
+                case 8 -> eliminarDueño();
+                case 9 -> eliminarMascota();
                 case 0 -> {
                     System.out.println("Saliendo del sistema...");
                     return;
@@ -62,7 +68,8 @@ public class Modulo1 {
         System.out.println("5. Ver mascota por ID");
         System.out.println("6. Transferir mascota a otro dueño");
         System.out.println("7. Actualizar mascota");
-        System.out.println("8. Eliminar mascota");
+        System.out.println("8. Eliminar dueño");
+        System.out.println("9. Eliminar mascota");
         System.out.println("0. Salir");
     }
 
@@ -75,14 +82,10 @@ public class Modulo1 {
         String telefono = leerTexto("Teléfono: ");
         String correo = leerTexto("Correo electrónico: ");
         String contactoEmergencia = leerTextoOpcional("Contacto de emergencia (opcional): ");
-
-        Dueños dueno = new Dueños();
-        dueno.setNombreCompleto(nombre);
-        dueno.setDocumentoIdentidad(documento);
-        dueno.setDireccion(direccion);
-        dueno.setTelefono(telefono);
-        dueno.setEmail(correo);
-        dueno.setContactoEmergencia(contactoEmergencia);
+        boolean activo = true;
+        
+        Dueños dueno = new Dueños(nombre,documento,direccion,telefono,correo,contactoEmergencia,activo);
+        
 
         duenoController.registrarDueño(dueno);
         System.out.println("Dueño registrado correctamente.");
@@ -186,6 +189,12 @@ public class Modulo1 {
     private static void eliminarMascota() {
         int id = leerEntero("Ingrese ID de la mascota a eliminar: ");
         mascotaController.eliminarMascota(id);
+    }
+    
+    private static void eliminarDueño(){
+    int id = leerEntero("ingrese el id del dueño a eliminar");
+    duenoController.eliminarDueno(id);
+    
     }
 
     // -------------------- MÉTODOS AUXILIARES --------------------

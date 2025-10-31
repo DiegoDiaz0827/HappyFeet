@@ -16,6 +16,8 @@ import java.util.List;
 public class DueñosController {
     
     DueñoDAO dueñodao = new DueñoDAO();
+
+   
     
     public void registrarDueño(Dueños d){
     try {

@@ -65,7 +65,7 @@ public class MascotasDAO {
         String SQL = "UPDATE mascotas SET dueno_id = ? WHERE id = ?";
 
         try (Connection con = ConexionDB.conectar();
-             PreparedStatement ps = con.prepareStatement(SQL)) {
+             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, id2);
             ps.setInt(2, m.getId());
@@ -153,7 +153,7 @@ public class MascotasDAO {
                     rs.getString("nombre"),
                     rs.getInt("raza_id"),
                     rs.getDate("fecha_nacimiento") != null ? rs.getDate("fecha_nacimiento").toLocalDate() : null,
-                    Sexo.valueOf(rs.getString("sexo")), 
+                    Sexo.valueOf(rs.getString("sexo").toUpperCase()), 
                     rs.getDouble("peso_actual"),
                     rs.getString("microchip"),
                     rs.getString("tatuaje"),
@@ -187,7 +187,7 @@ public class MascotasDAO {
                     rs.getString("nombre"),
                     rs.getInt("raza_id"),
                     rs.getDate("fecha_nacimiento") != null ? rs.getDate("fecha_nacimiento").toLocalDate() : null,
-                     Sexo.valueOf(rs.getString("sexo")),
+                     Sexo.valueOf(rs.getString("sexo").toUpperCase()),
                     rs.getDouble("peso_actual"),
                     rs.getString("microchip"),
                     rs.getString("tatuaje"),
