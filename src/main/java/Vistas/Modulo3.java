@@ -136,18 +136,23 @@ public class Modulo3 {
     // -------------------- INVENTARIO --------------------
     private static void registrarInventario() {
         System.out.println("\n--- Registrar Inventario ---");
+        int Proveedor = leerEntero("ID del proveedor: ");
         String nombre = leerTexto("Nombre del producto: ");
+        int ProductoTipoId=leerEntero("ID del tipo de producto: ");
         BigDecimal precioCompra = leerDecimal("Precio de compra: ");
         BigDecimal precioVenta = leerDecimal("Precio de venta: ");
         int cantidad = leerEntero("Cantidad en stock: ");
         LocalDate fechaVencimiento = leerFechaOpcional("Fecha de vencimiento (AAAA-MM-DD, opcional): ");
 
         Inventario inv = new Inventario();
+        inv.setProveedorId(Proveedor);
         inv.setNombreProducto(nombre);
+        inv.setProductoTipoId(ProductoTipoId);
         inv.setPrecioCompra(precioCompra);
         inv.setPrecioVenta(precioVenta);
         inv.setCantidadStock(cantidad);
         inv.setFechaVencimiento(fechaVencimiento);
+        
 
         inventarioController.registrarInventario(inv);
     }
