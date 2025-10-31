@@ -72,7 +72,7 @@ private final ServiciosDAO serviciosDAO;
         return servicio;
     }
 
-    // --- 4️⃣ Actualizar servicio existente (UPDATE)
+    // --- 4️ Actualizar servicio existente (UPDATE)
     public boolean actualizarServicio(Servicios servicio) {
         if (servicio.getId() <= 0) {
             System.out.println("⚠️ El servicio debe tener un ID válido para ser actualizado.");
