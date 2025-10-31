@@ -106,7 +106,7 @@ public class RazasDAO {
 
             if (rs.next()) {
                 return new Razas(
-                    rs.getInt(" especie_id"),
+                    rs.getInt("especie_id"),
                     rs.getString("nombre"),
                     rs.getString("caracteristicas")
                 );
