@@ -19,7 +19,7 @@ public class facturasController {
         this.facturasDAO = facturasDAO;
     }
 
-    // 1️⃣ Registrar una nueva factura
+    // 1️  Registrar una nueva factura
 
     public boolean registrarFactura(Facturas factura) {
         if (factura.getDuenoId() <= 0) {
@@ -49,13 +49,13 @@ public class facturasController {
         }
     }
 
-    // --- 2️⃣ Listar todas las facturas
+    // --- 2️ Listar todas las facturas
 
     public List<Facturas> listarFacturas() {
         return facturasDAO.listar();
     }
 
-    // --- 3️⃣ Buscar factura por ID
+    // --- 3️ Buscar factura por ID
     public Facturas obtenerFacturaPorId(int id) {
         if (id <= 0) {
             System.out.println("⚠️ ID inválido.");
@@ -64,7 +64,7 @@ public class facturasController {
         return facturasDAO.obtenerPorId(id);
     }
 
-    // --- 4️⃣ Actualizar factura existente
+    // --- 4️ Actualizar factura existente
 
     public boolean actualizarFactura(Facturas factura) {
         if (factura.getId() <= 0) {
@@ -81,7 +81,7 @@ public class facturasController {
         return exito;
     }
 
-    // --- 5️⃣ Eliminar factura
+    // --- 5️ Eliminar factura
 
     public boolean eliminarFactura(int id) {
         if (id <= 0) {

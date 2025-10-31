@@ -92,7 +92,7 @@ private final ServiciosDAO serviciosDAO;
         return exito;
     }
 
-    // --- 5️⃣ Eliminar servicio (DELETE)
+    // --- 5️ Eliminar servicio (DELETE)
     public boolean eliminarServicio(int id) {
         if (id <= 0) {
             System.out.println("⚠️ ID de servicio inválido.");
