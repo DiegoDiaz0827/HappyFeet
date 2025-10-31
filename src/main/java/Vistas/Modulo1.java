@@ -181,7 +181,18 @@ public class Modulo1 {
 
         double peso = leerDoubleOpcional("Peso (" + m.getPesoActual() + "): ");
         if (peso > 0) m.setPesoActual(peso);
-
+        
+        int raza = leerEntero("raza: ("+ m.getRazaId()+"):");
+        m.setRazaId(raza);
+        
+        String microchip = leerTexto("microchip: ("+ m.getMicrochip()+"):");
+        m.setMicrochip(microchip);
+        
+        String tatuaje = leerTexto("tatuaje:  ("+ m.getTatuaje()+"):");
+        m.setTatuaje(tatuaje);
+        
+        String alergias = leerTexto("alergias: ("+ m.getAlergias()+"):");
+        m.setAlergias(alergias);
         // Aquí puedes agregar más campos opcionales
         mascotaController.actualizarMascota(m);
     }

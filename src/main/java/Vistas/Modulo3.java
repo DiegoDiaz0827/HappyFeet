@@ -66,6 +66,7 @@ public class Modulo3 {
     // -------------------- PRESCRIPCIÓN --------------------
     private static void registrarPrescripcion() {
         System.out.println("\n--- Registrar Prescripción ---");
+        
         int productoId = leerEntero("ID del producto: ");
         int cantidad = leerEntero("Cantidad: ");
         String dosis = leerTexto("Dosis: ");
