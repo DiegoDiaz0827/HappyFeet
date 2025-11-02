@@ -48,8 +48,9 @@ public class Modulo1 {
                 case 5 -> verMascota();
                 case 6 -> transferirMascota();
                 case 7 -> actualizarMascota();
-                case 8 -> eliminarDueño();
-                case 9 -> eliminarMascota();
+                case 8 -> actualizarDueño();
+                case 9 -> eliminarDueño();
+                case 10 -> eliminarMascota();
                 case 0 -> {
                     System.out.println("Saliendo del sistema...");
                     return;
@@ -68,8 +69,9 @@ public class Modulo1 {
         System.out.println("5. Ver mascota por ID");
         System.out.println("6. Transferir mascota a otro dueño");
         System.out.println("7. Actualizar mascota");
-        System.out.println("8. Eliminar dueño");
-        System.out.println("9. Eliminar mascota");
+        System.out.println("8. Actualizar Dueño");
+        System.out.println("9. Eliminar dueño");
+        System.out.println("10. Eliminar mascota");
         System.out.println("0. Salir");
     }
 
@@ -196,6 +198,38 @@ public class Modulo1 {
         // Aquí puedes agregar más campos opcionales
         mascotaController.actualizarMascota(m);
     }
+    
+    private static void actualizarDueño() {
+        int id = leerEntero("Ingrese ID de el dueño a actualizar: ");
+        Dueños d = duenoController.buscarDuenoPorId(id);
+        if (d == null) {
+            System.out.println("Mascota no encontrada.");
+            return;
+        }
+        String nombre = leerTextoOpcional("Nombre (" + d.getNombreCompleto()+ "): ");
+        if (!nombre.isEmpty()) d.setNombreCompleto(nombre);
+
+        String direccion = leerTexto("direccion (" + d.getDireccion()+ "): ");
+         d.setDireccion(direccion);
+        
+        String email = leerTexto("email: ("+ d.getEmail()+"):");
+        d.setEmail(email);
+        
+        String numero = leerTexto("Telefono: ("+ d.getTelefono()+"):");
+        d.setTelefono(numero);
+        
+        String contacto = leerTexto("contacto  ("+ d.getContactoEmergencia()+"):");
+        d.setContactoEmergencia(contacto);
+        
+        
+        // Aquí puedes agregar más campos opcionales
+        duenoController.actualizarDueno(d);
+    }
+    
+    
+    
+    
+    
 
     private static void eliminarMascota() {
         int id = leerEntero("Ingrese ID de la mascota a eliminar: ");

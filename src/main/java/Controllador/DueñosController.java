@@ -31,6 +31,8 @@ public class DueñosController {
         }
     }
     
+    
+    
     public boolean actualizarDueno(Dueños dueno) {
         System.out.println("\n--- ACTUALIZANDO DUEÑO ID: " + dueno.getId() + " ---");
         boolean actualizado = dueñodao.actualizar(dueno);
@@ -39,6 +41,8 @@ public class DueñosController {
         } else {
             System.out.println("❌ No se pudo actualizar el dueño ID " + dueno.getId() + ".");
         }
+        
+        
         return actualizado;
     }
     

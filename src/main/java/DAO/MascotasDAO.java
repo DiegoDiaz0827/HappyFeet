@@ -139,7 +139,7 @@ public class MascotasDAO {
 
     // 🔹 OBTENER POR ID
     public Mascotas obtenerPorId(int id) {
-        String sql = "SELECT m.*,r.nombre AS Raza FROM mascotas m JOIN razas r ON m.raza_id = r.id WHERE id = ?";
+        String sql = "SELECT m.*,r.nombre AS Raza FROM mascotas m JOIN razas r ON m.raza_id = r.id WHERE m.id = ?";
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

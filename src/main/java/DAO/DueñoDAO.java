@@ -94,6 +94,7 @@ public class DueñoDAO {
             ps.setString(6, d.getContactoEmergencia());
             ps.setTimestamp(7, Timestamp.valueOf(d.getFechaRegistro()));
             ps.setBoolean(8, d.isActivo());
+            ps.setInt(9, d.getId());
             ps.executeUpdate();
             return true;
 
