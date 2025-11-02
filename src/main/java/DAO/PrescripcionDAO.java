@@ -37,7 +37,7 @@ public class PrescripcionDAO {
             ps.setString(8, p.getInstrucciones());
             ps.setTimestamp(9, Timestamp.valueOf(p.getFechaPrescripcion()));
 
-            return ps.executeUpdate() > 0;
+            return ps.executeUpdate() > 0; 
 
         } catch (SQLException e) {
             System.out.println("Error al insertar prescripción: " + e.getMessage());

@@ -8,6 +8,7 @@ package Vistas;
  *
  * @author camper
  */
+
 import Controllador.InventarioController;
 import Controllador.ProveedorController;
 import Controllador.PrescripcionController;
@@ -20,7 +21,7 @@ import Model.Entities.Prescripcion;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; // Necesario para setear la fecha de registro antes de enviar al DAO
 import java.util.List;
 import java.util.Scanner;
 
@@ -71,18 +72,28 @@ public class Modulo3 {
     // -------------------- PRESCRIPCIÓN --------------------
     private static void registrarPrescripcion() {
         System.out.println("\n--- Registrar Prescripción ---");
+        // Corregida Convención: camellCase para variables locales
+        int consultaId = leerEntero("ID de la consulta: ");
+        int procedimientoId = leerEntero("ID del procedimiento: ");
         int productoId = leerEntero("ID del producto: ");
         int cantidad = leerEntero("Cantidad: ");
         String dosis = leerTexto("Dosis: ");
         String frecuencia = leerTexto("Frecuencia: ");
         Integer duracion = leerEnteroOpcional("Duración en días (opcional): ");
+        String instrucciones = leerTexto("Instrucciones: "); // Corregida Convención
 
         Prescripcion p = new Prescripcion();
+        p.setConsultaId(consultaId);
+        p.setProcedimientoId(procedimientoId);
         p.setProductoId(productoId);
         p.setCantidad(cantidad);
         p.setDosis(dosis);
         p.setFrecuencia(frecuencia);
         p.setDuracionDias(duracion);
+        p.setInstrucciones(instrucciones);
+        
+        // Se asume que la entidad Prescripcion tiene un setter para fechaPrescripcion
+        // y que el Controller/DAO le asignará un valor (LocalDateTime.now())
 
         prescripcionController.registrarPrescripcion(p);
     }
@@ -96,7 +107,7 @@ public class Modulo3 {
         }
         for (Prescripcion p : lista) {
             System.out.println("ID: " + p.getId() + " | Producto ID: " + p.getProductoId() +
-                    " | Cantidad: " + p.getCantidad() + " | Dosis: " + p.getDosis());
+                             " | Cantidad: " + p.getCantidad() + " | Dosis: " + p.getDosis());
         }
     }
 
@@ -104,19 +115,27 @@ public class Modulo3 {
     private static void registrarProveedor() {
         System.out.println("\n--- Registrar Proveedor ---");
         String nombre = leerTexto("Nombre de la empresa: ");
-        String email = leerTextoOpcional("Correo electrónico (opcional): ");
-        String sitioweb = leerTextoOpcional("sitio web(opcional): ");
-        String direccion = leerTextoOpcional("Direccion(opcional): ");
+        String contacto = leerTexto("Contacto: "); 
         String telefono = leerTextoOpcional("Teléfono (opcional): ");
-
-        Proveedor p = new Proveedor();
+        String email = leerTextoOpcional("Correo electrónico (opcional): ");
+        String direccion = leerTextoOpcional("Direccion(opcional): ");
+        String sitioWeb = leerTextoOpcional("Sitio web(opcional): ");
         
+        // método auxiliar para leer el booleano
+        boolean esActivo = leerBooleano("Es activo?"); 
+        
+        Proveedor p = new Proveedor();
         p.setNombreEmpresa(nombre);
+        p.setContacto(contacto);
+        p.setTelefono(telefono);
         p.setEmail(email);
         p.setDireccion(direccion);
-        p.setSitioWeb(sitioweb);
-        p.setTelefono(telefono);
-
+        p.setSitioWeb(sitioWeb);
+        p.setActivo(esActivo); // Se asigna el valor leído del usuario
+        
+        // Se asume que la entidad Proveedor tiene un setter para fechaRegistro
+        // y que el Controller/DAO le asignará un valor (LocalDateTime.now())
+        
         proveedorController.registrarProveedor(p);
     }
 
@@ -129,31 +148,50 @@ public class Modulo3 {
         }
         for (Proveedor p : lista) {
             System.out.println("ID: " + p.getId() + " | Nombre: " + p.getNombreEmpresa() +
-                    " | Email: " + p.getEmail());
+                             " | Email: " + p.getEmail());
         }
     }
 
     // -------------------- INVENTARIO --------------------
     private static void registrarInventario() {
         System.out.println("\n--- Registrar Inventario ---");
-        int Proveedor = leerEntero("ID del proveedor: ");
+        int proveedorId = leerEntero("ID del proveedor: "); 
         String nombre = leerTexto("Nombre del producto: ");
-        int ProductoTipoId=leerEntero("ID del tipo de producto: ");
+        int productoTipoId = leerEntero("ID del tipo de producto: ");
+        String descripcion = leerTexto("Descripcion del producto: "); 
+        String fabricante = leerTexto("Fabricante: "); 
+        String lote = leerTexto("Lote: "); 
+        int cantidad = leerEntero("Cantidad en stock: ");
+        int stockMinimo = leerEntero("Stock Minimo: "); 
         BigDecimal precioCompra = leerDecimal("Precio de compra: ");
         BigDecimal precioVenta = leerDecimal("Precio de venta: ");
-        int cantidad = leerEntero("Cantidad en stock: ");
+        String unidadMedida = leerTexto("Unidad de Medida: "); 
+        
+        //  método auxiliar para leer el booleano
+        boolean requiereReceta = leerBooleano("Requiere receta?"); 
+        boolean esActivo = leerBooleano("Es activo?"); 
+        
         LocalDate fechaVencimiento = leerFechaOpcional("Fecha de vencimiento (AAAA-MM-DD, opcional): ");
 
         Inventario inv = new Inventario();
-        inv.setProveedorId(Proveedor);
+        inv.setProveedorId(proveedorId);
         inv.setNombreProducto(nombre);
-        inv.setProductoTipoId(ProductoTipoId);
+        inv.setProductoTipoId(productoTipoId);
+        inv.setDescripcion(descripcion);
+        inv.setFabricante(fabricante);
+        inv.setLote(lote);
+        inv.setCantidadStock(cantidad);
+        inv.setStockMinimo(stockMinimo);
         inv.setPrecioCompra(precioCompra);
         inv.setPrecioVenta(precioVenta);
-        inv.setCantidadStock(cantidad);
+        inv.setUnidadMedida(unidadMedida);
+        inv.setRequiereReceta(requiereReceta); 
+        inv.setActivo(esActivo); 
         inv.setFechaVencimiento(fechaVencimiento);
         
-
+        // Establecer la fecha de registro en el objeto antes de enviarlo al DAO
+        inv.setFechaRegistro(LocalDateTime.now());
+        
         inventarioController.registrarInventario(inv);
     }
 
@@ -166,11 +204,19 @@ public class Modulo3 {
         }
         for (Inventario i : lista) {
             System.out.println("ID: " + i.getId() + " | Producto: " + i.getNombreProducto() +
-                    " | Stock: " + i.getCantidadStock() + " | Precio Venta: " + i.getPrecioVenta());
+                             " | Stock: " + i.getCantidadStock() + " | Precio Venta: " + i.getPrecioVenta());
         }
     }
 
     // -------------------- MÉTODOS AUXILIARES --------------------
+    
+    // Nuevo método auxiliar para leer booleanos
+    private static boolean leerBooleano(String mensaje) {
+        System.out.print(mensaje + " (S/N): ");
+        String input = sc.nextLine().trim().toUpperCase();
+        return input.equals("S"); // Devuelve true si el usuario ingresa 'S'
+    }
+
     private static String leerTexto(String mensaje) {
         System.out.print(mensaje);
         return sc.nextLine();
@@ -199,14 +245,16 @@ public class Modulo3 {
         try {
             return Integer.parseInt(linea);
         } catch (NumberFormatException e) {
+            System.out.println("Formato numérico inválido, se usará valor nulo.");
             return null;
         }
     }
 
     private static BigDecimal leerDecimal(String mensaje) {
         System.out.print(mensaje);
+        // Manejo de errores de formato decimal más robusto
         while (!sc.hasNextBigDecimal()) {
-            System.out.print("Debe ingresar un número válido: ");
+            System.out.print("Debe ingresar un número decimal válido (ej. 10.50): ");
             sc.next();
         }
         BigDecimal valor = sc.nextBigDecimal();
@@ -221,6 +269,7 @@ public class Modulo3 {
         try {
             return LocalDate.parse(linea);
         } catch (Exception e) {
+            System.out.println("Formato de fecha inválido (debe ser AAAA-MM-DD), se usará valor nulo.");
             return null;
         }
     }
