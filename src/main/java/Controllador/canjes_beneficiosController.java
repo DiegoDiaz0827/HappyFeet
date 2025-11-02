@@ -15,14 +15,9 @@ import java.sql.Timestamp;
  */
 public class canjes_beneficiosController {
     
- // Instancia del DAO para interactuar con la base de datos
     Canjes_beneficiosDAO canjesDao = new Canjes_beneficiosDAO();
 
-    /**
-     * Registra un nuevo canje de beneficio.
-     * Asigna la fecha de canje actual si no está establecida.
-     * @param c El objeto canjes_beneficios a registrar.
-     */
+   
     public void registrarCanje(canjes_beneficios c){
         try {
             if (c.getFechaCanje() == null) {
