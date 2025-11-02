@@ -44,7 +44,7 @@ public class Veterinarios {
     }
 
     // Constructor sin id ni fechaRegistro (por ejemplo, al crear un nuevo veterinario)
-    public Veterinarios(String pNombreCompleto, String pDocumentoIdentidad,
+    public Veterinarios(String pNombreCompleto, String pDocumentoIdentidad,String pLicencia, 
                         String pTelefono, String pEmail, 
                         String pEspecialidad, boolean pActivo) {
 
@@ -52,7 +52,7 @@ public class Veterinarios {
         documentoIdentidad = pDocumentoIdentidad;
         telefono = pTelefono;
         email = pEmail;
-        
+        licenciaprofesional = pLicencia;
         especialidad = pEspecialidad;
         activo = pActivo;
     }

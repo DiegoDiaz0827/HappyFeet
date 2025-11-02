@@ -4,45 +4,53 @@
  */
 package Vistas;
 
+import Controllador.CitasController;
+import Controllador.ConsultacitasController;
 import Controllador.ProcedimientosEspecialesController;
+import Controllador.VeterinarioController;
+import DAO.CitasDAO;
+import DAO.ConsultasMedicasDAO;
+import DAO.MascotasDAO;
+import DAO.Procedimientos_especialesDAO;
+import DAO.VeterinariosDAO;
+import Model.Entities.ProcedimientosEspeciales;
+import Model.Entities.ProcedimientosEspeciales.EstadoProcedimiento;
+import Model.Entities.Veterinarios;
 import Model.Enums.EstadoProcedimientos;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Scanner;
 
 /**
  *
  * @author USUARIO
  */
-package app;
 
-import controllers.*;
-import models.*;
-import dao.*;
-import java.time.*;
-import java.util.*;
 
 public class Modulo2 {
 
     private static VeterinarioController veterinarioController;
-    private static CitaController citaController;
-    private static ConsultaController consultaController;
+    private static CitasController citaController;
+    private static ConsultacitasController consultaController;
     private static ProcedimientosEspecialesController procedimientoController;
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         // === Inicialización de DAOs ===
-        VeterinarioDAO veterinarioDAO = new VeterinarioDAO();
-        CitaDAO citaDAO = new CitaDAO();
-        ConsultaDAO consultaDAO = new ConsultaDAO();
-        ProcedimientoDAO procedimientoDAO = new ProcedimientoDAO();
+        VeterinariosDAO veterinarioDAO = new VeterinariosDAO();
+        MascotasDAO mascotasdao = new MascotasDAO();
+        CitasDAO citaDAO = new CitasDAO();
+        ConsultasMedicasDAO consultaDAO = new ConsultasMedicasDAO();
+        Procedimientos_especialesDAO procedimientoDAO = new Procedimientos_especialesDAO();
 
         // === Inicialización de Controladores ===
         veterinarioController = new VeterinarioController(veterinarioDAO);
-        citaController = new CitaController(citaDAO);
-        consultaController = new ConsultaController(consultaDAO);
-        procedimientoController = new ProcedimientoController(procedimientoDAO);
+        citaController = new CitasController(citaDAO);
+        consultaController = new ConsultacitasController(consultaDAO, mascotasdao, veterinarioDAO, citaDAO);
+        procedimientoController = new ProcedimientosEspecialesController();
 
         while (true) {
             mostrarMenuPrincipal();
@@ -94,23 +102,25 @@ public class Modulo2 {
     private static void registrarVeterinario() {
         System.out.println("\n--- Registrar Veterinario ---");
         String nombre = leerTexto("Nombre completo: ");
+        String documento = leerTexto("documento: ");
+        String licencia = leerTexto("licencia profesional:  ");
         String especialidad = leerTexto("Especialidad: ");
         String telefono = leerTexto("Teléfono: ");
         String correo = leerTexto("Correo: ");
-        Veterinario v = new Veterinario(nombre, especialidad, telefono, correo, true);
+        Veterinarios v = new Veterinarios(nombre, documento, licencia, telefono, correo,especialidad, true);
         veterinarioController.registrarVeterinario(v);
         System.out.println("✅ Veterinario registrado correctamente.");
     }
 
     private static void listarVeterinarios() {
         System.out.println("\n--- Lista de Veterinarios ---");
-        List<Veterinario> lista = veterinarioController.listarVeterinarios();
+        List<Veterinarios> lista = veterinarioController.listarVeterinarios();
         if (lista.isEmpty()) {
             System.out.println("No hay veterinarios registrados.");
             return;
         }
-        for (Veterinario v : lista) {
-            System.out.println("ID: " + v.getId() + " | Nombre: " + v.getNombre() +
+        for (Veterinarios v : lista) {
+            System.out.println("ID: " + v.getId() + " | Nombre: " + v.getNombreCompleto()+
                                " | Especialidad: " + v.getEspecialidad() +
                                " | Teléfono: " + v.getTelefono());
         }
@@ -118,7 +128,7 @@ public class Modulo2 {
 
     private static void actualizarVeterinario() {
         int id = leerEntero("ID del veterinario a actualizar: ");
-        Veterinario v = veterinarioController.buscarVeterinario(id);
+        Veterinarios v = veterinarioController.buscarVeterinario(id);
         if (v == null) {
             System.out.println("No se encontró el veterinario.");
             return;
@@ -293,15 +303,18 @@ public class Modulo2 {
     private static void registrarProcedimiento() {
         System.out.println("\n--- Registrar Procedimiento ---");
         int mascotaId = leerEntero("ID mascota: ");
+        int vetrinarioid = leerEntero("ID Veterinario: ");
         String Tipoprocedimiento = leerTexto("Tipo de procedimiento:  ");
         String nombre = leerTexto("Nombre: ");
-        LocalDate fecha = leerFecha("Fecha: ");
-        String duracionminutos = leerTexto("duracion en minutos: ");
+        LocalDateTime fecha = leerFechaHora("Fecha: ");
+        int duracionminutos = leerEntero("duracion en minutos: ");
         String informacion = leerTexto("Informacion preoperatoria: ");
         String detalles = leerTexto("detalles: ");
+       
         String compliciones = leerTexto("complicaciones:");
         String seguimiento = leerTexto("seguimiento postoperatorio: ");
         LocalDate control = leerFecha("proximo control: ");
+        double costo = leerEntero("costo procedimeinto:");
        String estadoTexto = leerTexto("Estado (PROGRAMADO, EN_PROCESO, FINALIZADO, CANCELADO): ").toUpperCase();
        
        EstadoProcedimiento estado = null;
@@ -314,8 +327,10 @@ public class Modulo2 {
         
         
         
-        Procedimiento p = new Procedimiento(consultaId, tipo, detalle, LocalDateTime.now());
-        procedimientoController.registrarProcedimiento(p);
+        ProcedimientosEspeciales p = new ProcedimientosEspeciales(mascotaId, vetrinarioid, Tipoprocedimiento, 
+       nombre, fecha,duracionminutos, informacion, detalles, 
+       compliciones, seguimiento, control, estado,costo);
+        procedimientoController.crearProcedimiento(p);
         System.out.println("✅ Procedimiento registrado.");
     }
 
@@ -381,5 +396,18 @@ public class Modulo2 {
                 System.out.print("Formato incorrecto (AAAA-MM-DD): ");
             }
         }
+    }
+    
+     public static LocalDateTime leerFechaHora(String mensaje) {
+        System.out.println(mensaje);
+        System.out.print("Fecha (YYYY-MM-DD): ");
+        String fechaStr = sc.nextLine();
+        System.out.print("Hora (HH:MM): ");
+        String horaStr = sc.nextLine();
+
+        LocalDate fecha = LocalDate.parse(fechaStr);
+        LocalTime hora = LocalTime.parse(horaStr);
+
+        return LocalDateTime.of(fecha, hora);
     }
 }
