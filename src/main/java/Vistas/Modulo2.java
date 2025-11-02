@@ -7,12 +7,15 @@ package Vistas;
 import Controllador.CitasController;
 import Controllador.ConsultacitasController;
 import Controllador.ProcedimientosEspecialesController;
-import Controllador.VeterinarioController;
+
+import Controllador.VeterinariosController;
 import DAO.CitasDAO;
 import DAO.ConsultasMedicasDAO;
 import DAO.MascotasDAO;
 import DAO.Procedimientos_especialesDAO;
 import DAO.VeterinariosDAO;
+import Model.Entities.Citas;
+import Model.Entities.ConsultasMedicas;
 import Model.Entities.ProcedimientosEspeciales;
 import Model.Entities.ProcedimientosEspeciales.EstadoProcedimiento;
 import Model.Entities.Veterinarios;
@@ -31,7 +34,7 @@ import java.util.Scanner;
 
 public class Modulo2 {
 
-    private static VeterinarioController veterinarioController;
+    private static VeterinariosController veterinarioController;
     private static CitasController citaController;
     private static ConsultacitasController consultaController;
     private static ProcedimientosEspecialesController procedimientoController;
@@ -47,7 +50,7 @@ public class Modulo2 {
         Procedimientos_especialesDAO procedimientoDAO = new Procedimientos_especialesDAO();
 
         // === Inicialización de Controladores ===
-        veterinarioController = new VeterinarioController(veterinarioDAO);
+        veterinarioController = new VeterinariosController();
         citaController = new CitasController(citaDAO);
         consultaController = new ConsultacitasController(consultaDAO, mascotasdao, veterinarioDAO, citaDAO);
         procedimientoController = new ProcedimientosEspecialesController();
@@ -121,23 +124,41 @@ public class Modulo2 {
         }
         for (Veterinarios v : lista) {
             System.out.println("ID: " + v.getId() + " | Nombre: " + v.getNombreCompleto()+
-                               " | Especialidad: " + v.getEspecialidad() +
+                               " | Especialidad: " + v.getEspecialidad()+
                                " | Teléfono: " + v.getTelefono());
         }
     }
 
     private static void actualizarVeterinario() {
         int id = leerEntero("ID del veterinario a actualizar: ");
-        Veterinarios v = veterinarioController.buscarVeterinario(id);
+        Veterinarios v = veterinarioController.verVeterinario(id);
         if (v == null) {
             System.out.println("No se encontró el veterinario.");
             return;
         }
-        String nuevoNombre = leerTextoOpcional("Nuevo nombre (" + v.getNombre() + "): ");
-        if (!nuevoNombre.isEmpty()) v.setNombre(nuevoNombre);
+        String nuevoNombre = leerTextoOpcional("Nuevo nombre (" + v.getNombreCompleto()+ "): ");
+        if (!nuevoNombre.isEmpty()) v.setNombreCompleto(nuevoNombre);
 
+        
         String especialidad = leerTextoOpcional("Especialidad (" + v.getEspecialidad() + "): ");
         if (!especialidad.isEmpty()) v.setEspecialidad(especialidad);
+        
+        String Telefono = leerTextoOpcional("telefono (" + v.getTelefono()+ "): ");
+        if (!Telefono.isEmpty()) v.setTelefono(Telefono);
+        
+        String email = leerTextoOpcional("email (" + v.getEmail()+ "): ");
+        if (!email.isEmpty()) v.setEmail(email);
+        boolean activo1 = true;
+        int activo = leerEntero("esta asctivo el veterinario: 1.Activo 2.Inactivo");
+        if(activo == 1){
+        v.setActivo(activo1);
+        }else if(activo == 2){
+        activo1 = false;
+        v.setActivo(activo1);
+        }else{
+            System.out.println("debes escoger entre 1 y 2");
+        }
+        
 
         veterinarioController.actualizarVeterinario(v);
         System.out.println("✅ Veterinario actualizado correctamente.");
@@ -174,38 +195,38 @@ public class Modulo2 {
         System.out.println("\n--- Programar Cita ---");
         int mascotaId = leerEntero("ID de la mascota: ");
         int veterinarioId = leerEntero("ID del veterinario: ");
-        LocalDate fecha = leerFecha("Fecha de la cita (AAAA-MM-DD): ");
-        String hora = leerTexto("Hora (HH:MM): ");
+        LocalDateTime fecha = leerFechaHora("Fecha de la cita (AAAA-MM-DD): ");
+        int Estadocita = leerEntero("id estado cita: ");
+        String observaciones = leerTexto("observaciones: ");
         String motivo = leerTexto("Motivo de la cita: ");
 
-        Cita cita = new Cita(mascotaId, veterinarioId, fecha.atTime(LocalTime.parse(hora)), motivo, "Programada");
-        citaController.programarCita(cita);
+        Citas cita = new Citas(mascotaId, veterinarioId,fecha, motivo,Estadocita,observaciones);
+        citaController.registrarCita(cita);
         System.out.println("✅ Cita registrada correctamente.");
     }
 
     private static void listarCitas() {
         System.out.println("\n--- Lista de Citas ---");
-        List<Cita> citas = citaController.listarCitas();
+        List<Citas> citas = citaController.listarCitas();
         if (citas.isEmpty()) {
             System.out.println("No hay citas registradas.");
             return;
         }
-        for (Cita c : citas) {
+        for (Citas c : citas) {
             System.out.println("ID: " + c.getId() + " | Mascota: " + c.getMascotaId() +
                     " | Veterinario: " + c.getVeterinarioId() +
-                    " | Fecha: " + c.getFechaHora() + " | Estado: " + c.getEstado());
+                    " | Fecha: " + c.getFechaHora() + " | Estado: " + c.getEstadoId());
         }
     }
 
     private static void actualizarCita() {
         int id = leerEntero("ID de la cita a actualizar: ");
-        Cita c = citaController.buscarCita(id);
+        Citas c = citaController.obtenerCitaPorId(id);
         if (c == null) {
             System.out.println("Cita no encontrada.");
             return;
         }
-        String nuevoEstado = leerTextoOpcional("Nuevo estado (Programada/Finalizada/Cancelada): ");
-        if (!nuevoEstado.isEmpty()) c.setEstado(nuevoEstado);
+      
         citaController.actualizarCita(c);
         System.out.println("✅ Cita actualizada correctamente.");
     }
@@ -240,29 +261,37 @@ public class Modulo2 {
     private static void registrarConsulta() {
         System.out.println("\n--- Registrar Consulta ---");
         int mascotaId = leerEntero("ID mascota: ");
-        int veterinarioId = leerEntero("ID veterinario: ");
+        int veterinarioid = leerEntero("ID veterinario: ");
+        int citaid = leerEntero("cita id: ");
+        LocalDateTime fechahora = leerFechaHora("fecha y hora:");
         String motivo = leerTexto("Motivo: ");
+        String sintomas = leerTexto("sintomas: ");
         String diagnostico = leerTexto("Diagnóstico: ");
-        ConsultaMedica c = new ConsultaMedica(mascotaId, veterinarioId, null, LocalDateTime.now(), motivo, "", diagnostico, "");
+        String recomendaciones = leerTexto("recomendaciones: ");
+        String observaciones = leerTexto("observaciones:  ");
+        double peso = leerEntero("peso registrado: ");
+        double temperatura = leerEntero("temperatur(c°): ");
+        ConsultasMedicas c = new ConsultasMedicas(mascotaId, veterinarioid, citaid, fechahora, 
+         motivo,sintomas,diagnostico,recomendaciones,observaciones,peso,temperatura );
         consultaController.registrarConsulta(c);
         System.out.println("✅ Consulta registrada.");
     }
 
     private static void listarConsultas() {
         System.out.println("\n--- Consultas Médicas ---");
-        List<ConsultaMedica> consultas = consultaController.listarConsultas();
+        List<ConsultasMedicas> consultas = consultaController.listarConsultas();
         if (consultas.isEmpty()) {
             System.out.println("No hay consultas registradas.");
             return;
         }
-        for (ConsultaMedica c : consultas) {
+        for (ConsultasMedicas c : consultas) {
             System.out.println("ID: " + c.getId() + " | Mascota: " + c.getMascotaId() + " | Diagnóstico: " + c.getDiagnostico());
         }
     }
 
     private static void actualizarConsulta() {
         int id = leerEntero("ID consulta: ");
-        ConsultaMedica c = consultaController.buscarConsulta(id);
+        ConsultasMedicas  c = consultaController.verConsulta(id);
         if (c == null) {
             System.out.println("No encontrada.");
             return;
@@ -336,25 +365,24 @@ public class Modulo2 {
 
     private static void listarProcedimientos() {
         System.out.println("\n--- Lista de Procedimientos ---");
-        List<Procedimiento> procedimientos = procedimientoController.listarProcedimientos();
+        List<ProcedimientosEspeciales> procedimientos = procedimientoController.listarProcedimientos();
         if (procedimientos.isEmpty()) {
             System.out.println("No hay procedimientos registrados.");
             return;
         }
-        for (Procedimiento p : procedimientos) {
-            System.out.println("ID: " + p.getId() + " | Consulta ID: " + p.getConsultaId() + " | Tipo: " + p.getTipo());
+        for (ProcedimientosEspeciales p : procedimientos) {
+            System.out.println("ID: " + p.getId() + " | mascota ID: " + p.getMascotaId()+ " | Tipo: " + p.getTipoProcedimiento());
         }
     }
 
     private static void actualizarProcedimiento() {
         int id = leerEntero("ID del procedimiento: ");
-        Procedimiento p = procedimientoController.buscarProcedimiento(id);
+        ProcedimientosEspeciales p = procedimientoController.obtenerPorId(id);
         if (p == null) {
             System.out.println("No encontrado.");
             return;
         }
-        String nuevoDetalle = leerTextoOpcional("Nuevo detalle (" + p.getDetalle() + "): ");
-        if (!nuevoDetalle.isEmpty()) p.setDetalle(nuevoDetalle);
+      
         procedimientoController.actualizarProcedimiento(p);
         System.out.println("✅ Procedimiento actualizado.");
     }

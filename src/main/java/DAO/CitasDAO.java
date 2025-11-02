@@ -22,7 +22,7 @@ import util.ConexionDB;
 public class CitasDAO {
     public void agregar(Citas cita) {
 
-        String SQL = "INSERT INTO citas(mascotaId, veterinarioId, fechaHora, motivo, estadoId, observaciones, fechaCreacion) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO citas(mascota_id, veterinario_id, fecha_hora, motivo, estado_id, observaciones, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = ConexionDB.conectar();
              PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -61,25 +61,25 @@ public class CitasDAO {
     public List<Citas> listar() {
         List<Citas> lista = new ArrayList<>();
 
-        String SQL = "SELECT id, mascotaId, veterinarioId, fechaHora, motivo, estadoId, observaciones, fechaCreacion FROM citas";
+        String SQL = "SELECT * FROM citas";
 
         try (Connection con = ConexionDB.conectar();
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(SQL)) {
 
             while (rs.next()) {
-                LocalDateTime fechaHora = rs.getTimestamp("fechaHora").toLocalDateTime();
-                LocalDateTime fechaCreacion = rs.getTimestamp("fechaCreacion").toLocalDateTime();
+                LocalDateTime fechaHora = rs.getTimestamp("fecha_hora").toLocalDateTime();
+                LocalDateTime fechaCreacion = rs.getTimestamp("fecha_creacion").toLocalDateTime();
                 
-                Integer veterinarioId = (Integer) rs.getObject("veterinarioId");
+                Integer veterinarioId = (Integer) rs.getObject("veterinario_id");
 
                 Citas cita = new Citas(
                     rs.getInt("id"),
-                    rs.getInt("mascotaId"),
+                    rs.getInt("mascota_id"),
                     veterinarioId,
                     fechaHora,
                     rs.getString("motivo"),
-                    rs.getInt("estadoId"),
+                    rs.getInt("estado_id"),
                     rs.getString("observaciones"),
                     fechaCreacion
                 );
@@ -95,7 +95,7 @@ public class CitasDAO {
 
 
     public Citas obtenerPorId(int id) {
-        String sql = "SELECT id, mascotaId, veterinarioId, fechaHora, motivo, estadoId, observaciones, fechaCreacion FROM citas WHERE id = ?";
+        String sql = "SELECT * FROM citas WHERE id = ?";
 
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -104,17 +104,17 @@ public class CitasDAO {
             try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
-                    LocalDateTime fechaHora = rs.getTimestamp("fechaHora").toLocalDateTime();
-                    LocalDateTime fechaCreacion = rs.getTimestamp("fechaCreacion").toLocalDateTime();
-                    Integer veterinarioId = (Integer) rs.getObject("veterinarioId");
+                    LocalDateTime fechaHora = rs.getTimestamp("fecha_hora").toLocalDateTime();
+                    LocalDateTime fechaCreacion = rs.getTimestamp("fecha_creacion").toLocalDateTime();
+                    Integer veterinarioId = (Integer) rs.getObject("veterinario_id");
                     
                     return new Citas(
                         rs.getInt("id"),
-                        rs.getInt("mascotaId"),
+                        rs.getInt("mascota_id"),
                         veterinarioId,
                         fechaHora,
                         rs.getString("motivo"),
-                        rs.getInt("estadoId"),
+                        rs.getInt("estado_id"),
                         rs.getString("observaciones"),
                         fechaCreacion
                     );
@@ -130,7 +130,7 @@ public class CitasDAO {
     
 
     public boolean actualizar(Citas cita) {
-        String sql = "UPDATE citas SET mascotaId = ?, veterinarioId = ?, fechaHora = ?, motivo = ?, estadoId = ?, observaciones = ? WHERE id = ?";
+        String sql = "UPDATE citas SET mascota_id = ?, veterinario_id = ?, fecha_hora = ?, motivo = ?, estado_id = ?, observaciones = ? WHERE id = ?";
 
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {

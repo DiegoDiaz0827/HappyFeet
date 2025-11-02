@@ -146,10 +146,10 @@ public class VeterinariosDAO {
                     rs.getInt("id"),
                     rs.getString("nombre_completo"),
                     rs.getString("documento_identidad"),
-                    rs.getString("licencia_profesional"),
-                    rs.getString("especialidad"),
                     rs.getString("telefono"),
                     rs.getString("email"),
+                    rs.getString("licencia_profesional"),
+                    rs.getString("especialidad"),
                     (rs.getDate("fecha_contratacion") != null)
             ? rs.getDate("fecha_contratacion").toLocalDate()
             : null,
