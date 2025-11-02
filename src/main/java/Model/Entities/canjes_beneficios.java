@@ -38,17 +38,15 @@ public class canjes_beneficios {
         this.facturaId = pFacturaId;
     }
     
-    private canjes_beneficios(int pClubMascotasId, int pBeneficioId, Timestamp pFechaCanje, 
-                              int pPuntosCanjeados, EstadoCanjees pEstado, Date pFechaExpiracion, 
-                              Integer pFacturaId) {
-        this.clubMascotasId = pClubMascotasId;
-        this.beneficioId = pBeneficioId;
-        this.fechaCanje = pFechaCanje;
-        this.puntosCanjeados = pPuntosCanjeados;
-        this.estado = pEstado;
-        this.fechaExpiracion = pFechaExpiracion;
-        this.facturaId = pFacturaId;
-    }
+    public canjes_beneficios(int pClubMascotasId, int pBeneficioId, Timestamp pFechaCanje, int pPuntosCanjeados, EstadoCanjees pEstado) {
+    this.clubMascotasId = pClubMascotasId;
+    this.beneficioId = pBeneficioId;
+    this.fechaCanje = pFechaCanje;
+    this.puntosCanjeados = pPuntosCanjeados;
+    this.estado = pEstado;
+    this.fechaExpiracion = null; 
+    this.facturaId = null;
+}
 
     public int getId() { return id; }
     public int getClubMascotasId() { return clubMascotasId; }

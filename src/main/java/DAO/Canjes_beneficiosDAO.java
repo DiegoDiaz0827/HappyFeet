@@ -20,7 +20,6 @@ import util.ConexionDB;
  * @author camper
  */
 public class Canjes_beneficiosDAO {
-     // permite devolver los datos en un objeto para usar
 private canjes_beneficios mapearResultSetACanje(ResultSet rs) throws SQLException {
         
         Integer facturaId = rs.getObject("factura_id") != null ? rs.getInt("factura_id") : null;
