@@ -99,7 +99,7 @@ public class Modulo1 {
             return;
         }
         for (Dueños d : duenios) {
-            System.out.println("ID: " + d.getId() + " | Nombre: " + d.getNombreCompleto() + " | Correo: " + d.getEmail());
+            System.out.println("ID: " + d.getId() + " | Nombre: " + d.getNombreCompleto() + " | Correo: " + d.getEmail() );
         }
     }
 
@@ -146,7 +146,7 @@ public class Modulo1 {
             return;
         }
         for (Mascotas m : mascotas) {
-            System.out.println("ID: " + m.getId() + " | Nombre: " + m.getNombre() + " | Dueño ID: " + m.getDuenoId());
+            System.out.println("ID: " + m.getId() + " | Nombre: " + m.getNombre() + " | Dueño ID: " + m.getDuenoId()+ "| Raza: " + m.getNombreraza());
         }
     }
 

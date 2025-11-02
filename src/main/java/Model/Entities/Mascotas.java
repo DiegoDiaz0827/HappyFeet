@@ -18,6 +18,7 @@ public class Mascotas {
       private int id;
     private int duenoId;
     private String nombre;
+    private String NombreRaza;
     private int razaId;
     private LocalDate fechaNacimiento;
     private Sexo sexo;
@@ -31,7 +32,7 @@ public class Mascotas {
     private boolean activo;
 
     // Constructor con todos los atributos
-    public Mascotas(int pId, int pDuenoId, String pNombre, int pRazaId,
+    public Mascotas(int pId, int pDuenoId, String pNombre,String pNombreraza, int pRazaId,
                     LocalDate pFechaNacimiento, Sexo pSexo, double pPesoActual,
                     String pMicrochip, String pTatuaje, String pUrlFoto,
                     String pAlergias, String pCondicionesPreexistentes,
@@ -40,6 +41,7 @@ public class Mascotas {
         id = pId;
         duenoId = pDuenoId;
         nombre = pNombre;
+        NombreRaza = pNombreraza;
         razaId = pRazaId;
         fechaNacimiento = pFechaNacimiento;
         sexo = pSexo;
@@ -88,6 +90,10 @@ public class Mascotas {
 
     public String getNombre() {
         return nombre;
+    }
+    
+    public String getNombreraza(){
+    return NombreRaza;
     }
 
     public int getRazaId() {
@@ -146,6 +152,11 @@ public class Mascotas {
     public void setNombre(String pNombre) {
         nombre = pNombre;
     }
+    
+    public void setNombreRaza(String pNombreraza) {
+        NombreRaza = pNombreraza;
+    }
+    
 
     public void setRazaId(int pRazaId) {
         razaId = pRazaId;
