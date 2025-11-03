@@ -28,6 +28,11 @@ public class Modulo5 {
     private final beneficios_clubController beneficioController = new beneficios_clubController();
     private final canjes_beneficiosController canjeController = new canjes_beneficiosController();
     
+    public static void main(String[] args) {
+        Modulo5 modulo = new Modulo5();      
+        modulo.iniciar(); 
+    }
+    
     public void iniciar() {
         System.out.println("=================================================");
         System.out.println("              INICIANDO MÓDULO 5:              ");
