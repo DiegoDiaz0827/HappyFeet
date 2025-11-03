@@ -77,7 +77,9 @@ public class Modulo1 {
 
     // -------------------- DUEÑO --------------------
     private static void registrarDueno() {
+    while (true) { // Repite hasta que se registre correctamente
         System.out.println("\n--- Registrar Dueño ---");
+
         String nombre = leerTexto("Nombre completo: ");
         String documento = leerTexto("Documento de identidad: ");
         String direccion = leerTexto("Dirección: ");
@@ -85,13 +87,21 @@ public class Modulo1 {
         String correo = leerTexto("Correo electrónico: ");
         String contactoEmergencia = leerTextoOpcional("Contacto de emergencia (opcional): ");
         boolean activo = true;
-        
-        Dueños dueno = new Dueños(nombre,documento,direccion,telefono,correo,contactoEmergencia,activo);
-        
 
-        duenoController.registrarDueño(dueno);
-        System.out.println("Dueño registrado correctamente.");
+        Dueños dueno = new Dueños(nombre, documento, direccion, telefono, correo, contactoEmergencia, activo);
+
+        try {
+            duenoController.registrarDueño(dueno);
+            System.out.println("✅ Dueño registrado correctamente.");
+            break; // Salimos del while si todo sale bien
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("⚠️ Error: " + e.getMessage());
+            System.out.println("🔁 Por favor, vuelve a ingresar los datos.\n");
+            // El ciclo while vuelve a empezar
+        }
     }
+}
 
     private static void listarDuenos() {
         System.out.println("\n--- Lista de Dueños ---");
@@ -107,15 +117,14 @@ public class Modulo1 {
 
     // -------------------- MASCOTA --------------------
     private static void registrarMascota() {
-        System.out.println("\n--- Registrar Mascota ---");
+       while(true){ System.out.println("\n--- Registrar Mascota ---");
         listarDuenos();
         int duenoId = leerEntero("Ingrese ID del dueño: ");
 
         String nombre = leerTexto("Nombre de la mascota: ");
         int razaId = leerEntero("ID de la raza: "); // Para simplificar, suponemos que conoces las razas
         LocalDate fechaNacimiento = leerFecha("Fecha de nacimiento (AAAA-MM-DD): ");
-        String sexo = leerTexto("Sexo (M/F): ");
-        double peso = leerDouble("Peso actual: ");
+        double peso = leerDouble("Peso actual(KG): ");
         String microchip = leerTextoOpcional("Número de microchip (opcional): ");
         String tatuaje = leerTextoOpcional("Tatuaje (opcional): ");
         String urlFoto = leerTextoOpcional("URL de la foto (opcional): ");
@@ -127,7 +136,7 @@ public class Modulo1 {
         m.setNombre(nombre);
         m.setRazaId(razaId);
         m.setFechaNacimiento(fechaNacimiento);
-        m.setSexo(Sexo.valueOf(sexo.toUpperCase()));
+        m.setSexo(leerSexo());
         m.setPesoActual(peso);
         m.setMicrochip(microchip);
         m.setTatuaje(tatuaje);
@@ -137,7 +146,15 @@ public class Modulo1 {
         m.setActivo(true);
         m.setFechaRegistro(LocalDate.now().atStartOfDay());
 
-        mascotaController.registrarMascota(m);
+           try {
+               mascotaController.registrarMascota(m);
+               System.out.println("mascota registrado correctamente");
+               break;
+           } catch (IllegalArgumentException e) {
+                System.out.println("⚠️ Error: " + e.getMessage());
+            System.out.println("🔁 Por favor, vuelve a ingresar los datos.\n");
+           }
+    }
     }
 
     private static void listarMascotas() {
@@ -148,29 +165,37 @@ public class Modulo1 {
             return;
         }
         for (Mascotas m : mascotas) {
-            System.out.println("ID: " + m.getId() + " | Nombre: " + m.getNombre() + " | Dueño ID: " + m.getDuenoId()+ "| Raza: " + m.getNombreraza());
+            System.out.println("ID: " + m.getId() + " | Nombre: " + m.getNombre() + " | Dueño ID: " + m.getNombredueño()+ "| Raza: " + m.getNombreraza());
         }
     }
 
     private static void verMascota() {
         int id = leerEntero("Ingrese ID de la mascota: ");
         Mascotas m = mascotaController.verMascota(id);
-        if (m == null) {
-            System.out.println("Mascota no encontrada.");
-            return;
-        }
-        System.out.println("ID: " + m.getId() + "\nNombre: " + m.getNombre() + "\nDueño ID: " + m.getDuenoId() +
-                "\nRaza ID: " + m.getRazaId() + "\nPeso: " + m.getPesoActual() + "\nSexo: " + m.getSexo() +
+        
+        System.out.println("ID: " + m.getId() + "\nNombre: " + m.getNombre() + "\nDueño ID: " + m.getNombredueño()+
+                "\nRaza ID: " + m.getNombreraza()+ "\nPeso: " + m.getPesoActual() + "\nSexo: " + m.getSexo() +
                 "\nMicrochip: " + m.getMicrochip() + "\nAlergias: " + m.getAlergias());
     }
 
     private static void transferirMascota() {
-        int idMascota = leerEntero("Ingrese ID de la mascota a transferir: ");
+       while(true){ int idMascota = leerEntero("Ingrese ID de la mascota a transferir: ");
         listarDuenos();
         int idNuevoDueno = leerEntero("Ingrese ID del nuevo dueño: ");
-        mascotaController.transferirMascota(idMascota, idNuevoDueno);
+        
+           try {
+              mascotaController.transferirMascota(idMascota, idNuevoDueno);
+               System.out.println("Mascota transferida exitosamente");
+               break;
+           } catch (IllegalArgumentException e) {
+               System.out.println("⚠️ Error: " + e.getMessage());
+            System.out.println("🔁 Por favor, vuelve a ingresar los datos.\n");
+           }
+        
     }
-
+    }
+    
+    
     private static void actualizarMascota() {
         int id = leerEntero("Ingrese ID de la mascota a actualizar: ");
         Mascotas m = mascotaController.verMascota(id);
@@ -199,34 +224,61 @@ public class Modulo1 {
         mascotaController.actualizarMascota(m);
     }
     
-    private static void actualizarDueño() {
-        int id = leerEntero("Ingrese ID de el dueño a actualizar: ");
-        Dueños d = duenoController.buscarDuenoPorId(id);
-        if (d == null) {
-            System.out.println("Mascota no encontrada.");
-            return;
-        }
-        String nombre = leerTextoOpcional("Nombre (" + d.getNombreCompleto()+ "): ");
-        if (!nombre.isEmpty()) d.setNombreCompleto(nombre);
+   private static void actualizarDueño() {
+    System.out.println("\n--- Actualizar Dueño ---");
 
-        String direccion = leerTexto("direccion (" + d.getDireccion()+ "): ");
-         d.setDireccion(direccion);
-        
-        String email = leerTexto("email: ("+ d.getEmail()+"):");
-        d.setEmail(email);
-        
-        String numero = leerTexto("Telefono: ("+ d.getTelefono()+"):");
-        d.setTelefono(numero);
-        
-        String contacto = leerTexto("contacto  ("+ d.getContactoEmergencia()+"):");
-        d.setContactoEmergencia(contacto);
-        
-        
-        // Aquí puedes agregar más campos opcionales
-        duenoController.actualizarDueno(d);
+    Dueños d = null;
+
+    // 1️⃣ Repetir hasta que se encuentre un dueño válido
+    while (d == null) {
+        int id = leerEntero("Ingrese el ID del dueño a actualizar: ");
+        try {
+            d = duenoController.buscarDuenoPorId(id);
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Error al buscar el dueño: " + e.getMessage());
+        }
     }
-    
-    
+
+    // 2️⃣ Si se encontró, pedir los nuevos datos (opcionales)
+    String nombre = leerTextoOpcional("Nombre (" + d.getNombreCompleto() + "): ");
+    if (!nombre.isEmpty()) d.setNombreCompleto(nombre);
+
+    String direccion = leerTextoOpcional("Dirección (" + d.getDireccion() + "): ");
+    if (!direccion.isEmpty()) d.setDireccion(direccion);
+
+    String email = leerTextoOpcional("Correo (" + d.getEmail() + "): ");
+    if (!email.isEmpty()) d.setEmail(email);
+
+    String telefono = leerTextoOpcional("Teléfono (" + d.getTelefono() + "): ");
+    if (!telefono.isEmpty()) d.setTelefono(telefono);
+
+    String contacto = leerTextoOpcional("Contacto de emergencia (" + d.getContactoEmergencia() + "): ");
+    if (!contacto.isEmpty()) d.setContactoEmergencia(contacto);
+
+    // 3️⃣ Validar estado (activo/inactivo)
+    boolean activoValido = false;
+    while (!activoValido) {
+        int activo = leerEntero("¿Está activo el dueño? (1.Activo | 2.Inactivo): ");
+        if (activo == 1) {
+            d.setActivo(true);
+            activoValido = true;
+        } else if (activo == 2) {
+            d.setActivo(false);
+            activoValido = true;
+        } else {
+            System.out.println("⚠️ Debes escoger entre 1 y 2.");
+        }
+    }
+
+    // 4️⃣ Guardar cambios
+    try {
+        duenoController.actualizarDueno(d);
+        System.out.println("✅ Dueño actualizado correctamente.");
+    } catch (Exception e) {
+        System.out.println("❌ Error al actualizar el dueño: " + e.getMessage());
+    }
+}
     
     
     
@@ -243,10 +295,17 @@ public class Modulo1 {
     }
 
     // -------------------- MÉTODOS AUXILIARES --------------------
-    private static String leerTexto(String mensaje) {
+   private static String leerTexto(String mensaje) {
+    String texto;
+    do {
         System.out.print(mensaje);
-        return sc.nextLine();
-    }
+        texto = sc.nextLine().trim(); // trim() elimina espacios al inicio y final
+        if (texto.isEmpty()) {
+            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+        }
+    } while (texto.isEmpty());
+    return texto;
+}
 
     private static String leerTextoOpcional(String mensaje) {
         System.out.print(mensaje);
@@ -296,6 +355,23 @@ public class Modulo1 {
             return -1;
         }
     }
+    
+    private static Sexo leerSexo() {
+    while (true) {
+        String input = leerTexto("Sexo (M/H o Macho/Hembra): ").trim().toUpperCase();
+
+        if (input.equals("M") || input.equals("MACHO")) {
+            return Sexo.MACHO;
+        } else if (input.equals("H") || input.equals("HEMBRA")) {
+            return Sexo.HEMBRA;
+        } else {
+            System.out.println("⚠️ Valor inválido. Debes ingresar M/H o Macho/Hembra.");
+        }
+    }
 }
+    
+}
+
+
     
 

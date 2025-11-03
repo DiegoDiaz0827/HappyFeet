@@ -19,17 +19,31 @@ public class DueñosController {
 
    
     
-    public void registrarDueño(Dueños d){
-    try {
-            if (d.getFechaRegistro() == null) {
-                d.setFechaRegistro(LocalDateTime.now());
-            }
-            dueñodao.agregar(d) ;
-            System.out.println("🎉 El dueño " + d.getNombreCompleto() + " ha sido registrado exitosamente.");
-        } catch (Exception e) {
-            System.err.println("❌ Error al registrar el dueño: " + e.getMessage());
-        }
+    public void registrarDueño(Dueños d) throws IllegalArgumentException {
+    if (d.getDocumentoIdentidad() == null || d.getDocumentoIdentidad().length() != 10) {
+        throw new IllegalArgumentException("El documento debe tener exactamente 10 números.");
     }
+
+    if (!d.getDocumentoIdentidad().chars().allMatch(Character::isDigit)) {
+        throw new IllegalArgumentException("El documento solo debe contener números.");
+    }
+
+    if (d.getTelefono() == null || d.getTelefono().length() != 10) {
+        throw new IllegalArgumentException("El teléfono debe tener exactamente 10 números.");
+    }
+
+    if (!d.getTelefono().chars().allMatch(Character::isDigit)) {
+        throw new IllegalArgumentException("El teléfono solo debe contener números.");
+    }
+
+    // Si pasa las validaciones:
+    if (d.getFechaRegistro() == null) {
+        d.setFechaRegistro(LocalDateTime.now());
+    }
+
+    dueñodao.agregar(d);
+    System.out.println("🎉 El dueño " + d.getNombreCompleto() + " ha sido registrado exitosamente.");
+}
     
     
     
@@ -57,13 +71,13 @@ public class DueñosController {
         return eliminado;
     }
 
-    public Dueños buscarDuenoPorId(int id) {
+    public Dueños buscarDuenoPorId(int id) throws IllegalArgumentException {
         System.out.println("\n--- BUSCANDO DUEÑO ID: " + id + " ---");
         Dueños dueno = dueñodao.obtenerPorId(id);
         if (dueno != null) {
             System.out.println("🔎 Encontrado: " + dueno.getNombreCompleto());
         } else {
-            System.out.println("⚠️ Dueño ID " + id + " no encontrado.");
+            throw new IllegalArgumentException("⚠️ Dueño ID " + id + " no encontrado.");
         }
         return dueno;
     }

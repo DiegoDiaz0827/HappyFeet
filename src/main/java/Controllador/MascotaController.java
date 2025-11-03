@@ -27,19 +27,18 @@ public class MascotaController {
     }
 
     // 🔹 Registrar mascota con validación de FK
-    public boolean registrarMascota(Mascotas m) {
-        if (m.getNombre() == null || m.getNombre().isEmpty()) {
-            System.out.println("Error: El nombre de la mascota es obligatorio.");
-            return false;
-        }
+    public boolean registrarMascota(Mascotas m) throws IllegalArgumentException{
+       
         if (m.getDuenoId() <= 0 || duenoDAO.obtenerPorId(m.getDuenoId()) == null) {
-            System.out.println("Error: Dueño no encontrado.");
-            return false;
+            throw new IllegalArgumentException ("Error: Dueño no encontrado.");
+           
         }
         if (m.getRazaId() <= 0 || razaDAO.obtenerPorId(m.getRazaId()) == null) {
-            System.out.println("Error: Raza no encontrada.");
-            return false;
+           throw new IllegalArgumentException("Error: Raza no encontrada.");
+            
         }
+        
+        
         // Otras validaciones opcionales
         mascotaDAO.insertar(m);
         return true;
@@ -63,14 +62,14 @@ public class MascotaController {
     }
 
     // 🔹 Transferir mascota a otro dueño validando FK
-    public boolean transferirMascota(int idMascota, int idNuevoDueno) {
+    public boolean transferirMascota(int idMascota, int idNuevoDueno) throws IllegalArgumentException {
         if (idMascota <= 0 || mascotaDAO.obtenerPorId(idMascota) == null) {
-            System.out.println("Error: Mascota no encontrada.");
-            return false;
+            throw new IllegalArgumentException("Error: Mascota no encontrada.");
+            
         }
         if (idNuevoDueno <= 0 || duenoDAO.obtenerPorId(idNuevoDueno) == null) {
-            System.out.println("Error: Nuevo dueño no encontrado.");
-            return false;
+            throw new IllegalArgumentException("Error: Nuevo dueño no encontrado.");
+            
         }
         Mascotas m = mascotaDAO.obtenerPorId(idMascota);
         m.setDuenoId(idNuevoDueno);

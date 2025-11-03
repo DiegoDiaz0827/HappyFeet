@@ -493,7 +493,7 @@ public class Modulo2 {
         }
     }
     
-     public static LocalDateTime leerFechaHora(String mensaje) {
+     public static LocalDateTime leerFechaHora(String mensaje) {  
         System.out.println(mensaje);
         System.out.print("Fecha (YYYY-MM-DD): ");
         String fechaStr = sc.nextLine();

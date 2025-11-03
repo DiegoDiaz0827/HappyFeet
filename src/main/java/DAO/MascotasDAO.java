@@ -139,7 +139,7 @@ public class MascotasDAO {
 
     // 🔹 OBTENER POR ID
     public Mascotas obtenerPorId(int id) {
-        String sql = "SELECT m.*,r.nombre AS Raza FROM mascotas m JOIN razas r ON m.raza_id = r.id WHERE m.id = ?";
+        String sql = "SELECT m.*,r.nombre AS Raza, d.nombre_completo AS nombredueño FROM mascotas m JOIN razas r ON m.raza_id = r.id JOIN duenos d ON m.dueno_id = d.id WHERE m.id = ?";
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -152,6 +152,7 @@ public class MascotasDAO {
                     rs.getInt("dueno_id"),
                     rs.getString("nombre"),
                     rs.getString("Raza"),
+                    rs.getString("nombredueño"),
                     rs.getInt("raza_id"),
                     rs.getDate("fecha_nacimiento") != null ? rs.getDate("fecha_nacimiento").toLocalDate() : null,
                     Sexo.valueOf(rs.getString("sexo").toUpperCase()), 
@@ -175,7 +176,7 @@ public class MascotasDAO {
     // 🔹 LISTAR TODAS
     public List<Mascotas> listarTodas() {
         List<Mascotas> lista = new ArrayList<>();
-        String sql = "SELECT m.*,r.nombre AS Raza FROM mascotas m JOIN razas r ON m.raza_id = r.id";
+        String sql = "SELECT m.*,r.nombre AS Raza, d.nombre_completo AS nombredueño FROM mascotas m JOIN razas r ON m.raza_id = r.id JOIN duenos d ON m.dueno_id = d.id";
 
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -186,7 +187,8 @@ public class MascotasDAO {
                     rs.getInt("id"),
                     rs.getInt("dueno_id"),
                     rs.getString("nombre"),
-                    rs.getString("Raza"),    
+                    rs.getString("Raza"), 
+                    rs.getString("nombredueño"),    
                     rs.getInt("raza_id"),
                     rs.getDate("fecha_nacimiento") != null ? rs.getDate("fecha_nacimiento").toLocalDate() : null,
                      Sexo.valueOf(rs.getString("sexo").toUpperCase()),
