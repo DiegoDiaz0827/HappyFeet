@@ -226,7 +226,25 @@ public class Modulo2 {
             System.out.println("Cita no encontrada.");
             return;
         }
-      
+        
+        int mascotaid = leerEntero("Id mascota"+"("+c.getMascotaId()+")"+": "  );
+       c.setMascotaId(mascotaid);
+       
+       int Veterinarioid = leerEntero("Id veterinario"+"("+c.getVeterinarioId()+")"+": "  );
+       c.setVeterinarioId(Veterinarioid);
+       
+       LocalDateTime Fechahora = leerFechaHora("Fecha hora:"+"("+c.getFechaHora()+")"+": "  );
+       c.setFechaHora(Fechahora);
+       
+       String motivo = leerTexto("motivo"+"("+c.getMotivo()+")"+": ");
+       c.setMotivo(motivo);
+       
+        int estadoid = leerEntero("estado id"+"("+c.getEstadoId()+")"+": ");
+       c.setEstadoId(estadoid);
+       
+        String observaciones = leerTexto("observaciones"+"("+c.getObservaciones()+")"+": ");
+       c.setObservaciones(observaciones);
+       
         citaController.actualizarCita(c);
         System.out.println("✅ Cita actualizada correctamente.");
     }
@@ -270,7 +288,7 @@ public class Modulo2 {
         String recomendaciones = leerTexto("recomendaciones: ");
         String observaciones = leerTexto("observaciones:  ");
         double peso = leerEntero("peso registrado: ");
-        double temperatura = leerEntero("temperatur(c°): ");
+        double temperatura = leerEntero("temperatura(c°): ");
         ConsultasMedicas c = new ConsultasMedicas(mascotaId, veterinarioid, citaid, fechahora, 
          motivo,sintomas,diagnostico,recomendaciones,observaciones,peso,temperatura );
         consultaController.registrarConsulta(c);
@@ -297,7 +315,14 @@ public class Modulo2 {
             return;
         }
         String nuevoDiag = leerTextoOpcional("Nuevo diagnóstico (" + c.getDiagnostico() + "): ");
-        if (!nuevoDiag.isEmpty()) c.setDiagnostico(nuevoDiag);
+        c.setDiagnostico(nuevoDiag);
+        LocalDateTime fechahora = leerFechaHora("Nuevo fecha (" + c.getDiagnostico() + "): ");
+        c.setFechaHora(fechahora);
+        int veterinarioid = leerEntero("Nuevo veterinario(" + c.getVeterinarioId()+ "): ");
+        c.setVeterinarioId(veterinarioid);
+        String sintomas = leerTextoOpcional("Nuevos sintomas (" + c.getSintomas()+ "): ");
+        c.setSintomas(sintomas);
+        
         consultaController.actualizarConsulta(c);
         System.out.println("✅ Consulta actualizada.");
     }
@@ -382,7 +407,49 @@ public class Modulo2 {
             System.out.println("No encontrado.");
             return;
         }
-      
+        
+        int Veterinarioid = leerEntero("Veterinario id (" + p.getVeterinarioId()+ "): ");
+        p.setVeterinarioId(Veterinarioid);
+        
+        String tipoprocedimiento = leerTexto("tipo procedimiento (" + p.getTipoProcedimiento()+ "): ");
+        p.setTipoProcedimiento(tipoprocedimiento);
+        
+        String nombreProcedimiento = leerTexto("Nombre del procedimiento (" + p.getNombreProcedimiento() + "): ");
+        p.setNombreProcedimiento(nombreProcedimiento);
+
+        LocalDateTime fechaHora = leerFechaHora("Fecha y hora (" + p.getFechaHora() + "): ");
+        p.setFechaHora(fechaHora);
+
+        int duracion = leerEntero("Duración estimada (minutos) (" + p.getDuracionEstimadaMinutos() + "): ");
+        p.setDuracionEstimadaMinutos(duracion);
+
+       String infoPreop = leerTexto("Información preoperatoria (" + p.getInformacionPreoperatoria() + "): ");
+       p.setInformacionPreoperatoria(infoPreop);
+
+      String detalle = leerTexto("Detalle del procedimiento (" + p.getDetalleProcedimiento() + "): ");
+       p.setDetalleProcedimiento(detalle);
+
+     String complicaciones = leerTexto("Complicaciones (" + p.getComplicaciones() + "): ");
+     p.setComplicaciones(complicaciones);
+
+    String seguimiento = leerTexto("Seguimiento postoperatorio (" + p.getSeguimientoPostoperatorio() + "): ");
+    p.setSeguimientoPostoperatorio(seguimiento);
+
+    LocalDate proximoControl = leerFecha("Próximo control (" + p.getProximoControl() + "): ");
+     p.setProximoControl(proximoControl);
+
+       String estadoTexto = leerTexto("Estado ("+ p.getEstado()+"): ");
+     if (!estadoTexto.isEmpty()) {
+    
+        // Limpia texto: quita espacios, reemplaza espacios por guiones bajos
+        String estadoNormalizado = estadoTexto.trim().toUpperCase().replace(" ", "_");
+        p.setEstado(EstadoProcedimiento.valueOf(estadoNormalizado));}
+
+     double costo = leerEntero("Costo del procedimiento (" + p.getCostoProcedimiento() + "): ");
+     p.setCostoProcedimiento(costo);
+        
+        
+        
         procedimientoController.actualizarProcedimiento(p);
         System.out.println("✅ Procedimiento actualizado.");
     }

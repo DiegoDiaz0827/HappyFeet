@@ -81,10 +81,11 @@ public class Procedimientos_especialesDAO {
     private ProcedimientosEspeciales mapearProcedimiento(ResultSet rs) throws SQLException {
         LocalDateTime fechaHora = rs.getTimestamp("fecha_hora").toLocalDateTime();
         LocalDate proximoControl = rs.getDate("proximo_control").toLocalDate();
-        EstadoProcedimiento estado = EstadoProcedimiento.valueOf(rs.getString("estado"));
+       String estadoStr = rs.getString("estado").trim().toUpperCase().replace(" ", "_");
+        EstadoProcedimiento estado = EstadoProcedimiento.valueOf(estadoStr);
         
         Integer duracion = (Integer) rs.getObject("duracion_estimada_minutos");
-        Double costo = (Double) rs.getObject("costo_procedimiento");
+        Double costo = rs.getDouble("costo_procedimiento");
 
         return new ProcedimientosEspeciales(
             rs.getInt("id"),
