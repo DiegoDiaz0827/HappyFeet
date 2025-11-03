@@ -25,6 +25,28 @@ public class FacturasDAO {
     private Facturas mapearResultSetAFactura(ResultSet rs) throws SQLException {
         LocalDateTime fechaEmision = rs.getTimestamp("fecha_emision") != null ? 
                                      rs.getTimestamp("fecha_emision").toLocalDateTime() : null;
+        
+        
+        String metodoTexto = rs.getString("metodo_pago");
+    MetodoPago metodoPago = null;
+    if (metodoTexto != null) {
+        try {
+            metodoPago = MetodoPago.valueOf(metodoTexto.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("⚠️ Método de pago desconocido en BD: " + metodoTexto);
+        }
+    }
+
+    String estadoTexto = rs.getString("estado");
+    EstadoFacturas estadoFactura = null;
+    if (estadoTexto != null) {
+        try {
+            estadoFactura = EstadoFacturas.valueOf(estadoTexto.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("⚠️ Estado de factura desconocido en BD: " + estadoTexto);
+        }
+    }
+
 
         return new Facturas(
             rs.getInt("id"),
@@ -35,8 +57,9 @@ public class FacturasDAO {
             rs.getBigDecimal("impuesto"),
             rs.getBigDecimal("descuento"),
             rs.getBigDecimal("total"),
-            MetodoPago.valueOf(rs.getString("metodo_pago")),
-            EstadoFacturas.valueOf(rs.getString("estado")),
+            metodoPago,
+            estadoFactura,
+            
             rs.getString("observaciones")
         );
     }

@@ -73,8 +73,8 @@ public class Modulo3 {
     private static void registrarPrescripcion() {
         System.out.println("\n--- Registrar Prescripción ---");
         // Corregida Convención: camellCase para variables locales
-        int consultaId = leerEntero("ID de la consulta: ");
-        int procedimientoId = leerEntero("ID del procedimiento: ");
+        Integer consultaId = leerEnteroOpcional("ID de la consulta: ");
+        Integer procedimientoId = leerEnteroOpcional("ID del procedimiento: ");
         int productoId = leerEntero("ID del producto: ");
         int cantidad = leerEntero("Cantidad: ");
         String dosis = leerTexto("Dosis: ");

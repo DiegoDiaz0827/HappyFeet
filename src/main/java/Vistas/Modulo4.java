@@ -284,6 +284,8 @@ public class Modulo4 {
     private static void listarFacturas() {
         System.out.println("\n--- Lista de Facturas ---");
         List<Facturas> facturas = facturasController.listarFacturas();
+        
+        
         if (facturas.isEmpty()) {
             System.out.println("No hay facturas registradas.");
             return;
