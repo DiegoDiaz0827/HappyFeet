@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class Citas {
  private int id;
     private int mascotaId;
+   private String estado;
     private Integer veterinarioId; // Puede ser null (ON DELETE SET NULL)
     private LocalDateTime fechaHora;
     private String motivo;
@@ -23,12 +24,13 @@ public class Citas {
     private LocalDateTime fechaCreacion;
 
     // Constructor con todos los atributos
-    public Citas(int pId, int pMascotaId, Integer pVeterinarioId,
+    public Citas(int pId, int pMascotaId,String pEstado, Integer pVeterinarioId,
                  LocalDateTime pFechaHora, String pMotivo, int pEstadoId,
                  String pObservaciones, LocalDateTime pFechaCreacion) {
 
         id = pId;
         mascotaId = pMascotaId;
+        estado = pEstado;
         veterinarioId = pVeterinarioId;
         fechaHora = pFechaHora;
         motivo = pMotivo;
@@ -57,6 +59,10 @@ public class Citas {
 
     public int getMascotaId() {
         return mascotaId;
+    }
+    
+    public String getEstado(){
+    return estado;
     }
 
     public Integer getVeterinarioId() {
@@ -90,6 +96,10 @@ public class Citas {
 
     public void setMascotaId(int pMascotaId) {
         mascotaId = pMascotaId;
+    }
+    
+    public void setestado(String pestado) {
+        estado = pestado;
     }
 
     public void setVeterinarioId(Integer pVeterinarioId) {

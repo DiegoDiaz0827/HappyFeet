@@ -7,6 +7,7 @@ package Controllador;
 import DAO.VeterinariosDAO;
 import Model.Entities.Veterinarios;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -23,23 +24,26 @@ public class VeterinariosController {
 
     // 🔹 Registrar nuevo veterinario
     public boolean registrarVeterinario(Veterinarios v) {
-        if (v.getNombreCompleto() == null || v.getNombreCompleto().isBlank()) {
-            System.out.println("❌ El nombre del veterinario no puede estar vacío.");
-            return false;
-        }
-        if (v.getDocumentoIdentidad() == null || v.getDocumentoIdentidad().isBlank()) {
-            System.out.println("❌ El documento de identidad es obligatorio.");
-            return false;
-        }
-        if (v.getlicencia() == null || v.getlicencia().isBlank()) {
-            System.out.println("❌ La licencia profesional es obligatoria.");
-            return false;
-        }
+        if (v.getDocumentoIdentidad() == null || v.getDocumentoIdentidad().length() != 10) {
+        throw new IllegalArgumentException("El documento debe tener exactamente 10 números.");
+    }
 
-        // Fecha de contratación opcional, se puede asignar por defecto
-        if (v.getFechaRegistro() == null) {
-            v.setFechaRegistro(LocalDate.now());
-        }
+    if (!v.getDocumentoIdentidad().chars().allMatch(Character::isDigit)) {
+        throw new IllegalArgumentException("El documento solo debe contener números.");
+    }
+
+    if (v.getTelefono() == null || v.getTelefono().length() != 10) {
+        throw new IllegalArgumentException("El teléfono debe tener exactamente 10 números.");
+    }
+
+    if (!v.getTelefono().chars().allMatch(Character::isDigit)) {
+        throw new IllegalArgumentException("El teléfono solo debe contener números.");
+    }
+
+    // Si pasa las validaciones:
+    if (v.getFechaRegistro() == null) {
+        v.setFechaRegistro(LocalDate.now());
+    }
 
         veterinariosDAO.insertar(v);
         return true;

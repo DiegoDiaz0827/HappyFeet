@@ -89,6 +89,7 @@ public class Modulo2 {
             System.out.println("2. Listar veterinarios");
             System.out.println("3. Actualizar veterinario");
             System.out.println("4. Eliminar veterinario");
+            System.out.println("5. ver veterinario");
             System.out.println("0. Volver");
             int op = leerEntero("Seleccione una opción: ");
             switch (op) {
@@ -96,6 +97,7 @@ public class Modulo2 {
                 case 2 -> listarVeterinarios();
                 case 3 -> actualizarVeterinario();
                 case 4 -> eliminarVeterinario();
+                case 5 -> verVeterinario();
                 case 0 -> { return; }
                 default -> System.out.println("Opción inválida");
             }
@@ -103,7 +105,7 @@ public class Modulo2 {
     }
 
     private static void registrarVeterinario() {
-        System.out.println("\n--- Registrar Veterinario ---");
+        while(true){System.out.println("\n--- Registrar Veterinario ---");
         String nombre = leerTexto("Nombre completo: ");
         String documento = leerTexto("documento: ");
         String licencia = leerTexto("licencia profesional:  ");
@@ -111,9 +113,39 @@ public class Modulo2 {
         String telefono = leerTexto("Teléfono: ");
         String correo = leerTexto("Correo: ");
         Veterinarios v = new Veterinarios(nombre, documento, licencia, telefono, correo,especialidad, true);
-        veterinarioController.registrarVeterinario(v);
-        System.out.println("✅ Veterinario registrado correctamente.");
+        
+            try {
+               veterinarioController.registrarVeterinario(v);
+        System.out.println("✅ Veterinario registrado correctamente."); 
+        break;
+            } catch (Exception e) {
+                 System.out.println("❌ Error al actualizar el dueño: " + e.getMessage());
+            }
+     
     }
+    }
+    
+    private static void verVeterinario() {
+        int id = leerEntero("Id del veterinario: ");
+        Veterinarios v = veterinarioController.verVeterinario(id);
+        
+        System.out.println("\n--- Datos del Veterinario ---");
+        System.out.println("ID: " + v.getId());
+        System.out.println("Nombre: " + v.getNombreCompleto());
+        System.out.println("Documento: " + v.getDocumentoIdentidad());
+        System.out.println("Teléfono: " + v.getTelefono());
+        System.out.println("Email: " + v.getEmail());
+        System.out.println("Licencia Profesional: " + v.getlicencia());
+        System.out.println("Especialidad: " + v.getEspecialidad());
+        System.out.println("Fecha de Contratación: " + v.getFechaRegistro());
+        System.out.println("Activo: " + (v.isActivo() ? "Sí" : "No"));
+        
+        
+    }
+    
+    
+    
+    
 
     private static void listarVeterinarios() {
         System.out.println("\n--- Lista de Veterinarios ---");
@@ -178,6 +210,7 @@ public class Modulo2 {
             System.out.println("2. Listar citas");
             System.out.println("3. Actualizar cita");
             System.out.println("4. Eliminar cita");
+            System.out.println("5. ver cita");
             System.out.println("0. Volver");
             int op = leerEntero("Seleccione una opción: ");
             switch (op) {
@@ -185,6 +218,7 @@ public class Modulo2 {
                 case 2 -> listarCitas();
                 case 3 -> actualizarCita();
                 case 4 -> eliminarCita();
+                case 5 -> vercita();
                 case 0 -> { return; }
                 default -> System.out.println("Opción inválida");
             }
@@ -192,17 +226,53 @@ public class Modulo2 {
     }
 
     private static void programarCita() {
-        System.out.println("\n--- Programar Cita ---");
+        while(true){ System.out.println("\n--- Programar Cita ---");
         int mascotaId = leerEntero("ID de la mascota: ");
         int veterinarioId = leerEntero("ID del veterinario: ");
-        LocalDateTime fecha = leerFechaHora("Fecha de la cita (AAAA-MM-DD): ");
+        LocalDateTime fecha = leerFechaHora("Fecha y hora ->");
         int Estadocita = leerEntero("id estado cita: ");
         String observaciones = leerTexto("observaciones: ");
         String motivo = leerTexto("Motivo de la cita: ");
 
+        
         Citas cita = new Citas(mascotaId, veterinarioId,fecha, motivo,Estadocita,observaciones);
-        citaController.registrarCita(cita);
-        System.out.println("✅ Cita registrada correctamente.");
+            try {
+                citaController.registrarCita(cita);
+                System.out.println("Cita registrada con exito");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("❌ Error al registrar cita: " + e.getMessage());
+            }
+        
+        }
+    }
+    
+    private static void vercita(){
+     Citas c = null;
+
+    while (true) {
+        int id = leerEntero("Ingrese el ID de la cita: ");
+        
+
+        try {
+             c = citaController.obtenerCitaPorId(id);
+             break;
+        } catch (IllegalArgumentException e) {
+             System.out.println("❌ Error al ver cita: " + e.getMessage());
+        }
+    }
+
+    // ✅ Si llegó aquí, c no es null, así que se puede imprimir sin error
+    System.out.println("\n--- Detalle de la Cita ---");
+    System.out.println("ID: " + c.getId());
+    System.out.println("Mascota ID: " + c.getMascotaId());
+    System.out.println("Veterinario ID: " + c.getVeterinarioId());
+    System.out.println("Fecha y hora: " + c.getFechaHora());
+    System.out.println("Motivo: " + c.getMotivo());
+    System.out.println("Estado: " + c.getEstado());
+    System.out.println("Observaciones: " + c.getObservaciones());
+    System.out.println("Fecha de creación: " + c.getFechaCreacion());
+    
     }
 
     private static void listarCitas() {
@@ -215,38 +285,61 @@ public class Modulo2 {
         for (Citas c : citas) {
             System.out.println("ID: " + c.getId() + " | Mascota: " + c.getMascotaId() +
                     " | Veterinario: " + c.getVeterinarioId() +
-                    " | Fecha: " + c.getFechaHora() + " | Estado: " + c.getEstadoId());
+                    " | Fecha: " + c.getFechaHora() + " | Estado: " + c.getEstado());
         }
     }
 
     private static void actualizarCita() {
-        int id = leerEntero("ID de la cita a actualizar: ");
-        Citas c = citaController.obtenerCitaPorId(id);
-        if (c == null) {
-            System.out.println("Cita no encontrada.");
-            return;
+        Citas c = null;
+        while(true){int id = leerEntero("ID de la cita a actualizar: ");
+            try {
+                  c = citaController.obtenerCitaPorId(id);
+                 break;
+            } catch (IllegalArgumentException e) {
+                 System.out.println("❌ Error al econtrar id: " + e.getMessage());
+            }
+      
         }
-        
+        while(true){
+          int originalmascota = c.getMascotaId();
         int mascotaid = leerEntero("Id mascota"+"("+c.getMascotaId()+")"+": "  );
        c.setMascotaId(mascotaid);
        
+       int originalvet = c.getVeterinarioId();
        int Veterinarioid = leerEntero("Id veterinario"+"("+c.getVeterinarioId()+")"+": "  );
        c.setVeterinarioId(Veterinarioid);
-       
+       LocalDateTime originalhora = c.getFechaHora();
        LocalDateTime Fechahora = leerFechaHora("Fecha hora:"+"("+c.getFechaHora()+")"+": "  );
        c.setFechaHora(Fechahora);
        
+       String originalmot = c. getMotivo();
        String motivo = leerTexto("motivo"+"("+c.getMotivo()+")"+": ");
        c.setMotivo(motivo);
        
-        int estadoid = leerEntero("estado id"+"("+c.getEstadoId()+")"+": ");
+       String originales = c.getEstado();
+        int estadoid = leerEntero("estado id"+"("+c.getEstado()+")"+": ");
        c.setEstadoId(estadoid);
        
+       String originalob = c.getObservaciones();
         String observaciones = leerTexto("observaciones"+"("+c.getObservaciones()+")"+": ");
        c.setObservaciones(observaciones);
        
-        citaController.actualizarCita(c);
-        System.out.println("✅ Cita actualizada correctamente.");
+            try {
+                citaController.actualizarCita(c);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("❌ Error al ver cita: " + e.getMessage());
+            }
+            
+            c.setMascotaId(originalmascota);
+            c.setVeterinarioId(originalvet);
+            c.setFechaHora(originalhora);
+            c.setMotivo(originalmot);
+            c.setestado(originales);
+            c.setObservaciones(originalob);
+            
+       ;
+    }
     }
 
     private static void eliminarCita() {
@@ -461,10 +554,17 @@ public class Modulo2 {
     }
 
     // ========================= AUXILIARES =========================
-    private static String leerTexto(String mensaje) {
+     private static String leerTexto(String mensaje) {
+    String texto;
+    do {
         System.out.print(mensaje);
-        return sc.nextLine();
-    }
+        texto = sc.nextLine().trim(); // trim() elimina espacios al inicio y final
+        if (texto.isEmpty()) {
+            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+        }
+    } while (texto.isEmpty());
+    return texto;
+}
 
     private static String leerTextoOpcional(String mensaje) {
         System.out.print(mensaje);
@@ -493,16 +593,27 @@ public class Modulo2 {
         }
     }
     
-     public static LocalDateTime leerFechaHora(String mensaje) {  
-        System.out.println(mensaje);
+     public static LocalDateTime leerFechaHora(String mensaje) {
+         String fechaStr;
+         String horaStr;
+        do{System.out.println(mensaje);
         System.out.print("Fecha (YYYY-MM-DD): ");
-        String fechaStr = sc.nextLine();
-        System.out.print("Hora (HH:MM): ");
-        String horaStr = sc.nextLine();
+        fechaStr = sc.nextLine();
+         if (fechaStr.isEmpty()) {
+            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+        }
+        }while(fechaStr.isEmpty());
+        
+        do{System.out.print("Hora (HH:MM): ");
+        horaStr = sc.nextLine();
+         if (horaStr.isEmpty()) {
+            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+        }}while( horaStr.isEmpty());
 
         LocalDate fecha = LocalDate.parse(fechaStr);
         LocalTime hora = LocalTime.parse(horaStr);
 
         return LocalDateTime.of(fecha, hora);
+        
     }
 }

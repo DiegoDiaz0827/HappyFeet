@@ -61,7 +61,7 @@ public class CitasDAO {
     public List<Citas> listar() {
         List<Citas> lista = new ArrayList<>();
 
-        String SQL = "SELECT * FROM citas";
+        String SQL = "SELECT *,ct.nombre AS nombreestado FROM citas JOIN cita_estados ct ON citas.estado_id = ct.id";
 
         try (Connection con = ConexionDB.conectar();
              Statement st = con.createStatement();
@@ -76,6 +76,7 @@ public class CitasDAO {
                 Citas cita = new Citas(
                     rs.getInt("id"),
                     rs.getInt("mascota_id"),
+                    rs.getString("nombreestado"),
                     veterinarioId,
                     fechaHora,
                     rs.getString("motivo"),
@@ -95,7 +96,7 @@ public class CitasDAO {
 
 
     public Citas obtenerPorId(int id) {
-        String sql = "SELECT * FROM citas WHERE id = ?";
+        String sql = "SELECT *,ct.nombre AS nombreestado FROM citas c JOIN cita_estados ct ON c.estado_id = ct.id WHERE c.id = ?";
 
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -111,6 +112,7 @@ public class CitasDAO {
                     return new Citas(
                         rs.getInt("id"),
                         rs.getInt("mascota_id"),
+                        rs.getString("nombreestado"),
                         veterinarioId,
                         fechaHora,
                         rs.getString("motivo"),
