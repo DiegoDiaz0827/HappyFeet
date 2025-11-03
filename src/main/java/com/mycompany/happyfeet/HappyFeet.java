@@ -14,10 +14,6 @@ import java.util.Scanner;
  *
  * @author camper
  */
-
-
-
-
 public class HappyFeet {
 
     private static final Scanner scanner = new Scanner(System.in);
