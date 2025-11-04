@@ -62,10 +62,6 @@ public class InventarioController {
     public List<Inventario> listarInventario() {
         return inventarioDAO.obtenerTodos();
     }
-    
-    public Inventario obtenerInventarioPorId(int id) {
-        return inventarioDAO.obtenerPorId(id);
-    }
 
     // 3️ Actualizar un registro existente
     public boolean actualizarInventario(Inventario inventario) {

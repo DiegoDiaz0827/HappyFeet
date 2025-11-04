@@ -146,49 +146,6 @@ public class InventarioDAO {
             return false;
         }
     }
-    
-    private Inventario mapearInventario(ResultSet rs) throws SQLException {
-    return new Inventario(
-        
-        rs.getInt("id"),
-        rs.getString("nombre_producto"),
-        rs.getInt("producto_tipo_id"),
-        rs.getString("descripcion"),
-        rs.getString("fabricante"),
-        rs.getObject("proveedor_id") != null ? rs.getInt("proveedor_id") : null, 
-        rs.getString("lote"),
-        rs.getInt("cantidad_stock"),
-        rs.getInt("stock_minimo"),
-        rs.getString("unidad_medida"),
-        rs.getDate("fecha_vencimiento") != null ? rs.getDate("fecha_vencimiento").toLocalDate() : null,
-        rs.getBigDecimal("precio_compra"),
-        rs.getBigDecimal("precio_venta"),
-        rs.getBoolean("requiere_receta"),
-        rs.getBoolean("activo"),
-        rs.getTimestamp("fecha_registro").toLocalDateTime()
-    );
-}
-    
-     public Inventario obtenerPorId(int id) {
-    String sql = "SELECT * FROM inventario WHERE id = ?";
-    Inventario inv = null;
-
-    try (Connection conexion = ConexionDB.conectar();
-         PreparedStatement ps = conexion.prepareStatement(sql)) {
-
-        ps.setInt(1, id);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                // Aquí es donde se llama el método mapearInventario
-                inv = mapearInventario(rs); 
-            }
-        }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener inventario por ID: " + e.getMessage());
-        }
-        return inv;
-    }
 
     public boolean eliminarInventario(int pId) {
         String pSQL = "DELETE FROM inventario WHERE id=?";

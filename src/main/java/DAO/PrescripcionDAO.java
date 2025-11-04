@@ -19,20 +19,6 @@ import java.util.List;
  * @author camper
  */
 public class PrescripcionDAO {
-    private Prescripcion mapearPrescripcion(ResultSet rs) throws SQLException {
-    return new Prescripcion(
-        rs.getInt("id"),
-        rs.getObject("consulta_id") != null ? rs.getInt("consulta_id") : null,
-        rs.getObject("procedimiento_id") != null ? rs.getInt("procedimiento_id") : null,
-        rs.getInt("producto_id"),
-        rs.getInt("cantidad"),
-        rs.getString("dosis"),
-        rs.getString("frecuencia"),
-        rs.getObject("duracion_dias") != null ? rs.getInt("duracion_dias") : null,
-        rs.getString("instrucciones"),
-        rs.getTimestamp("fecha_prescripcion").toLocalDateTime()
-    );
-}
 
 
     public boolean insertar(Prescripcion p) {
@@ -88,26 +74,6 @@ public class PrescripcionDAO {
         }
         return lista;
     }
-    
-    public Prescripcion obtenerPorId(int id) {
-        String sql = "SELECT * FROM prescripciones WHERE id = ?";
-        Prescripcion p = null;
-
-        try (Connection conexion = ConexionDB.conectar();
-             PreparedStatement ps = conexion.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    p = mapearPrescripcion(rs);
-                }
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener prescripción por ID: " + e.getMessage());
-        }
-        return p;
-    }
 
     public boolean actualizar(Prescripcion p) {
         String sql = "UPDATE prescripciones SET consulta_id=?, procedimiento_id=?, producto_id=?, cantidad=?, dosis=?, frecuencia=?, duracion_dias=?, instrucciones=?, fecha_prescripcion=? WHERE id=?";
@@ -148,6 +114,5 @@ public class PrescripcionDAO {
             return false;
         }
     }
-    
 }
 

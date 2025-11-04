@@ -31,23 +31,8 @@ public class Modulo3 {
     private static ProveedorController proveedorController;
     private static InventarioController inventarioController;
     private static Scanner sc = new Scanner(System.in);
-    
-    
 
     public static void main(String[] args) {
-        
-        int proveedorId = 0;
-    Proveedor proveedorEncontrado = null;
-    do {
-        proveedorId = leerEntero("ID del proveedor (Obligatorio): ");
-        
-        // Validar existencia del Proveedor usando el Controller
-        proveedorEncontrado = proveedorController.obtenerProveedorPorId(proveedorId);
-        
-        if (proveedorEncontrado == null) {
-             System.out.println("❌ Proveedor con ID " + proveedorId + " no encontrado. Intente de nuevo.");
-        }
-    } while (proveedorEncontrado == null);
 
         // Inicializar los controladores con los DAOs reales
         prescripcionController = new PrescripcionController(new PrescripcionDAO());
@@ -288,5 +273,4 @@ public class Modulo3 {
             return null;
         }
     }
-    
 }
