@@ -174,7 +174,14 @@ public class Procedimientos_especialesDAO {
             
             ps.setDate(i++, Date.valueOf(p.getProximoControl())); 
             
-            ps.setString(i++, p.getEstado().name()); 
+            String estadoBD = p.getEstado().name()
+        .replace("_", " ")          // EN_PROCESO → EN PROCESO
+        .toLowerCase();             // en proceso
+
+            // Capitaliza la primera letra si la BD usa “En proceso”
+            estadoBD = estadoBD.substring(0, 1).toUpperCase() + estadoBD.substring(1);
+
+        ps.setString(i++, estadoBD);
             
             if (p.getCostoProcedimiento() != null) {
                 ps.setDouble(i++, p.getCostoProcedimiento());

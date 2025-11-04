@@ -9,6 +9,7 @@ import DAO.ConsultasMedicasDAO;
 import DAO.MascotasDAO;
 import DAO.VeterinariosDAO;
 import Model.Entities.ConsultasMedicas;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -31,30 +32,32 @@ public class ConsultacitasController {
     }
 
     // 🔹 Registrar consulta con validación de FKs
-    public boolean registrarConsulta(ConsultasMedicas c) {
+    public boolean registrarConsulta(ConsultasMedicas c) throws IllegalArgumentException {
         if (c.getMascotaId() <= 0 || mascotasDAO.obtenerPorId(c.getMascotaId()) == null) {
-            System.out.println("Error: Mascota no encontrada.");
-            return false;
+            throw new IllegalArgumentException("Error: Mascota no encontrada.");
+            
         }
         if (c.getVeterinarioId() <= 0 || veterinariosDAO.obtenerPorId(c.getVeterinarioId()) == null) {
-            System.out.println("Error: Veterinario no encontrado.");
-            return false;
+             throw new IllegalArgumentException("Error: Veterinario no encontrado.");
+           
         }
         if (c.getCitaId() != null && citasDAO.obtenerPorId(c.getCitaId()) == null) {
-            System.out.println("Error: Cita no encontrada.");
-            return false;
+            throw new IllegalArgumentException("Error: Cita no encontrada.");
+            
         }
-        if (c.getFechaHora() == null) {
-            System.out.println("Error: La fecha y hora son obligatorias.");
-            return false;
+        
+         if (c.getFechaHora().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("⚠️ La nueva fecha no puede ser pasada.");
+           
         }
+       
         if (c.getMotivo() == null || c.getMotivo().isEmpty()) {
-            System.out.println("Error: El motivo de la consulta es obligatorio.");
-            return false;
+            throw new IllegalArgumentException("Error: El motivo de la consulta es obligatorio.");
+            
         }
         if (c.getSintomas() == null || c.getSintomas().isEmpty()) {
-            System.out.println("Error: Los síntomas son obligatorios.");
-            return false;
+            throw new IllegalArgumentException("Error: Los síntomas son obligatorios.");
+            
         }
 
         consultasDAO.insertar(c);
@@ -62,26 +65,31 @@ public class ConsultacitasController {
     }
 
     // 🔹 Actualizar consulta con validación de FKs
-    public boolean actualizarConsulta(ConsultasMedicas c) {
+    public boolean actualizarConsulta(ConsultasMedicas c) throws IllegalArgumentException {
         if (c.getId() <= 0 || consultasDAO.obtenerPorId(c.getId()) == null) {
-            System.out.println("Error: Consulta no encontrada.");
-            return false;
+           throw new IllegalArgumentException("Error: Consulta no encontrada.");
+            
         }
         if (c.getMascotaId() <= 0 || mascotasDAO.obtenerPorId(c.getMascotaId()) == null) {
-            System.out.println("Error: Mascota no encontrada.");
-            return false;
+            throw new IllegalArgumentException("Error: Mascota no encontrada.");
+            
         }
         if (c.getVeterinarioId() <= 0 || veterinariosDAO.obtenerPorId(c.getVeterinarioId()) == null) {
-            System.out.println("Error: Veterinario no encontrado.");
-            return false;
+            throw new IllegalArgumentException("Error: Veterinario no encontrado.");
+           
         }
         if (c.getCitaId() != null && citasDAO.obtenerPorId(c.getCitaId()) == null) {
-            System.out.println("Error: Cita no encontrada.");
-            return false;
+            throw new IllegalArgumentException("Error: Cita no encontrada.");
+           
         }
         if (c.getFechaHora() == null) {
-            System.out.println("Error: La fecha y hora son obligatorias.");
-            return false;
+            throw new IllegalArgumentException("Error: La fecha y hora son obligatorias.");
+           
+        }
+        
+        if (c.getFechaHora().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("⚠️ La nueva fecha no puede ser pasada.");
+           
         }
 
         return consultasDAO.actualizar(c);
