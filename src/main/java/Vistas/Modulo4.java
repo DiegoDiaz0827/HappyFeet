@@ -104,7 +104,7 @@ public class Modulo4 {
                 case 2: Listartodas(); break;
                 case 3: Obtenerporid(); break;
                 case 4: ListarItems(); break;
-                //case 5: actualizarFactura(); break;
+               case 5: actualizarFactura(); break;
                 //case 6: eliminarFactura(); break;
                 case 7: generarFacturaEnTextoPlano(); break;
                 case 0: return;
@@ -202,14 +202,14 @@ public class Modulo4 {
         }
     }
     
-<<<<<<< HEAD
-    private static void listarFacturas() {}
-    private static void obtenerFactura() {}
-    private static void listarItemsFactura() {}
-    private static void actualizarFactura() {}
-    private static void eliminarFactura() {}
 
-=======
+    
+   
+    
+   
+  
+
+
     private static void Listartodas(){
         System.out.println("--listar todas--");
          List<Facturas> facturas = facturasController.listarFacturas();
@@ -300,7 +300,7 @@ public class Modulo4 {
     // ====================================================================
     // === Generación de Factura en Texto Plano (Módulo 4 Requerimiento) ===
     // ====================================================================
->>>>>>> 1407fbf (diego)
+
     private static void generarFacturaEnTextoPlano() {
         int id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
         Facturas f = facturasController.obtenerFacturaPorId(id);
