@@ -29,6 +29,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map; 
 import java.util.Scanner;
@@ -336,20 +337,38 @@ public class Modulo4 {
     // ====================================================================
 
  private static void generarFacturaEnTextoPlano() {
-    int id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
-    Facturas f = facturasController.obtenerFacturaPorId(id);
+   
+    Facturas f = null;
+    int id = 0;
 
+    while (true) {
+        id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
+        try {
+            f = facturasController.obtenerFacturaPorId(id);
+            if (f != null) break; // ✅ salir del bucle si encontró la factura
+            System.out.println("❌ No se encontró la factura con ese ID. Intente de nuevo.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("⚠️ Error al obtener la factura: " + e.getMessage());
+        }
+    }
+
+    // Si por alguna razón sigue sin encontrarse (extra seguridad)
     if (f == null) {
         System.out.println("❌ Factura con ID " + id + " no encontrada.");
         return;
     }
 
     // Obtener nombre del dueño
-     Dueños d = duenocontroller.buscarDuenoPorId(f.getDuenoId());
-    String nombreDueno = (d != null) ? d.getNombreCompleto(): "Desconocido";
+    Dueños d = duenocontroller.buscarDuenoPorId(f.getDuenoId());
+    String nombreDueno = (d != null) ? d.getNombreCompleto() : "Desconocido";
 
     // Obtener ítems
-    List<Items_factura> items = itemFacturaController.listarItemsPorFactura(id);
+   List<Items_factura> items = new ArrayList<>();
+try {
+    items = itemFacturaController.listarItemsPorFactura(id);
+} catch (IllegalArgumentException e) {
+    System.out.println("| ** NO HAY ÍTEMS REGISTRADOS PARA ESTA FACTURA **");
+}
 
     // Armar el contenido en un StringBuilder
     StringBuilder sb = new StringBuilder();
@@ -372,6 +391,14 @@ public class Modulo4 {
     sb.append(String.format("| %-4s | %-30s | %-10s | %-10s |\n", "Cant", "Descripción", "P.Unitario", "Subtotal"));
     sb.append("|------|--------------------------------|------------|------------|\n");
 
+    // (Opcional) Si hay ítems, mostrarlos
+    for (Items_factura item : items) {
+        String desc = item.getServicioDescripcion() != null
+            ? item.getServicioDescripcion()
+            : "Producto/Servicio ID " + item.getId();
+        sb.append(String.format("| %-4d | %-30s | $%-9.2f | $%-9.2f |\n",
+                item.getCantidad(), desc, item.getPrecioUnitario(), item.getSubtotal()));
+    }
 
     sb.append("-------------------------------------------------------\n");
     sb.append(String.format("SUBTOTAL: %54s $%.2f%n", "", f.getSubtotal()));
