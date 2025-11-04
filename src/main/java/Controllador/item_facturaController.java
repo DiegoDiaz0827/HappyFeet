@@ -111,7 +111,7 @@ public class item_facturaController {
         }
         
         if (item.getCantidad() <= 0) {
-            System.out.println("⚠️ La cantidad debe ser mayor a cero.");
+            System.out.println("️ La cantidad debe ser mayor a cero.");
             return false;
         }
         

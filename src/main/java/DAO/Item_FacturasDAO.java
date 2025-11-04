@@ -150,7 +150,7 @@ public class Item_FacturasDAO {
             ps.setInt(6, item.getCantidad());
             ps.setBigDecimal(7, item.getPrecioUnitario());
             ps.setBigDecimal(8, item.getSubtotal());
-            ps.setInt(9, item.getId()); // Condición WHERE
+            ps.setInt(9, item.getId()); 
             
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas > 0;

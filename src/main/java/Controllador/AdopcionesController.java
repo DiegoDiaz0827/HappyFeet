@@ -20,39 +20,38 @@ private final AdopcionesDAO adopcionesDAO;
         this.adopcionesDAO = adopcionesDAO;
     }
 
-    // 1️ Registrar una nueva adopción (CREATE)
+    // 1️ Registrar una nueva adopción 
    
     public boolean registrarAdopcion(adopciones adopcion) {
         
         // 1. Validaciones básicas de IDs
         if (adopcion.getMascotaAdopcionId() <= 0) {
-            System.out.println("⚠️ ID de Mascota Adopción inválido. Debe especificar la mascota.");
+            System.out.println("️ ID de Mascota Adopción inválido. Debe especificar la mascota.");
             return false;
         }
         if (adopcion.getDuenoId() <= 0) {
-            System.out.println("⚠️ ID de Dueño inválido. Debe especificar el adoptante.");
+            System.out.println(" ID de Dueño inválido. Debe especificar el adoptante.");
             return false;
         }
 
         // 2. Validaciones de fechas
         Date hoy = new Date();
         if (adopcion.getFechaAdopcion() == null || adopcion.getFechaAdopcion().after(hoy)) {
-            System.out.println("⚠️ La fecha de adopción es obligatoria y no puede ser futura.");
+            System.out.println("️ La fecha de adopción es obligatoria y no puede ser futura.");
             return false;
         }
         
         // 3. Validar seguimiento si es requerido
         if (adopcion.isSeguimientoRequerido()) {
             if (adopcion.getFechaPrimerSeguimiento() == null) {
-                System.out.println("⚠️ Si el seguimiento es requerido, la fecha del primer seguimiento es obligatoria.");
+                System.out.println("️ Si el seguimiento es requerido, la fecha del primer seguimiento es obligatoria.");
                 return false;
             }
             if (adopcion.getFechaPrimerSeguimiento().before(adopcion.getFechaAdopcion())) {
-                 System.out.println("⚠️ La fecha del primer seguimiento no puede ser anterior a la fecha de adopción.");
+                 System.out.println("️ La fecha del primer seguimiento no puede ser anterior a la fecha de adopción.");
                  return false;
             }
              
-            // Ejemplo de lógica adicional: asegurar que el seguimiento sea al menos 7 días después
             long diff = adopcion.getFechaPrimerSeguimiento().getTime() - adopcion.getFechaAdopcion().getTime();
            
             long dias = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
@@ -62,7 +61,7 @@ private final AdopcionesDAO adopcionesDAO;
             }
         } else {
             if (adopcion.getFechaPrimerSeguimiento() != null) {
-                System.out.println("⚠️ Error: Si el seguimiento NO es requerido, la fecha del primer seguimiento debe ser nula.");
+                System.out.println("️ Error: Si el seguimiento NO es requerido, la fecha del primer seguimiento debe ser nula.");
                 return false;
             }
         }
@@ -70,25 +69,25 @@ private final AdopcionesDAO adopcionesDAO;
 
         try {
             adopcionesDAO.agregar(adopcion);
-            System.out.println("✅ Adopción registrada correctamente con ID: " + adopcion.getId());
+            System.out.println(" Adopción registrada correctamente con ID: " + adopcion.getId());
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar adopción: " + e.getMessage());
+            System.out.println(" Error al registrar adopción: " + e.getMessage());
             return false;
         }
     }
 
-    // --- 2️ Listar todas las adopciones (READ ALL)
+    // --- 2️ Listar todas las adopciones 
 
     public List<adopciones> listarAdopciones() {
         return adopcionesDAO.listar();
     }
 
-    // 3️ Buscar adopción por ID (READ ONE)
+    // 3️ Buscar adopción por ID 
 
     public adopciones obtenerAdopcionPorId(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido para la búsqueda.");
+            System.out.println("️ ID inválido para la búsqueda.");
             return null;
         }
         adopciones adopcion = adopcionesDAO.obtenerPorId(id);
@@ -98,7 +97,7 @@ private final AdopcionesDAO adopcionesDAO;
         return adopcion;
     }
 
-    // --- 4️ Actualizar adopción existente (UPDATE)
+    // --- 4️ Actualizar adopción existente
 
     public boolean actualizarAdopcion(adopciones adopcion) {
         if (adopcion.getId() <= 0) {
@@ -120,12 +119,12 @@ private final AdopcionesDAO adopcionesDAO;
     // 5️ Eliminar adopción (DELETE)
     public boolean eliminarAdopcion(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID de adopción inválido.");
+            System.out.println("️ ID de adopción inválido.");
             return false;
         }
 
         boolean exito = adopcionesDAO.eliminar(id);
-        System.out.println(exito ? "🗑️ Adopción eliminada correctamente." : " No se encontró la adopción con ese ID para eliminar.");
+        System.out.println(exito ? "?️ Adopción eliminada correctamente." : " No se encontró la adopción con ese ID para eliminar.");
         return exito;
     }
 }
