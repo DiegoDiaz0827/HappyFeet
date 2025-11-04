@@ -370,7 +370,7 @@ public class Modulo2 {
     }
 
     private static void registrarConsulta() {
-        System.out.println("\n--- Registrar Consulta ---");
+        while(true){System.out.println("\n--- Registrar Consulta ---");
         int mascotaId = leerEntero("ID mascota: ");
         int veterinarioid = leerEntero("ID veterinario: ");
         int citaid = leerEntero("cita id: ");
@@ -384,8 +384,15 @@ public class Modulo2 {
         double temperatura = leerEntero("temperatura(c°): ");
         ConsultasMedicas c = new ConsultasMedicas(mascotaId, veterinarioid, citaid, fechahora, 
          motivo,sintomas,diagnostico,recomendaciones,observaciones,peso,temperatura );
-        consultaController.registrarConsulta(c);
-        System.out.println("✅ Consulta registrada.");
+        
+            try {
+                consultaController.registrarConsulta(c);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("❌ Error al registrar cita: " + e.getMessage());
+            }
+        
+        }
     }
 
     private static void listarConsultas() {
@@ -401,24 +408,46 @@ public class Modulo2 {
     }
 
     private static void actualizarConsulta() {
-        int id = leerEntero("ID consulta: ");
-        ConsultasMedicas  c = consultaController.verConsulta(id);
+        ConsultasMedicas  c = null;
+        do{int id = leerEntero("ID consulta: ");
+          c = consultaController.verConsulta(id);
         if (c == null) {
             System.out.println("No encontrada.");
-            return;
+            
         }
+        }while(c==null);
+        
+        while(true){
+          String origidag = c.getDiagnostico();
         String nuevoDiag = leerTextoOpcional("Nuevo diagnóstico (" + c.getDiagnostico() + "): ");
         c.setDiagnostico(nuevoDiag);
-        LocalDateTime fechahora = leerFechaHora("Nuevo fecha (" + c.getDiagnostico() + "): ");
+        
+        LocalDateTime orifecha = c.getFechaHora();
+        LocalDateTime fechahora = leerFechaHora("Nuevo fecha (" + c.getFechaHora()+ "): ");
         c.setFechaHora(fechahora);
+       
+        int orivet = c.getVeterinarioId();
         int veterinarioid = leerEntero("Nuevo veterinario(" + c.getVeterinarioId()+ "): ");
         c.setVeterinarioId(veterinarioid);
+       String orisin = c.getSintomas();
         String sintomas = leerTextoOpcional("Nuevos sintomas (" + c.getSintomas()+ "): ");
         c.setSintomas(sintomas);
         
-        consultaController.actualizarConsulta(c);
-        System.out.println("✅ Consulta actualizada.");
-    }
+            try {
+                consultaController.actualizarConsulta(c);
+                System.out.println("actualizada exitosamente");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("❌ Error al actualizar cita: " + e.getMessage());
+            }
+        
+           c.setDiagnostico(origidag);
+           c.setFechaHora(orifecha);
+           c.setVeterinarioId(orivet);
+           c.setSintomas(orisin);
+    
+        }
+        }
 
     private static void eliminarConsulta() {
         int id = leerEntero("ID consulta a eliminar: ");
@@ -448,7 +477,7 @@ public class Modulo2 {
     }
 
     private static void registrarProcedimiento() {
-        System.out.println("\n--- Registrar Procedimiento ---");
+        while(true){System.out.println("\n--- Registrar Procedimiento ---");
         int mascotaId = leerEntero("ID mascota: ");
         int vetrinarioid = leerEntero("ID Veterinario: ");
         String Tipoprocedimiento = leerTexto("Tipo de procedimiento:  ");
@@ -477,8 +506,13 @@ public class Modulo2 {
         ProcedimientosEspeciales p = new ProcedimientosEspeciales(mascotaId, vetrinarioid, Tipoprocedimiento, 
        nombre, fecha,duracionminutos, informacion, detalles, 
        compliciones, seguimiento, control, estado,costo);
-        procedimientoController.crearProcedimiento(p);
-        System.out.println("✅ Procedimiento registrado.");
+            try {
+                 procedimientoController.crearProcedimiento(p);
+                 break;
+            } catch (IllegalArgumentException e) {
+                 System.out.println("❌ Error al registrar procedimiento: " + e.getMessage());
+            }
+        }
     }
 
     private static void listarProcedimientos() {
@@ -494,43 +528,57 @@ public class Modulo2 {
     }
 
     private static void actualizarProcedimiento() {
-        int id = leerEntero("ID del procedimiento: ");
-        ProcedimientosEspeciales p = procedimientoController.obtenerPorId(id);
+        ProcedimientosEspeciales p = null;
+        do{int id = leerEntero("ID del procedimiento: ");
+         p = procedimientoController.obtenerPorId(id);
         if (p == null) {
-            System.out.println("No encontrado.");
-            return;
+            System.out.println("No encontrado, intenta otra vez.");
+            
         }
+        }while( p== null);
         
+       while(true){ 
+          int originalvet = p.getVeterinarioId();
         int Veterinarioid = leerEntero("Veterinario id (" + p.getVeterinarioId()+ "): ");
         p.setVeterinarioId(Veterinarioid);
         
+        String originalTipo = p.getTipoProcedimiento();
         String tipoprocedimiento = leerTexto("tipo procedimiento (" + p.getTipoProcedimiento()+ "): ");
         p.setTipoProcedimiento(tipoprocedimiento);
         
+        String originalNombre = p.getNombreProcedimiento();
         String nombreProcedimiento = leerTexto("Nombre del procedimiento (" + p.getNombreProcedimiento() + "): ");
         p.setNombreProcedimiento(nombreProcedimiento);
 
+        LocalDateTime originalFecha = p.getFechaHora();
         LocalDateTime fechaHora = leerFechaHora("Fecha y hora (" + p.getFechaHora() + "): ");
         p.setFechaHora(fechaHora);
-
+        
+        int originalDuracion = p.getDuracionEstimadaMinutos();
         int duracion = leerEntero("Duración estimada (minutos) (" + p.getDuracionEstimadaMinutos() + "): ");
         p.setDuracionEstimadaMinutos(duracion);
 
-       String infoPreop = leerTexto("Información preoperatoria (" + p.getInformacionPreoperatoria() + "): ");
+        String originalInfoPreop = p.getInformacionPreoperatoria();
+       String infoPreop = leerTextoOpcional("Información preoperatoria (" + p.getInformacionPreoperatoria() + "): ");
        p.setInformacionPreoperatoria(infoPreop);
 
-      String detalle = leerTexto("Detalle del procedimiento (" + p.getDetalleProcedimiento() + "): ");
+       String originalDetalle = p.getDetalleProcedimiento();
+      String detalle = leerTextoOpcional("Detalle del procedimiento (" + p.getDetalleProcedimiento() + "): ");
        p.setDetalleProcedimiento(detalle);
-
-     String complicaciones = leerTexto("Complicaciones (" + p.getComplicaciones() + "): ");
+       
+      String originalComplicaciones = p.getComplicaciones();
+     String complicaciones = leerTextoOpcional("Complicaciones (" + p.getComplicaciones() + "): ");
      p.setComplicaciones(complicaciones);
-
-    String seguimiento = leerTexto("Seguimiento postoperatorio (" + p.getSeguimientoPostoperatorio() + "): ");
+     
+    String originalSeguimiento = p.getSeguimientoPostoperatorio();
+    String seguimiento = leerTextoOpcional("Seguimiento postoperatorio (" + p.getSeguimientoPostoperatorio() + "): ");
     p.setSeguimientoPostoperatorio(seguimiento);
 
+     LocalDate originalProximoControl = p.getProximoControl();
     LocalDate proximoControl = leerFecha("Próximo control (" + p.getProximoControl() + "): ");
      p.setProximoControl(proximoControl);
 
+     EstadoProcedimiento originalEstado = p.getEstado();
        String estadoTexto = leerTexto("Estado ("+ p.getEstado()+"): ");
      if (!estadoTexto.isEmpty()) {
     
@@ -538,19 +586,40 @@ public class Modulo2 {
         String estadoNormalizado = estadoTexto.trim().toUpperCase().replace(" ", "_");
         p.setEstado(EstadoProcedimiento.valueOf(estadoNormalizado));}
 
+     double originalCosto = p.getCostoProcedimiento();
      double costo = leerEntero("Costo del procedimiento (" + p.getCostoProcedimiento() + "): ");
      p.setCostoProcedimiento(costo);
         
-        
-        
-        procedimientoController.actualizarProcedimiento(p);
+           try {
+               procedimientoController.actualizarProcedimiento(p);
         System.out.println("✅ Procedimiento actualizado.");
+        break;
+           } catch (IllegalArgumentException e) {
+               System.out.println("❌ Error al actualizar procedimiento: " + e.getMessage());
+           }
+        
+        p.setVeterinarioId(originalvet);
+        p.setTipoProcedimiento(originalTipo);
+        p.setNombreProcedimiento(originalNombre);
+         p.setFechaHora(originalFecha);
+       p.setDuracionEstimadaMinutos(originalDuracion);
+        p.setInformacionPreoperatoria(originalInfoPreop);
+        p.setDetalleProcedimiento(originalDetalle);
+        p.setComplicaciones(originalComplicaciones);
+        p.setSeguimientoPostoperatorio(originalSeguimiento);
+        p.setProximoControl(originalProximoControl);
+        p.setEstado(originalEstado);
+        p.setCostoProcedimiento(originalCosto);
+           
+       }
     }
+    
+    
 
     private static void eliminarProcedimiento() {
         int id = leerEntero("ID del procedimiento: ");
         procedimientoController.eliminarProcedimiento(id);
-        System.out.println("✅ Procedimiento eliminado.");
+       
     }
 
     // ========================= AUXILIARES =========================

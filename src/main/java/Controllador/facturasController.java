@@ -105,13 +105,6 @@ public class facturasController {
             return List.of(); 
         }
     }
-
-    public List<Map<String, Object>> getReporteFacturacionPorPeriodo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public List<Map<String, Object>> getReporteFacturacionPorPeriodo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
- }     
-
+}
+   
+  
