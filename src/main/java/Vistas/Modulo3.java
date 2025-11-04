@@ -21,7 +21,7 @@ import Model.Entities.Prescripcion;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime; // Necesario para setear la fecha de registro antes de enviar al DAO
+import java.time.LocalDateTime; 
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,10 +45,13 @@ public class Modulo3 {
             switch (opcion) {
                 case 1 -> registrarPrescripcion();
                 case 2 -> listarPrescripciones();
-                case 3 -> registrarProveedor();
-                case 4 -> listarProveedores();
-                case 5 -> registrarInventario();
-                case 6 -> listarInventario();
+               case 3 -> buscarPrescripcionesPorId(); 
+                case 4 -> registrarProveedor();
+                case 5 -> listarProveedores();
+                case 6 -> buscarProveedoresPorId(); 
+                case 7 -> registrarInventario();
+                case 8 -> listarInventario();
+                case 9 -> buscarInventarioPorId(); 
                 case 0 -> {
                     System.out.println("Saliendo del sistema...");
                     return;
@@ -62,17 +65,19 @@ public class Modulo3 {
         System.out.println("\n=== Sistema de Farmacia ===");
         System.out.println("1. Registrar prescripción");
         System.out.println("2. Listar prescripciones");
-        System.out.println("3. Registrar proveedor");
-        System.out.println("4. Listar proveedores");
-        System.out.println("5. Registrar inventario");
-        System.out.println("6. Listar inventario");
+        System.out.println("3. Buscar prescripciones por ID");
+        System.out.println("4. Registrar proveedor");
+        System.out.println("5. Listar proveedores");
+        System.out.println("6. Buscar proveedores por ID");
+        System.out.println("7. Registrar inventario");
+        System.out.println("8. Listar inventario");
+        System.out.println("9. Buscar inventario por ID");
         System.out.println("0. Salir");
     }
 
     // -------------------- PRESCRIPCIÓN --------------------
     private static void registrarPrescripcion() {
         System.out.println("\n--- Registrar Prescripción ---");
-        // Corregida Convención: camellCase para variables locales
         Integer consultaId = leerEnteroOpcional("ID de la consulta: ");
         Integer procedimientoId = leerEnteroOpcional("ID del procedimiento: ");
         int productoId = leerEntero("ID del producto: ");
@@ -80,7 +85,7 @@ public class Modulo3 {
         String dosis = leerTexto("Dosis: ");
         String frecuencia = leerTexto("Frecuencia: ");
         Integer duracion = leerEnteroOpcional("Duración en días (opcional): ");
-        String instrucciones = leerTexto("Instrucciones: "); // Corregida Convención
+        String instrucciones = leerTexto("Instrucciones: "); 
 
         Prescripcion p = new Prescripcion();
         p.setConsultaId(consultaId);
@@ -92,11 +97,32 @@ public class Modulo3 {
         p.setDuracionDias(duracion);
         p.setInstrucciones(instrucciones);
         
-        // Se asume que la entidad Prescripcion tiene un setter para fechaPrescripcion
-        // y que el Controller/DAO le asignará un valor (LocalDateTime.now())
-
         prescripcionController.registrarPrescripcion(p);
     }
+    
+      
+    private static void buscarPrescripcionesPorId() {
+     System.out.println("\n--- Buscar Prescripción por ID ---");
+        int id = leerEntero("Ingrese el ID de la prescripción a buscar: ");
+        
+        Prescripcion p = prescripcionController.obtenerPrescripcionPorId(id);
+        
+        if (p != null) {
+            System.out.println("\n*** Prescripción Encontrada ***");
+            System.out.println("ID: " + p.getId());
+            System.out.println("Consulta ID: " + (p.getConsultaId() != null ? p.getConsultaId() : "N/A"));
+            System.out.println("Procedimiento ID: " + (p.getProcedimientoId() != null ? p.getProcedimientoId() : "N/A"));
+            System.out.println("Producto ID: " + p.getProductoId());
+            System.out.println("Cantidad: " + p.getCantidad());
+            System.out.println("Dosis: " + p.getDosis());
+            System.out.println("Frecuencia: " + p.getFrecuencia());
+            System.out.println("Duración (días): " + (p.getDuracionDias() != null ? p.getDuracionDias() : "N/A"));
+            System.out.println("Instrucciones: " + p.getInstrucciones());
+        } else {
+            System.out.println("No se encontró una prescripción con ID: " + id);
+        }
+    }
+
 
     private static void listarPrescripciones() {
         System.out.println("\n--- Lista de Prescripciones ---");
@@ -110,6 +136,10 @@ public class Modulo3 {
                              " | Cantidad: " + p.getCantidad() + " | Dosis: " + p.getDosis());
         }
     }
+    
+    
+    
+    
 
     // -------------------- PROVEEDOR --------------------
     private static void registrarProveedor() {
@@ -131,14 +161,12 @@ public class Modulo3 {
         p.setEmail(email);
         p.setDireccion(direccion);
         p.setSitioWeb(sitioWeb);
-        p.setActivo(esActivo); // Se asigna el valor leído del usuario
-        
-        // Se asume que la entidad Proveedor tiene un setter para fechaRegistro
-        // y que el Controller/DAO le asignará un valor (LocalDateTime.now())
-        
+        p.setActivo(esActivo); 
+
         proveedorController.registrarProveedor(p);
     }
-
+    
+ 
     private static void listarProveedores() {
         System.out.println("\n--- Lista de Proveedores ---");
         List<Proveedor> lista = proveedorController.listarProveedores();
@@ -150,6 +178,34 @@ public class Modulo3 {
             System.out.println("ID: " + p.getId() + " | Nombre: " + p.getNombreEmpresa() +
                              " | Email: " + p.getEmail());
         }
+    }
+    
+    // buscar
+    private static void buscarProveedoresPorId(){
+    System.out.println("\n--- Buscar Proveedor por ID ---");
+        
+        int id = leerEntero("Ingrese el ID del proveedor a buscar: ");
+        
+        Proveedor p = proveedorController.obtenerProveedorPorId(id);
+        
+        if (p != null) {
+            imprimirDetallesProveedor(p); 
+        } else {
+            System.out.println("Búsqueda finalizada.");
+        }
+    }
+     // metodo imprimir detalles
+    private static void imprimirDetallesProveedor(Proveedor p) {
+        System.out.println("\n*** 🔍 Proveedor Encontrado ***");
+        System.out.println("ID: " + p.getId());
+        System.out.println("Nombre Empresa: " + p.getNombreEmpresa());
+        System.out.println("Contacto: " + p.getContacto());
+        System.out.println("Teléfono: " + (p.getTelefono() != null && !p.getTelefono().isEmpty() ? p.getTelefono() : "N/A"));
+        System.out.println("Email: " + (p.getEmail() != null && !p.getEmail().isEmpty() ? p.getEmail() : "N/A"));
+        System.out.println("Dirección: " + (p.getDireccion() != null && !p.getDireccion().isEmpty() ? p.getDireccion() : "N/A"));
+        System.out.println("Sitio Web: " + (p.getSitioWeb() != null && !p.getSitioWeb().isEmpty() ? p.getSitioWeb() : "N/A"));
+        System.out.println("Activo: " + (p.isActivo() ? "Sí" : "No"));
+        System.out.println("Fecha Registro: " + p.getFechaRegistro());
     }
 
     // -------------------- INVENTARIO --------------------
@@ -207,7 +263,31 @@ public class Modulo3 {
                              " | Stock: " + i.getCantidadStock() + " | Precio Venta: " + i.getPrecioVenta());
         }
     }
-
+    
+    //inventario
+    private static void buscarInventarioPorId(){
+        
+    System.out.println("\n--- Buscar Producto en Inventario por ID ---");
+        int id = leerEntero("Ingrese el ID del producto a buscar: ");
+        
+        // Asumiendo que el controlador tiene un método llamado obtenerInventarioPorId(id)
+        Inventario i = inventarioController.obtenerInventarioPorId(id); 
+        
+        if (i != null) {
+            System.out.println("\n*** 🔍 Producto de Inventario Encontrado ***");
+            System.out.println("ID: " + i.getId());
+            System.out.println("Nombre: " + i.getNombreProducto());
+            System.out.println("Proveedor ID: " + i.getProveedorId());
+            System.out.println("Stock: " + i.getCantidadStock() + " " + i.getUnidadMedida());
+            System.out.println("Precio Venta: " + i.getPrecioVenta());
+            System.out.println("Lote: " + i.getLote());
+            System.out.println("Vencimiento: " + (i.getFechaVencimiento() != null ? i.getFechaVencimiento() : "N/A"));
+        } else {
+            System.out.println("No se encontró un producto en inventario con ID: " + id);
+        }
+    }
+    
+    
     // -------------------- MÉTODOS AUXILIARES --------------------
     
     // Nuevo método auxiliar para leer booleanos

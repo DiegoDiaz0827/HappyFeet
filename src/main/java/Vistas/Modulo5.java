@@ -196,21 +196,19 @@ jornadas_vacunacion jornada = new jornadas_vacunacion(
         // 1. Caso de éxito: Adopción con seguimiento requerido
         System.out.println("\n--- PASO 1: REGISTRAR ADOPCIÓN EXITOSA (Mascota ID 301) ---");
         Date fechaAdopcion = new Date();
-        Date fechaSeguimiento = new Date(fechaAdopcion.getTime() + TimeUnit.DAYS.toMillis(15)); // 15 días después
+        Date fechaSeguimiento = new Date(fechaAdopcion.getTime() + TimeUnit.DAYS.toMillis(15)); 
 
         adopciones adopcionExitosa = new adopciones(
             0,
             mascotaAdopcionDisponibleId,
             nuevoAdoptanteId,
             fechaAdopcion, 
-            null, // El contrato se genera en el Controller
+            null, 
             "El adoptante se compromete a enviar 3 fotos mensuales.",
             true, 
             fechaSeguimiento
         );
         adopcionesController.registrarAdopcion(adopcionExitosa);
-
-        // 2. Caso de error: Mascota ya adoptada (asumiendo que 301 ahora es ADOPTADO)
         System.out.println("\n--- PASO 2: INTENTO DE ADOPCIÓN FALLIDA (Mascota ya adoptada) ---");
         adopciones adopcionFallida = new adopciones(
             0,
@@ -261,11 +259,14 @@ jornadas_vacunacion jornada = new jornadas_vacunacion(
             } else {
                 System.out.println("ERROR: No se pudieron descontar los puntos. Proceso de canje fallido.");
                 
-                canjeController.eliminarCanje(canje.getId());  // Rollback simplificado
+                canjeController.eliminarCanje(canje.getId());  
             }
             
         } else {
             System.out.println(" CANJE RECHAZADO: No se cumplen todos los requisitos.");
         }
     }
+    
+    
+    
 }

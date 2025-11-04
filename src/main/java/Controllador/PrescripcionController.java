@@ -24,23 +24,23 @@ public class PrescripcionController {
     // 1️ Registrar una nueva prescripción
     public boolean registrarPrescripcion(Prescripcion prescripcion) {
         if (prescripcion.getProductoId() <= 0) {
-            System.out.println("️ El producto es obligatorio.");
+            System.out.println(" El producto es obligatorio.");
             return false;
         }
         if (prescripcion.getCantidad() <= 0) {
-            System.out.println("️ La cantidad debe ser mayor que 0.");
+            System.out.println("⚠La cantidad debe ser mayor que 0.");
             return false;
         }
         if (prescripcion.getDosis() == null || prescripcion.getDosis().isBlank()) {
-            System.out.println("️ La dosis es obligatoria.");
+            System.out.println("⚠La dosis es obligatoria.");
             return false;
         }
         if (prescripcion.getFrecuencia() == null || prescripcion.getFrecuencia().isBlank()) {
-            System.out.println("️ La frecuencia es obligatoria.");
+            System.out.println("⚠La frecuencia es obligatoria.");
             return false;
         }
         if (prescripcion.getDuracionDias() != null && prescripcion.getDuracionDias() <= 0) {
-            System.out.println("️ La duración debe ser mayor que 0 días.");
+            System.out.println("⚠La duración debe ser mayor que 0 días.");
             return false;
         }
 
@@ -48,10 +48,10 @@ public class PrescripcionController {
 
         try {
             boolean exito = prescripcionDAO.insertar(prescripcion);
-            System.out.println(exito ? " Prescripción registrada correctamente." : " No se pudo registrar la prescripción.");
+            System.out.println(exito ? "Prescripción registrada correctamente." : " No se pudo registrar la prescripción.");
             return exito;
         } catch (Exception e) {
-            System.out.println(" Error al registrar prescripción: " + e.getMessage());
+            System.out.println("Error al registrar prescripción: " + e.getMessage());
             return false;
         }
     }
@@ -64,17 +64,17 @@ public class PrescripcionController {
     // 3️ Obtener una prescripción por ID
     public Prescripcion obtenerPrescripcionPorId(int id) {
         if (id <= 0) {
-            System.out.println(" ID inválido.");
+            System.out.println("⚠ID inválido.");
             return null;
         }
 
-        List<Prescripcion> lista = prescripcionDAO.listar();
+        List<Prescripcion> lista = prescripcionDAO.listar(); 
         for (Prescripcion p : lista) {
             if (p.getId() == id) {
                 return p;
             }
         }
-        System.out.println(" No se encontró la prescripción con ID: " + id);
+        System.out.println("No se encontró la prescripción con ID: " + id);
         return null;
     }
 
@@ -90,14 +90,14 @@ public class PrescripcionController {
         }
 
         boolean exito = prescripcionDAO.actualizar(prescripcion);
-        System.out.println(exito ? " Prescripción actualizada correctamente." : " No se pudo actualizar la prescripción.");
+        System.out.println(exito ? "🔄 Prescripción actualizada correctamente." : " No se pudo actualizar la prescripción.");
         return exito;
     }
 
-    //  ️5 Eliminar una prescripción
+    // 5️ Eliminar una prescripción
     public boolean eliminarPrescripcion(int id) {
         if (id <= 0) {
-            System.out.println("️ ID inválido.");
+            System.out.println(" ID inválido.");
             return false;
         }
 
