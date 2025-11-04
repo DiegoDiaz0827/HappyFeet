@@ -15,56 +15,55 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import util.ConexionDB;
 /**
  *
  * @author camper
  */
 public class FacturasDAO {
-    private Facturas mapearResultSetAFactura(ResultSet rs) throws SQLException {
+   private Facturas mapearResultSetAFactura(ResultSet rs) throws SQLException {
         LocalDateTime fechaEmision = rs.getTimestamp("fecha_emision") != null ? 
                                      rs.getTimestamp("fecha_emision").toLocalDateTime() : null;
         
-        
         String metodoTexto = rs.getString("metodo_pago");
-    MetodoPago metodoPago = null;
-    if (metodoTexto != null) {
-        try {
-            metodoPago = MetodoPago.valueOf(metodoTexto.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.println("⚠️ Método de pago desconocido en BD: " + metodoTexto);
+        MetodoPago metodoPago = null;
+        if (metodoTexto != null) {
+            try {
+                metodoPago = MetodoPago.valueOf(metodoTexto.trim().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("️ Método de pago desconocido en BD: " + metodoTexto);
+            }
         }
-    }
 
-    String estadoTexto = rs.getString("estado");
-    EstadoFacturas estadoFactura = null;
-    if (estadoTexto != null) {
-        try {
-            estadoFactura = EstadoFacturas.valueOf(estadoTexto.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.println("⚠️ Estado de factura desconocido en BD: " + estadoTexto);
+        String estadoTexto = rs.getString("estado");
+        EstadoFacturas estadoFactura = null;
+        if (estadoTexto != null) {
+            try {
+                estadoFactura = EstadoFacturas.valueOf(estadoTexto.trim().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println(" Estado de factura desconocido en BD: " + estadoTexto);
+            }
         }
-    }
-
 
         return new Facturas(
             rs.getInt("id"),
             rs.getInt("dueno_id"),
             rs.getString("numero_factura"),
-            fechaEmision,
+            fechaEmision, // <-- Colocado aquí, asumiendo el constructor de 11 campos
             rs.getBigDecimal("subtotal"),
             rs.getBigDecimal("impuesto"),
             rs.getBigDecimal("descuento"),
             rs.getBigDecimal("total"),
             metodoPago,
             estadoFactura,
-            
             rs.getString("observaciones")
         );
     }
     
-    // --- 1. CREATE 
+    // 1. CREATE 
     public void agregar(Facturas f){
         String SQL = "INSERT INTO facturas(dueno_id, numero_factura, fecha_emision, subtotal, impuesto, descuento, total, metodo_pago, estado, observaciones) VALUES (?,?,?,?,?,?,?,?,?,?)";
         
@@ -79,20 +78,20 @@ public class FacturasDAO {
             ps.setBigDecimal(6, f.getDescuento());
             ps.setBigDecimal(7, f.getTotal());
             ps.setString(8, f.getMetodoPago().name()); 
-            ps.setString(9, f.getEstado().name());     
+            ps.setString(9, f.getEstado().name());      
             ps.setString(10, f.getObservaciones());
             
             int filas = ps.executeUpdate();
             
             try(ResultSet rs = ps.getGeneratedKeys()) {
-               if(rs.next()){
-                   int idGenerado = rs.getInt(1);
-                   f.setId(idGenerado);
-                   if (f.getFechaEmision() == null) {
-                       f.setFechaEmision(LocalDateTime.now()); 
-                   }
-                   System.out.println("Factura insertada con ID = " + idGenerado);
-               }
+                if(rs.next()){
+                    int idGenerado = rs.getInt(1);
+                    f.setId(idGenerado);
+                    if (f.getFechaEmision() == null) {
+                        f.setFechaEmision(LocalDateTime.now()); 
+                    }
+                    System.out.println("Factura insertada con ID = " + idGenerado);
+                }
             }
             
             System.out.println("Factura agregada, filas afectadas: " + filas);
@@ -104,7 +103,7 @@ public class FacturasDAO {
         }
     }
     
-    // --- 2. READ 
+    // 2. READ 
     public List<Facturas> listar(){
         List<Facturas> lista = new ArrayList<>();
         String SQL = "SELECT * FROM facturas";
@@ -125,7 +124,7 @@ public class FacturasDAO {
         return lista;
     }
 
-    // --- 3. READ 
+    // 3. READ 
     public Facturas obtenerPorId(int id) {
         String sql = "SELECT * FROM facturas WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -145,9 +144,9 @@ public class FacturasDAO {
         return null;
     }
     
-    // --- 4. UPDATE 
+    // 4. UPDATE 
     public boolean actualizar(Facturas f) {
-  
+ 
         String sql = "UPDATE facturas SET dueno_id = ?, numero_factura = ?, fecha_emision = ?, subtotal = ?, impuesto = ?, descuento = ?, total = ?, metodo_pago = ?, estado = ?, observaciones = ? WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -174,7 +173,7 @@ public class FacturasDAO {
         }
     }
     
-    // --- 5. DELETE 
+    // 5. DELETE 
     public boolean eliminar(int id) {
         String sql = "DELETE FROM facturas WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -190,5 +189,35 @@ public class FacturasDAO {
             return false;
         }
     }
+    
+    // 6. REPORTE: Análisis de Facturación por Período
+    public List<Map<String, Object>> getReporteFacturacionPorPeriodo() {
+        List<Map<String, Object>> reporte = new ArrayList<>();
+        String SQL = "SELECT " +
+                     "    STRFTIME('%Y-%m', fecha_emision) AS periodo, " + 
+                     "    SUM(total) AS total_facturado, " +
+                     "    COUNT(id) AS num_facturas " +
+                     "FROM facturas " +
+                     "WHERE estado = 'PAGADA' " + 
+                     "GROUP BY periodo " +
+                     "ORDER BY periodo DESC";
 
+        try (Connection con = ConexionDB.conectar();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(SQL)) {
+
+            while (rs.next()) {
+                Map<String, Object> itemReporte = new HashMap<>(); 
+                itemReporte.put("periodo", rs.getString("periodo"));
+                itemReporte.put("total_facturado", rs.getBigDecimal("total_facturado"));
+                itemReporte.put("num_facturas", rs.getLong("num_facturas")); 
+                reporte.add(itemReporte);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL al generar reporte de facturación por período: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return reporte;
+    }
 }

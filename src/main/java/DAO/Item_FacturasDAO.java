@@ -12,14 +12,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import util.ConexionDB;
 /**
  *
  * @author camper
  */
 public class Item_FacturasDAO {
-private Items_factura mapearResultSetAItem(ResultSet rs) throws SQLException {
+   private Items_factura mapearResultSetAItem(ResultSet rs) throws SQLException {
         return new Items_factura(
             rs.getInt("id"),
             rs.getInt("factura_id"),
@@ -63,11 +65,11 @@ private Items_factura mapearResultSetAItem(ResultSet rs) throws SQLException {
             int filas = ps.executeUpdate();
             
             try(ResultSet rs = ps.getGeneratedKeys()) {
-               if(rs.next()){
-                   int idGenerado = rs.getInt(1);
-                   item.setId(idGenerado);
-                   System.out.println("Ítem de Factura insertado con ID = " + idGenerado);
-               }
+                if(rs.next()){
+                    int idGenerado = rs.getInt(1);
+                    item.setId(idGenerado);
+                    System.out.println("Ítem de Factura insertado con ID = " + idGenerado);
+                }
             }
             
             System.out.println("Ítem de Factura agregado, filas afectadas: " + filas);
@@ -175,5 +177,34 @@ private Items_factura mapearResultSetAItem(ResultSet rs) throws SQLException {
             e.printStackTrace();
             return false;
         }
+    }
+
+    //  6.REPORTE: Servicios Más Solicitados 
+    public List<Map<String, Object>> getReporteServiciosMasSolicitados() {
+        List<Map<String, Object>> reporte = new ArrayList<>();
+        String SQL = "SELECT s.nombre AS nombre_servicio, SUM(if.cantidad) AS total_vendido " +
+                     "FROM items_factura if " +
+                     "JOIN servicios s ON if.servicio_id = s.id " +
+                     "WHERE if.tipo_item = 'SERVICIO' " + 
+                     "GROUP BY s.nombre " +
+                     "ORDER BY total_vendido DESC " +
+                     "LIMIT 10"; 
+
+        try (Connection con = ConexionDB.conectar();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(SQL)) {
+
+            while (rs.next()) {
+                Map<String, Object> itemReporte = new HashMap<>(); 
+                itemReporte.put("nombre_servicio", rs.getString("nombre_servicio"));
+                itemReporte.put("total_vendido", rs.getInt("total_vendido")); 
+                reporte.add(itemReporte);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL al generar reporte de servicios más solicitados: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return reporte;
     }
 }
