@@ -24,7 +24,7 @@ private final AdopcionesDAO adopcionesDAO;
    
     public boolean registrarAdopcion(adopciones adopcion) {
         
-        // 1. Validaciones básicas de IDs
+        // 1. Validaciones  de IDs
         if (adopcion.getMascotaAdopcionId() <= 0) {
             System.out.println("⚠️ ID de Mascota Adopción inválido. Debe especificar la mascota.");
             return false;
