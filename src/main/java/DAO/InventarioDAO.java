@@ -147,7 +147,8 @@ public class InventarioDAO {
         }
     }
     
-   
+
+  
 
     public boolean eliminarInventario(int pId) {
         String pSQL = "DELETE FROM inventario WHERE id=?";

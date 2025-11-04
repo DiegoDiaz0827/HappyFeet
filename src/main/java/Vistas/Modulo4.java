@@ -54,6 +54,7 @@ public class Modulo4 {
         ServiciosDAO serviciosDAO = new ServiciosDAO(); 
         Item_FacturasDAO itemFacturasDAO = new Item_FacturasDAO();
 
+        duenocontroller = new DueñosController();
         facturasController = new facturasController(facturasDAO,dueñodao);
         serviciosController = new serviciosController(serviciosDAO);
         itemFacturaController = new item_facturaController(itemFacturasDAO);
@@ -371,33 +372,6 @@ public class Modulo4 {
     sb.append(String.format("| %-4s | %-30s | %-10s | %-10s |\n", "Cant", "Descripción", "P.Unitario", "Subtotal"));
     sb.append("|------|--------------------------------|------------|------------|\n");
 
-    if (items.isEmpty()) {
-        sb.append("| ** NO HAY ÍTEMS REGISTRADOS PARA ESTA FACTURA **\n");
-    } else {
-        for (Items_factura item : items) {
-            String descripcionItem;
-
-            if (item.getTipoItem() == itemsFactura.PRODUCTO) {
-                Inventario i = productoController.obtenerPorId(item.getProductoId());
-                descripcionItem = (1 != null)
-                        ? "Producto: " + .getNombre()
-                        : "Producto ID " + item.getProductoId();
-            } 
-             else {
-                descripcionItem = "Item Desconocido";
-            }
-
-            String descCorta = descripcionItem.length() > 30
-                    ? descripcionItem.substring(0, 27) + "..."
-                    : descripcionItem;
-
-            sb.append(String.format("| %-4d | %-30s | $%-9.2f | $%-9.2f |\n",
-                    item.getCantidad(),
-                    descCorta,
-                    item.getPrecioUnitario(),
-                    item.getSubtotal()));
-        }
-    }
 
     sb.append("-------------------------------------------------------\n");
     sb.append(String.format("SUBTOTAL: %54s $%.2f%n", "", f.getSubtotal()));
@@ -512,6 +486,8 @@ public class Modulo4 {
             System.out.println("Error al obtener el reporte de facturación. Verifique su Controller y DAO.");
         }
     }
+    
+    // metodos auxiliares
 
      private static String leerTexto(String mensaje) {
     String texto;
