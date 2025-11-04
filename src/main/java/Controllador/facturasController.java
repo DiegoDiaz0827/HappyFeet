@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controllador;
+<<<<<<< HEAD
 
+=======
+import DAO.DueñoDAO;
+>>>>>>> 1407fbf (diego)
 import DAO.FacturasDAO;
 import Model.Entities.Facturas;
 import Model.Enums.EstadoFacturas;
@@ -18,34 +22,62 @@ import java.util.Collections;
 public class facturasController {
    // El DAO de Facturas
     private FacturasDAO facturasDAO;
+<<<<<<< HEAD
     
     // --------------------------------------------------------------------------
     // CONSTRUCTOR
     // --------------------------------------------------------------------------
     public facturasController(FacturasDAO facturasDAO) {
+=======
+    private DueñoDAO dueñodao;
+    public facturasController(FacturasDAO facturasDAO, DueñoDAO dueñodao) {
+        this.dueñodao = dueñodao;
+>>>>>>> 1407fbf (diego)
         this.facturasDAO = facturasDAO;
     }
     // 1. Registrar una nueva factura 
 
+<<<<<<< HEAD
     public boolean registrarFactura(Facturas factura) {
         if (factura.getDuenoId() <= 0) {
             System.out.println("️ ID de dueño inválido. No se puede registrar la factura sin dueño.");
             return false;
+=======
+    public boolean registrarFactura(Facturas factura) throws IllegalArgumentException {
+        if (factura.getDuenoId() <= 0 || dueñodao.obtenerPorId(factura.getDuenoId()) == null) {
+            throw new IllegalArgumentException("️ ID de dueño inválido.");
+            
+>>>>>>> 1407fbf (diego)
         }
         if (factura.getTotal() == null || factura.getTotal().compareTo(BigDecimal.ZERO) < 0) {
-            System.out.println("️ El total de la factura no puede ser nulo o negativo.");
-            return false;
+            throw new IllegalArgumentException("️ El total de la factura no puede ser nulo o negativo.");
+            
         }
+<<<<<<< HEAD
         if (factura.getNumeroFactura() == null || factura.getNumeroFactura().isBlank()) {
             System.out.println("️ El número de factura es obligatorio.");
             return false;
+=======
+        if (factura.getNumeroFactura() == null || factura.getNumeroFactura().isBlank() ) {
+             throw new IllegalArgumentException("️ El número de factura es obligatorio.");
+           
+        }
+        
+        if (factura.getMetodoPago() == null) {
+        System.out.println("⚠️ Método de pago inválido. No se puede registrar la factura.");
+        return false;
+>>>>>>> 1407fbf (diego)
         }
 
         if (factura.getEstado() == null) {
             factura.setEstado(EstadoFacturas.PENDIENTE);
+            
         }
+        
+        
 
         try {
+<<<<<<< HEAD
             boolean exito = facturasDAO.agregar(factura); 
             
             if (exito) {
@@ -56,6 +88,13 @@ public class facturasController {
             return exito;
         } catch (Exception e) {
             System.out.println(" Error al registrar factura en la base de datos: " + e.getMessage());
+=======
+            facturasDAO.agregar(factura);
+            System.out.println(" Factura registrada correctamente con ID: " + factura.getId());
+            return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println(" Error al registrar factura: " + e.getMessage());
+>>>>>>> 1407fbf (diego)
             return false;
         }
     }
@@ -65,11 +104,21 @@ public class facturasController {
         return facturasDAO.listar();
     }
 
+<<<<<<< HEAD
     // 3. Buscar factura por ID 
     public Facturas obtenerFacturaPorId(int id) {
+=======
+    // --- 3️ Buscar factura por ID
+    public Facturas obtenerFacturaPorId(int id) throws IllegalArgumentException {
+>>>>>>> 1407fbf (diego)
         if (id <= 0) {
             System.out.println("⚠️ ID inválido.");
             return null;
+        }
+        
+        Facturas f = facturasDAO.obtenerPorId(id);
+        if(f == null){
+        throw new IllegalArgumentException("el id no existe");
         }
         return facturasDAO.obtenerPorId(id);
     }

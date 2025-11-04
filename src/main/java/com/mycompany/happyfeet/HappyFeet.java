@@ -35,13 +35,15 @@ public class HappyFeet {
                         break;
                     case 2:
                         System.out.println("\n--- INICIANDO MÓDULO 2: SERVICIOS MÉDICOS Y PERSONAL ---");
+                        Modulo2.main(new String[]{});
                         break;
                     case 3:
                         System.out.println("\n--- INICIANDO MÓDULO 3: INVENTARIO Y FARMACIA ---");
-                        // new Modulo3().iniciar();
+                        Modulo3.main(new String[]{});
                         break;
                     case 4:
                         System.out.println("\n--- INICIANDO MÓDULO 4: FACTURACIÓN Y REPORTES ---");
+                        Modulo4.main(new String[]{});
                         break;
                     case 5:
                         System.out.println("\n--- INICIANDO MÓDULO 5: ACTIVIDADES ESPECIALES ---");

@@ -80,11 +80,17 @@ public class item_facturaController {
 
     // 2️ Listar ítems por ID de Factura 
     
-    public List<Items_factura> listarItemsPorFactura(int facturaId) {
+    public List<Items_factura> listarItemsPorFactura(int facturaId) throws IllegalArgumentException {
         if (facturaId <= 0) {
-            System.out.println("️ ID de factura inválido para listar ítems.");
-            return List.of(); 
+            throw new IllegalArgumentException("️ ID de factura inválido para listar ítems.");
+            
         }
+        
+        List<Items_factura> items =itemFacturasDAO.listarPorFactura(facturaId);
+        if(items.isEmpty()){
+        throw new IllegalArgumentException("no hay items de la factura");
+        }
+        
         return itemFacturasDAO.listarPorFactura(facturaId);
     }
 

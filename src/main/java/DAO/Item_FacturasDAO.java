@@ -25,7 +25,7 @@ public class Item_FacturasDAO {
         return new Items_factura(
             rs.getInt("id"),
             rs.getInt("factura_id"),
-            itemsFactura.valueOf(rs.getString("tipo_item")),
+            itemsFactura.valueOf(rs.getString("tipo_item").toUpperCase()),
             rs.getObject("producto_id") != null ? rs.getInt("producto_id") : null,
             rs.getObject("servicio_id") != null ? rs.getInt("servicio_id") : null,
             rs.getString("servicio_descripcion"),

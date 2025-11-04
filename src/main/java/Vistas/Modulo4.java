@@ -7,6 +7,7 @@ package Vistas;
 import Controllador.facturasController;
 import Controllador.item_facturaController;
 import Controllador.serviciosController;
+import DAO.DueñoDAO;
 import DAO.FacturasDAO; 
 import DAO.Item_FacturasDAO;
 import DAO.ServiciosDAO;
@@ -37,12 +38,12 @@ public class Modulo4 {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     public static void main(String[] args) {
-        
+        DueñoDAO dueñodao = new DueñoDAO();
         FacturasDAO facturasDAO = new FacturasDAO(); 
         ServiciosDAO serviciosDAO = new ServiciosDAO(); 
         Item_FacturasDAO itemFacturasDAO = new Item_FacturasDAO();
 
-        facturasController = new facturasController(facturasDAO);
+        facturasController = new facturasController(facturasDAO,dueñodao);
         serviciosController = new serviciosController(serviciosDAO);
         itemFacturaController = new item_facturaController(itemFacturasDAO);
         
@@ -100,11 +101,11 @@ public class Modulo4 {
             int opcion = leerEntero("Seleccione una opción: ");
             switch (opcion) {
                 case 1: registrarFactura(); break;
-                case 2: listarFacturas(); break;
-                case 3: obtenerFactura(); break;
-                case 4: listarItemsFactura(); break;
-                case 5: actualizarFactura(); break;
-                case 6: eliminarFactura(); break;
+                case 2: Listartodas(); break;
+                case 3: Obtenerporid(); break;
+                case 4: ListarItems(); break;
+                //case 5: actualizarFactura(); break;
+                //case 6: eliminarFactura(); break;
                 case 7: generarFacturaEnTextoPlano(); break;
                 case 0: return;
                 default: System.out.println("Opción inválida."); break;
@@ -201,12 +202,105 @@ public class Modulo4 {
         }
     }
     
+<<<<<<< HEAD
     private static void listarFacturas() {}
     private static void obtenerFactura() {}
     private static void listarItemsFactura() {}
     private static void actualizarFactura() {}
     private static void eliminarFactura() {}
 
+=======
+    private static void Listartodas(){
+        System.out.println("--listar todas--");
+         List<Facturas> facturas = facturasController.listarFacturas();
+    
+         if(facturas.isEmpty()){
+             System.out.println("no hay facturas registradas");
+         }else{
+         for(Facturas f: facturas){
+             System.out.println("ID: "+f.getId()+" || dueño ID: "+f.getDuenoId()+" || #factura: " + f.getNumeroFactura()
+             +"|| fecha emision: "+f.getFechaEmision()+"|| total: "+ f.getTotal());
+         }
+         }
+    }
+    
+    private static void Obtenerporid(){
+        System.out.println("OBTENIENDO POR ID");
+        Facturas f = null;
+        while(true){
+            int id =leerEntero("id de la factura: ");
+        
+            try {
+                f = facturasController.obtenerFacturaPorId(id);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("❌ Error al obtener la factura: " + e.getMessage());
+            }
+        
+        }
+        
+         System.out.println("ID: "+f.getId()+" || dueño ID: "+f.getDuenoId()+" || #factura: " + f.getNumeroFactura()
+             +"|| fecha emision: "+f.getFechaEmision()+"|| total: "+ f.getTotal());
+         
+    }
+    
+    
+    private static void ListarItems(){
+        System.out.println("Listando items");
+        Facturas f = null;
+        int id = 0;
+        while(true){
+            id =leerEntero("id de la factura: ");
+        
+            try {
+                f = facturasController.obtenerFacturaPorId(id);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("❌ Error al obtener la factura: " + e.getMessage());
+            }
+        
+        }
+        
+        try {
+            List<Items_factura> items = itemFacturaController.listarItemsPorFactura(id);
+            System.out.println("encontrada");
+             System.out.println("Items de la factura " + id + ":");
+        for (Items_factura item : items) {
+            System.out.println(item); // o formatea como quieras
+        }
+        } catch (IllegalArgumentException e) {
+             System.out.println("❌ Error al obtener la factura: " + e.getMessage());
+        }
+        }
+    
+    
+    private static void actualizarFactura(){
+    
+        System.out.println("ACTUALIZANDO FACTURA");
+        Facturas f = null;
+        while(true){
+            int id =leerEntero("id de la factura: ");
+        
+            try {
+                f = facturasController.obtenerFacturaPorId(id);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("❌ Error al obtener la factura: " + e.getMessage());
+            }
+        
+        } 
+        
+        
+    
+    
+    }
+    
+    
+   
+    // ====================================================================
+    // === Generación de Factura en Texto Plano (Módulo 4 Requerimiento) ===
+    // ====================================================================
+>>>>>>> 1407fbf (diego)
     private static void generarFacturaEnTextoPlano() {
         int id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
         Facturas f = facturasController.obtenerFacturaPorId(id);
