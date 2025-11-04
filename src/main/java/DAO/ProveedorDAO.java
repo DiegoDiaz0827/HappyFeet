@@ -42,6 +42,8 @@ public class ProveedorDAO {
             return false;
         }
     }
+    
+    
 
     public List<Proveedor> listar() {
         List<Proveedor> lista = new ArrayList<>();
@@ -71,6 +73,8 @@ public class ProveedorDAO {
         }
         return lista;
     }
+    
+   
 
     public boolean actualizar(Proveedor proveedor) {
         String sql = "UPDATE proveedores SET nombre_empresa=?, contacto=?, telefono=?, email=?, direccion=?, sitio_web=?, activo=? WHERE id=?";
@@ -109,7 +113,42 @@ public class ProveedorDAO {
             return false;
         }
     }
+    
+    private Proveedor mapearProveedor(ResultSet rs) throws SQLException {
+        // Orden de 9 parámetros: id, nombreEmpresa, contacto, telefono, email, direccion, sitioWeb, activo, fechaRegistro
+        return new Proveedor(
+            rs.getInt("id"),
+            rs.getString("nombre_empresa"),
+            rs.getString("contacto"),
+            rs.getString("telefono"),
+            rs.getString("email"),
+            rs.getString("direccion"),
+            rs.getString("sitio_web"),
+            rs.getBoolean("activo"),
+            rs.getTimestamp("fecha_registro").toLocalDateTime()
+        );
+    }
+
+    public Proveedor obtenerPorId(int id) {
+        String sql = "SELECT * FROM proveedores WHERE id = ?";
+        
+        try (Connection conexion = ConexionDB.conectar();
+             PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapearProveedor(rs); // USAR EL MÉTODO AUXILIAR
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener proveedor por ID: " + e.getMessage());
+        }
+        return null;
+    }
 }
+
 
     
 

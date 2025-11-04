@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ProveedorController {
 
-    private ProveedorDAO proveedorDAO;
+    private final ProveedorDAO proveedorDAO;
 
     public ProveedorController(ProveedorDAO proveedorDAO) {
         this.proveedorDAO = proveedorDAO;
@@ -48,6 +48,7 @@ public class ProveedorController {
             System.out.println("❌ Error al registrar proveedor: " + e.getMessage());
             return false;
         }
+        
     }
 
     // 2️ Listar todos los proveedores
@@ -55,23 +56,21 @@ public class ProveedorController {
         return proveedorDAO.listar();
     }
 
-    // 3️ Buscar proveedor por ID
-    public Proveedor obtenerProveedorPorId(int id) {
-        if (id <= 0) {
-            System.out.println("️ ID inválido.");
-            return null;
-        }
-
-        // No tienes un método específico en el DAO, así que buscamos en la lista
-        List<Proveedor> lista = proveedorDAO.listar();
-        for (Proveedor p : lista) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        System.out.println(" No se encontró el proveedor con ID: " + id);
+   public Proveedor obtenerProveedorPorId(int id) {
+    if (id <= 0) {
+        System.out.println("⚠️ ID de proveedor inválido.");
         return null;
     }
+
+    //  evita cargar toda la lista de proveedores a la memoria solo para buscar uno.
+    Proveedor p = proveedorDAO.obtenerPorId(id);
+    
+    if (p == null) {
+        System.out.println("❌ No se encontró el proveedor con ID: " + id);
+    }
+    
+    return p;
+}
 
     // 4️ Actualizar un proveedor existente
     public boolean actualizarProveedor(Proveedor proveedor) {
@@ -89,6 +88,7 @@ public class ProveedorController {
         return exito;
     }
 
+
     // 5️ Eliminar proveedor
     public boolean eliminarProveedor(int id) {
         if (id <= 0) {
@@ -100,6 +100,7 @@ public class ProveedorController {
         System.out.println(exito ? "🗑️ Proveedor eliminado correctamente." : " No se encontró el proveedor para eliminar.");
         return exito;
     }
+    
 }
     
 

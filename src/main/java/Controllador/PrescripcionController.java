@@ -6,7 +6,6 @@ package Controllador;
 
 import DAO.PrescripcionDAO;
 import Model.Entities.Prescripcion;
-
 import java.time.LocalDateTime;
 import java.util.List;
 /**
@@ -43,6 +42,7 @@ public class PrescripcionController {
             System.out.println("️ La duración debe ser mayor que 0 días.");
             return false;
         }
+        
 
         prescripcion.setFechaPrescripcion(LocalDateTime.now());
 
@@ -64,18 +64,14 @@ public class PrescripcionController {
     // 3️ Obtener una prescripción por ID
     public Prescripcion obtenerPrescripcionPorId(int id) {
         if (id <= 0) {
-            System.out.println(" ID inválido.");
+            System.out.println("⚠️ ID de prescripción inválido.");
             return null;
         }
-
-        List<Prescripcion> lista = prescripcionDAO.listar();
-        for (Prescripcion p : lista) {
-            if (p.getId() == id) {
-                return p;
-            }
+        Prescripcion p = prescripcionDAO.obtenerPorId(id);
+        if (p == null) {
+             System.out.println("❌ No se encontró la prescripción con ID: " + id);
         }
-        System.out.println(" No se encontró la prescripción con ID: " + id);
-        return null;
+        return p;
     }
 
     // 4️ Actualizar una prescripción existente
@@ -105,6 +101,7 @@ public class PrescripcionController {
         System.out.println(exito ? "🗑️ Prescripción eliminada correctamente." : " No se encontró la prescripción para eliminar.");
         return exito;
     }
+
 }
     
 
