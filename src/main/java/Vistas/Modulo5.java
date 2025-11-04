@@ -41,10 +41,9 @@ public class Modulo5 {
 
         // 1. REGISTRAR MIEMBRO DEL CLUB Y ACUMULAR PUNTOS
         System.out.println("\n--- PASO 1: REGISTRO DE MIEMBRO Y ACUMULACIÓN ---");
-        ClubMascotas club1 = new ClubMascotas(0, 101, 0, 0, 0, null, null, null, true); // Dueño ID 101
+        ClubMascotas club1 = new ClubMascotas(0, 101, 0, 0, 0, null, null, null, true); 
         clubController.registrarMembresia(club1);
         
-        // Simular acumulación inicial de puntos por una compra
         clubController.acumularPuntos(club1.getDuenoId(), 500);
         clubController.acumularPuntos(club1.getDuenoId(), 250);
         
@@ -61,19 +60,14 @@ public class Modulo5 {
         beneficioController.registrarBeneficio(b1);
         beneficioController.registrarBeneficio(b2);
 
-        // Listar beneficios activos
         beneficioController.obtenerBeneficiosActivos();
         
-        // 3. SIMULAR PROCESO DE CANJE
         System.out.println("\n--- PASO 3: SIMULACIÓN DE CANJES DE PUNTOS ---");
         
-        // Intento de canje 1: Beneficio 1 (Puntos OK)
         simularCanje(clubActualizado, b1);
         
-        // Intento de canje 2: Beneficio 2 (Falla por Nivel Requerido)
         simularCanje(clubActualizado, b2); 
         
-        // Listar historial de canjes del club
         ClubMascotas clubPostCanje = clubController.buscarMembresiaPorDuenoId(club1.getDuenoId());
         if (clubPostCanje != null) {
             canjeController.obtenerCanjesPorClubId(clubPostCanje.getId());
@@ -83,10 +77,7 @@ public class Modulo5 {
         System.out.println("        MÓDULO 5 FINALIZADO CORRECTAMENTE.       ");
         System.out.println("=================================================");
     }
-    
-    /**
-     * Lógica que envuelve la verificación, registro y actualización del canje.
-     */
+
     private void simularCanje(ClubMascotas club, beneficios_club beneficio) {
         
         System.out.println("\n*** Intentando canjear: " + beneficio.getNombre() + " ***");
@@ -96,7 +87,6 @@ public class Modulo5 {
             int puntosRequeridos = beneficio.getPuntosNecesarios();
             int saldoAnterior = club.getPuntosDisponibles();
             
-            // Lógica de Negocio: Restar puntos en la entidad ClubMascotas
             club.setPuntosDisponibles(saldoAnterior - puntosRequeridos);
             club.setPuntosCanjeados(club.getPuntosCanjeados() + puntosRequeridos);
             
@@ -108,7 +98,8 @@ public class Modulo5 {
                 new Timestamp(System.currentTimeMillis()), 
                 puntosRequeridos, 
                 EstadoCanjees.PENDIENTE, 
-                new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(90)), // Expira en 90 días
+            //esto hace que expire por asi decirlo en 90 dias
+                new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(90)), 
                 null
             );
             canjeController.registrarCanje(canje);
@@ -117,11 +108,11 @@ public class Modulo5 {
             if (clubController.actualizarMembresia(club)) {
                 System.out.println(" Puntos descontados de la membresía. Nuevo saldo: " + club.getPuntosDisponibles());
                 
-                // 3. Marcar el Canje como 'CANJEADO' (simulación de uso inmediato)
+                // 3. Marcar el Canje como 'CANJEADO' 
                 canjeController.actualizarEstadoCanje(canje.getId(), EstadoCanjees.APLICADO, null);
             } else {
                 System.out.println(" ERROR: No se pudieron descontar los puntos. Proceso de canje fallido.");
-                // Debería eliminar el registro de canje si la actualización del club falla (rollback)
+                
                 canjeController.eliminarCanje(canje.getId()); 
             }
             

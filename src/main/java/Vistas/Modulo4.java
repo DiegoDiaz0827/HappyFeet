@@ -50,7 +50,6 @@ public class Modulo4 {
             mostrarMenuPrincipal();
             int opcion = leerEntero("Seleccione una opción: ");
             
-            // CORRECCIÓN CLAVE: Uso de la sintaxis tradicional 'switch' (case X: ... break;)
             switch (opcion) {
                 case 1:
                     menuServicios();
@@ -78,21 +77,14 @@ public class Modulo4 {
         System.out.println("3. Reportes Gerenciales"); 
         System.out.println("0. Volver al menú principal (Salir del Módulo 4)");
     }
-    
-    // --------------------------------------------------------------------------
-    // --- LÓGICA CRUD SERVICIOS (Métodos omitidos por brevedad, asumo que existen) ---
-    // --------------------------------------------------------------------------
-    private static void menuServicios() { /* Implementación aquí */ }
-    private static void registrarServicio() { /* Implementación aquí */ }
-    private static void listarServicios() { /* Implementación aquí */ }
-    private static void obtenerServicio() { /* Implementación aquí */ }
-    private static void actualizarServicio() { /* Implementación aquí */ }
-    private static void eliminarServicio() { /* Implementación aquí */ }
 
+    private static void menuServicios() { }
+    private static void registrarServicio() {}
+    private static void listarServicios() { }
+    private static void obtenerServicio() {}
+    private static void actualizarServicio() {}
+    private static void eliminarServicio() {}
 
-    // --------------------------------------------------------------------------
-    // --- LÓGICA CRUD FACTURAS (Mantenida con la corrección del constructor) ---
-    // --------------------------------------------------------------------------
     private static void menuFacturas() {
         while (true) {
             System.out.println("\n--- Menú de Facturas ---");
@@ -187,11 +179,10 @@ public class Modulo4 {
             int cantidad = leerEntero("Cantidad: ");
             BigDecimal precioUnitario = leerBigDecimal("Precio Unitario: ");
             
-            // CORRECCIÓN DEL CONSTRUCTOR: Se usa el constructor de 9 parámetros con 0 para ID
             BigDecimal subtotalCalculado = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
             
             Items_factura item = new Items_factura(
-                0, // ID (lo asigna el DAO)
+                0, 
                 facturaId, 
                 tipo, 
                 productoId, 
@@ -201,7 +192,7 @@ public class Modulo4 {
                 precioUnitario, 
                 subtotalCalculado
             );
-            // FIN DE CORRECCIÓN
+
             
             itemFacturaController.registrarItemFactura(item);
             
@@ -210,15 +201,12 @@ public class Modulo4 {
         }
     }
     
-    private static void listarFacturas() { /* Implementación aquí */ }
-    private static void obtenerFactura() { /* Implementación aquí */ }
-    private static void listarItemsFactura() { /* Implementación aquí */ }
-    private static void actualizarFactura() { /* Implementación aquí */ }
-    private static void eliminarFactura() { /* Implementación aquí */ }
-    
-    // ====================================================================
-    // === Generación de Factura en Texto Plano (Módulo 4 Requerimiento) ===
-    // ====================================================================
+    private static void listarFacturas() {}
+    private static void obtenerFactura() {}
+    private static void listarItemsFactura() {}
+    private static void actualizarFactura() {}
+    private static void eliminarFactura() {}
+
     private static void generarFacturaEnTextoPlano() {
         int id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
         Facturas f = facturasController.obtenerFacturaPorId(id);
@@ -247,7 +235,7 @@ public class Modulo4 {
         System.out.println("Fecha Emisión: " + f.getFechaEmision().format(FORMATTER));
         System.out.println("-------------------------------------------------------");
         
-        // --- 2. Desglose de Ítems (Servicios y Productos) ---
+        //  2.  Ítems (Servicios y Productos 
         System.out.printf("| %-4s | %-30s | %-10s | %-10s |%n", "Cant", "Descripción", "P. Unitario", "Subtotal");
         System.out.println("|------|--------------------------------|------------|------------|");
         
@@ -280,7 +268,7 @@ public class Modulo4 {
         }
         System.out.println("-------------------------------------------------------");
         
-        // --- 3. Resumen y Totales ---
+        // 3. Resumen y Totales -
         System.out.printf("SUBTOTAL: %54s $%.2f%n", "", f.getSubtotal());
         System.out.printf("IMPUESTO: %54s $%.2f%n", "", f.getImpuesto());
         System.out.printf("DESCUENTO: %53s -$%.2f%n", "", f.getDescuento());
@@ -288,7 +276,7 @@ public class Modulo4 {
         System.out.printf("TOTAL A PAGAR: %49s **$%.2f**%n", "", f.getTotal());
         System.out.println("-------------------------------------------------------");
         
-        // --- 4. Información Adicional ---
+        // 4. Información Adicional 
         System.out.println("Método de Pago: " + (f.getMetodoPago() != null ? f.getMetodoPago().toString() : "N/A"));
         System.out.println("Estado: " + f.getEstado().toString());
         if (f.getObservaciones() != null && !f.getObservaciones().trim().isEmpty()) {
@@ -299,10 +287,7 @@ public class Modulo4 {
         System.out.println("=======================================================\n");
     }
 
-
-    // --------------------------------------------------------------------------
-    // === REPORTES GERENCIALES (Módulo 4 Requerimiento) ===
-    // --------------------------------------------------------------------------
+        // 5. REPORTES
     private static void menuReportes() {
         while (true) {
             System.out.println("\n--- Menú de Reportes Gerenciales ---");
@@ -328,7 +313,6 @@ public class Modulo4 {
         System.out.println("\n--- Reporte: Servicios Más Solicitados ---");
         
         try {
-            // Llama al Controller (que a su vez llama al DAO)
             List<Map<String, Object>> reporte = itemFacturaController.getReporteServiciosMasSolicitados();
             
             if (reporte == null || reporte.isEmpty()) {

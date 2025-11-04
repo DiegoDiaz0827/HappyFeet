@@ -24,7 +24,7 @@ import util.ConexionDB;
  * @author camper
  */
 public class FacturasDAO {
-   private Facturas mapearResultSetAFactura(ResultSet rs) throws SQLException {
+    private Facturas mapearResultSetAFactura(ResultSet rs) throws SQLException {
         LocalDateTime fechaEmision = rs.getTimestamp("fecha_emision") != null ? 
                                      rs.getTimestamp("fecha_emision").toLocalDateTime() : null;
         
@@ -44,7 +44,7 @@ public class FacturasDAO {
             try {
                 estadoFactura = EstadoFacturas.valueOf(estadoTexto.trim().toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println(" Estado de factura desconocido en BD: " + estadoTexto);
+                System.out.println("️ Estado de factura desconocido en BD: " + estadoTexto);
             }
         }
 
@@ -52,7 +52,7 @@ public class FacturasDAO {
             rs.getInt("id"),
             rs.getInt("dueno_id"),
             rs.getString("numero_factura"),
-            fechaEmision, // <-- Colocado aquí, asumiendo el constructor de 11 campos
+            fechaEmision,
             rs.getBigDecimal("subtotal"),
             rs.getBigDecimal("impuesto"),
             rs.getBigDecimal("descuento"),
@@ -63,8 +63,8 @@ public class FacturasDAO {
         );
     }
     
-    // 1. CREATE 
-    public void agregar(Facturas f){
+    // 1. CREATE - CORREGIDO PARA DEVOLVER BOOLEAN
+    public boolean agregar(Facturas f){
         String SQL = "INSERT INTO facturas(dueno_id, numero_factura, fecha_emision, subtotal, impuesto, descuento, total, metodo_pago, estado, observaciones) VALUES (?,?,?,?,?,?,?,?,?,?)";
         
         try(Connection con = ConexionDB.conectar();
@@ -77,8 +77,8 @@ public class FacturasDAO {
             ps.setBigDecimal(5, f.getImpuesto());
             ps.setBigDecimal(6, f.getDescuento());
             ps.setBigDecimal(7, f.getTotal());
-            ps.setString(8, f.getMetodoPago().name()); 
-            ps.setString(9, f.getEstado().name());      
+            ps.setString(8, f.getMetodoPago() != null ? f.getMetodoPago().name() : null); 
+            ps.setString(9, f.getEstado() != null ? f.getEstado().name() : null);     
             ps.setString(10, f.getObservaciones());
             
             int filas = ps.executeUpdate();
@@ -87,7 +87,7 @@ public class FacturasDAO {
                 if(rs.next()){
                     int idGenerado = rs.getInt(1);
                     f.setId(idGenerado);
-                    if (f.getFechaEmision() == null) {
+                    if (f.getFechaEmision() == null) { 
                         f.setFechaEmision(LocalDateTime.now()); 
                     }
                     System.out.println("Factura insertada con ID = " + idGenerado);
@@ -95,15 +95,16 @@ public class FacturasDAO {
             }
             
             System.out.println("Factura agregada, filas afectadas: " + filas);
+            return filas > 0; // Devolvemos true si se afectó al menos una fila
         
         }catch(SQLException ex){
-            System.out.println("Error SQL al agregar factura: " + ex.getMessage());
+            System.out.println(" Error SQL al agregar factura: " + ex.getMessage());
             ex.printStackTrace();
-        
+            return false; 
         }
     }
     
-    // 2. READ 
+    // 2. READ (Listar todos)
     public List<Facturas> listar(){
         List<Facturas> lista = new ArrayList<>();
         String SQL = "SELECT * FROM facturas";
@@ -118,13 +119,13 @@ public class FacturasDAO {
             }
             
         } catch (SQLException e) {
-            System.out.println("Error SQL al listar facturas: " + e.getMessage());
+            System.out.println(" Error SQL al listar facturas: " + e.getMessage());
             e.printStackTrace();
         }
         return lista;
     }
 
-    // 3. READ 
+    // 3. READ (Obtener por ID)
     public Facturas obtenerPorId(int id) {
         String sql = "SELECT * FROM facturas WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -138,7 +139,7 @@ public class FacturasDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error SQL al obtener factura por ID: " + e.getMessage());
+            System.out.println(" Error SQL al obtener factura por ID: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -158,8 +159,8 @@ public class FacturasDAO {
             ps.setBigDecimal(5, f.getImpuesto());
             ps.setBigDecimal(6, f.getDescuento());
             ps.setBigDecimal(7, f.getTotal());
-            ps.setString(8, f.getMetodoPago().name());
-            ps.setString(9, f.getEstado().name());
+            ps.setString(8, f.getMetodoPago() != null ? f.getMetodoPago().name() : null);
+            ps.setString(9, f.getEstado() != null ? f.getEstado().name() : null);
             ps.setString(10, f.getObservaciones());
             ps.setInt(11, f.getId()); 
             
@@ -167,7 +168,7 @@ public class FacturasDAO {
             return filasAfectadas > 0;
 
         } catch (SQLException e) {
-            System.out.println("Error SQL al actualizar factura: " + e.getMessage());
+            System.out.println(" Error SQL al actualizar factura: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -184,7 +185,7 @@ public class FacturasDAO {
             return filasAfectadas > 0;
 
         } catch (SQLException e) {
-            System.out.println("Error SQL al eliminar factura: " + e.getMessage());
+            System.out.println(" Error SQL al eliminar factura: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -215,7 +216,7 @@ public class FacturasDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error SQL al generar reporte de facturación por período: " + e.getMessage());
+            System.out.println(" Error SQL al generar reporte de facturación por período: " + e.getMessage());
             e.printStackTrace();
         }
         return reporte;
