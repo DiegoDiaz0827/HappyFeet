@@ -210,6 +210,34 @@ public class MascotasDAO {
         return lista;
     }
     
+     public Mascotas obtenerprocedimiento(int id) {
+        String sql = "SELECT m.*, p.nombre_procedimiento as nombrepro FROM mascotas m JOIN procedimientos_especiales p ON m.id = p.mascota_id  WHERE p.mascota_id = ?";
+        try (Connection conn = ConexionDB.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Mascotas(
+                   
+                   
+                    rs.getString("nombre"),
+                    rs.getString("nombrepro"),
+                    rs.getDouble("peso_actual"),
+                    rs.getString("alergias"),
+                    rs.getString("condiciones_preexistentes"));
+                    
+                    
+                          
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL al obtener mascota: " + e.getMessage());
+        }
+        return null;
+    }
+    
     
     
     

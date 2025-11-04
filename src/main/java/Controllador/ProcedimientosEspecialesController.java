@@ -83,19 +83,19 @@ public class ProcedimientosEspecialesController {
     }
 
     // 🔹 Listar todos los procedimientos
-    public List<ProcedimientosEspeciales> listarProcedimientos() {
+    public List<ProcedimientosEspeciales> listarProcedimientos() throws IllegalArgumentException{
         return dao.listar();
     }
 
     // 🔹 Obtener un procedimiento por ID
     public ProcedimientosEspeciales obtenerPorId(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido.");
-            return null;
+            throw new IllegalArgumentException("⚠️ ID inválido.");
+            
         }
         ProcedimientosEspeciales p = dao.obtenerPorId(id);
         if (p == null) {
-            System.out.println("⚠️ No se encontró el procedimiento con ID " + id);
+             throw new IllegalArgumentException("⚠️ No se encontró el procedimiento con ID " + id);
         }
         return p;
     }

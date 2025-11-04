@@ -356,6 +356,7 @@ public class Modulo2 {
             System.out.println("2. Listar consultas");
             System.out.println("3. Actualizar consulta");
             System.out.println("4. Eliminar consulta");
+            System.out.println("5. ver consulta");
             System.out.println("0. Volver");
             int op = leerEntero("Seleccione una opción: ");
             switch (op) {
@@ -363,6 +364,7 @@ public class Modulo2 {
                 case 2 -> listarConsultas();
                 case 3 -> actualizarConsulta();
                 case 4 -> eliminarConsulta();
+                 case 5 -> verporid();
                 case 0 -> { return; }
                 default -> System.out.println("Opción inválida");
             }
@@ -394,6 +396,25 @@ public class Modulo2 {
         
         }
     }
+    
+    private static void verporid(){
+    ConsultasMedicas ce = null;
+    
+    while(true){
+    
+    int id = leerEntero("ingrse el id de la consulta a buscar: ");
+        try {
+           ce = consultaController.verConsulta(id);
+           break;
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Error al ver cita: " + e.getMessage());
+        }
+    }
+    
+       System.out.println("ID: " + ce.getId() + " | Mascota: " + ce.getMascotaId() + " | Diagnóstico: " + ce.getDiagnostico());
+    
+    }
+    
 
     private static void listarConsultas() {
         System.out.println("\n--- Consultas Médicas ---");
@@ -463,6 +484,7 @@ public class Modulo2 {
             System.out.println("2. Listar procedimientos");
             System.out.println("3. Actualizar procedimiento");
             System.out.println("4. Eliminar procedimiento");
+            System.out.println("5. ver procedimiento");
             System.out.println("0. Volver");
             int op = leerEntero("Seleccione una opción: ");
             switch (op) {
@@ -470,6 +492,7 @@ public class Modulo2 {
                 case 2 -> listarProcedimientos();
                 case 3 -> actualizarProcedimiento();
                 case 4 -> eliminarProcedimiento();
+                case 5 -> verprocidiemiento();
                 case 0 -> { return; }
                 default -> System.out.println("Opción inválida");
             }
@@ -525,6 +548,26 @@ public class Modulo2 {
         for (ProcedimientosEspeciales p : procedimientos) {
             System.out.println("ID: " + p.getId() + " | mascota ID: " + p.getMascotaId()+ " | Tipo: " + p.getTipoProcedimiento());
         }
+    }
+    
+    
+    
+    private static void verprocidiemiento(){
+     ProcedimientosEspeciales pe = null;
+    
+    while(true){
+    
+    int id = leerEntero("ingrse el id del procedimiento a buscar: ");
+        try {
+           pe = procedimientoController.obtenerPorId(id);
+           break;
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Error al ver procedimiento: " + e.getMessage());
+        }
+    }
+    
+       System.out.println("ID: " + pe.getId() + " | mascota ID: " + pe.getMascotaId()+ " | Tipo: " + pe.getTipoProcedimiento());
+        
     }
 
     private static void actualizarProcedimiento() {

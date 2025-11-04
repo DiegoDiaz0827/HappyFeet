@@ -85,8 +85,14 @@ public class MascotaController {
         return mascotaDAO.eliminar(id);
     }
 
-    public Mascotas verMascota(int id) {
-        if (id <= 0) return null;
+    public Mascotas verMascota(int id) throws IllegalArgumentException {
+       
+        
+        
+        Mascotas m = mascotaDAO.obtenerPorId(id);
+        if(m == null){
+        throw new IllegalArgumentException("no se encontro la mascota");
+        }
         return mascotaDAO.obtenerPorId(id);
     }
 
@@ -95,5 +101,11 @@ public class MascotaController {
     }
     
     
-    
+     public Mascotas verhistorial(int id)throws IllegalArgumentException {
+        Mascotas m = mascotaDAO.obtenerprocedimiento(id);
+        if(m == null){
+        throw new IllegalArgumentException("no se encontro la mascota");
+        }
+        return mascotaDAO.obtenerprocedimiento(id);
+    }
 }

@@ -105,11 +105,17 @@ public class ConsultacitasController {
     }
 
     // 🔹 Ver consulta por ID
-    public ConsultasMedicas verConsulta(int id) {
+    public ConsultasMedicas verConsulta(int id) throws IllegalArgumentException {
         if (id <= 0) {
             System.out.println("Error: ID inválido.");
             return null;
         }
+        
+        ConsultasMedicas ce = consultasDAO.obtenerPorId(id);
+        if(ce == null){
+        throw new IllegalArgumentException("no existe consulta por ese id");
+        }
+        
         return consultasDAO.obtenerPorId(id);
     }
 

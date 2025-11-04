@@ -51,6 +51,7 @@ public class Modulo1 {
                 case 8 -> actualizarDueño();
                 case 9 -> eliminarDueño();
                 case 10 -> eliminarMascota();
+                case 11 -> verhistorial();
                 case 0 -> {
                     System.out.println("Saliendo del sistema...");
                     return;
@@ -72,6 +73,7 @@ public class Modulo1 {
         System.out.println("8. Actualizar Dueño");
         System.out.println("9. Eliminar dueño");
         System.out.println("10. Eliminar mascota");
+        System.out.println("11. ver historial");
         System.out.println("0. Salir");
     }
 
@@ -170,13 +172,43 @@ public class Modulo1 {
     }
 
     private static void verMascota() {
-        int id = leerEntero("Ingrese ID de la mascota: ");
-        Mascotas m = mascotaController.verMascota(id);
+         Mascotas m =  null;
+        while(true){int id = leerEntero("Ingrese ID de la mascota: ");
+       
+            try {
+                 m = mascotaController.verMascota(id);
+                System.out.println("encontrada correctamente");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("⚠️ Error: " + e.getMessage());
+            }
+        }
         
         System.out.println("ID: " + m.getId() + "\nNombre: " + m.getNombre() + "\nDueño ID: " + m.getNombredueño()+
                 "\nRaza ID: " + m.getNombreraza()+ "\nPeso: " + m.getPesoActual() + "\nSexo: " + m.getSexo() +
                 "\nMicrochip: " + m.getMicrochip() + "\nAlergias: " + m.getAlergias());
     }
+    
+    
+    private static void verhistorial() {
+         Mascotas m =  null;
+        while(true){int id = leerEntero("Ingrese ID de la mascota: ");
+       
+            try {
+                 m = mascotaController.verhistorial(id);
+                System.out.println("encontrada correctamente");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("⚠️ Error: " + e.getMessage());
+            }
+        }
+        
+        System.out.println("nombre: " + m.getNombre()+  "\nprocediemientos: " + m.getnombrepro()+
+                 "\nPeso: " + m.getPesoActual() + "\nAlergias: " + m.getAlergias()+ "\ncondiciones: "+m.getCondicionesPreexistentes());
+    }
+    
+    
+    
 
     private static void transferirMascota() {
        while(true){ int idMascota = leerEntero("Ingrese ID de la mascota a transferir: ");

@@ -31,6 +31,7 @@ public class Mascotas {
     private String condicionesPreexistentes;
     private LocalDateTime fechaRegistro;
     private boolean activo;
+    private String nombreprocedimeinto;
 
     // Constructor con todos los atributos
     public Mascotas(int pId, int pDuenoId, String pNombre,String pNombreraza,String pNombredueño, int pRazaId,
@@ -77,6 +78,22 @@ public class Mascotas {
         condicionesPreexistentes = pCondicionesPreexistentes;
         activo = pActivo;
     }
+    
+    public Mascotas( String pNombre, String pNombrepro, double pPesoActual,String pAlergias, String pCondicionesPreexistentes){
+                     
+
+        nombreprocedimeinto = pNombrepro;
+        nombre = pNombre;
+        
+        
+        
+        pesoActual = pPesoActual;
+        
+        
+       
+        alergias = pAlergias;
+        condicionesPreexistentes = pCondicionesPreexistentes;
+    }
 
     public Mascotas() {
     }
@@ -86,6 +103,10 @@ public class Mascotas {
         return id;
     }
 
+    public String getnombrepro(){
+    return nombreprocedimeinto;
+    }
+    
     public int getDuenoId() {
         return duenoId;
     }
