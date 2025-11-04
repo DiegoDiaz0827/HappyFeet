@@ -182,10 +182,10 @@ public class Item_FacturasDAO {
     //  6.REPORTE: Servicios Más Solicitados 
     public List<Map<String, Object>> getReporteServiciosMasSolicitados() {
         List<Map<String, Object>> reporte = new ArrayList<>();
-        String SQL = "SELECT s.nombre AS nombre_servicio, SUM(if.cantidad) AS total_vendido " +
-                     "FROM items_factura if " +
-                     "JOIN servicios s ON if.servicio_id = s.id " +
-                     "WHERE if.tipo_item = 'SERVICIO' " + 
+        String SQL = "SELECT s.nombre AS nombre_servicio, SUM(i.cantidad) AS total_vendido " +
+                     "FROM items_factura i " +
+                     "JOIN servicios s ON i.servicio_id = s.id " +
+                     "WHERE i.tipo_item = 'SERVICIO' " + 
                      "GROUP BY s.nombre " +
                      "ORDER BY total_vendido DESC " +
                      "LIMIT 10"; 
