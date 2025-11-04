@@ -4,6 +4,8 @@
  */
 package Vistas;
 
+import Controllador.DueñosController;
+import Controllador.InventarioController;
 import Controllador.facturasController;
 import Controllador.item_facturaController;
 import Controllador.serviciosController;
@@ -11,14 +13,21 @@ import DAO.DueñoDAO;
 import DAO.FacturasDAO; 
 import DAO.Item_FacturasDAO;
 import DAO.ServiciosDAO;
+import Model.Entities.Dueños;
 import Model.Entities.Facturas;
+import Model.Entities.Inventario;
 import Model.Entities.Items_factura;
 import Model.Entities.Servicios;
 import Model.Enums.EstadoFacturas;
 import Model.Enums.MetodoPago;
 import Model.Enums.itemsFactura;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map; 
@@ -32,6 +41,8 @@ public class Modulo4 {
   private static facturasController facturasController;
     private static serviciosController serviciosController;
     private static item_facturaController itemFacturaController;
+    private static DueñosController duenocontroller;
+    private static InventarioController inventariocontroller;
     // Corregido a 'scanner' para claridad.
     private static Scanner scanner = new Scanner(System.in); 
     
@@ -287,13 +298,35 @@ public class Modulo4 {
             } catch (IllegalArgumentException e) {
                 System.out.println("❌ Error al obtener la factura: " + e.getMessage());
             }
+        }
         
+            int dueñoid = leerEntero("Dueño id :");
+            f.setDuenoId(dueñoid);
+            String numerofac = leerTexto("Nuevo numero factura:");
+            LocalDateTime fechaemision = leerFechaHora("nueva fecha:");
+            f.setFechaEmision(fechaemision);
+            BigDecimal subtotal = leerBigDecimal("subtotal");
+            f.setSubtotal(subtotal);
+            BigDecimal impuesto = leerBigDecimal("impuesto:");
+            f.setImpuesto(impuesto);
+            BigDecimal descuento = leerBigDecimal("total");
+            f.setDescuento(descuento);
+            String metodoPago = leerTexto("Método de pago (EFECTIVO, TARJETA, TRANSFERENCIA): ");
+            f.setMetodoPago(MetodoPago.valueOf(metodoPago.toUpperCase()));
+         
+            
+         try {
+            facturasController.actualizarFactura(f);
+        } catch (Exception e) {
+        }
+   
+            
         } 
         
         
     
     
-    }
+    
     
     
    
@@ -301,85 +334,109 @@ public class Modulo4 {
     // === Generación de Factura en Texto Plano (Módulo 4 Requerimiento) ===
     // ====================================================================
 
-    private static void generarFacturaEnTextoPlano() {
-        int id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
-        Facturas f = facturasController.obtenerFacturaPorId(id);
-        
-        if (f == null) {
-            System.out.println("Factura con ID " + id + " no encontrada.");
-            return;
-        }
-        
-        List<Items_factura> items = itemFacturaController.listarItemsPorFactura(id);
-        
-        System.out.println("\n=======================================================");
-        System.out.println("         FACTURA DE VENTA - VETERINARIA VITAL          ");
-        System.out.println("=======================================================");
-        
-        // --- 1. Datos de la Clínica y Cliente ---
-        System.out.println("Clínica: Veterinaria Vital");
-        System.out.println("Dirección: Calle Ficticia #123");
-        System.out.println("Teléfono: (555) 123-4567");
-        System.out.println("-------------------------------------------------------");
-        
-        String nombreDueno = "Cliente ID: " + f.getDuenoId() + " (PENDIENTE OBTENER NOMBRE)"; 
-        
-        System.out.println("Cliente: " + nombreDueno);
-        System.out.println("Factura No.: " + f.getNumeroFactura());
-        System.out.println("Fecha Emisión: " + f.getFechaEmision().format(FORMATTER));
-        System.out.println("-------------------------------------------------------");
-        
-        //  2.  Ítems (Servicios y Productos 
-        System.out.printf("| %-4s | %-30s | %-10s | %-10s |%n", "Cant", "Descripción", "P. Unitario", "Subtotal");
-        System.out.println("|------|--------------------------------|------------|------------|");
-        
-        if (items.isEmpty()) {
-            System.out.println("| ** NO HAY ÍTEMS REGISTRADOS PARA ESTA FACTURA **");
-        } else {
-            for (Items_factura item : items) {
-                String descripcionItem;
-                
-                if (item.getTipoItem() == itemsFactura.PRODUCTO) {
-                    descripcionItem = "P: [ID " + item.getProductoId() + "] (NOMBRE PROD PENDIENTE)"; 
-                } else if (item.getTipoItem() == itemsFactura.SERVICIO) {
-                    if (item.getServicioId() != null) {
-                        descripcionItem = "S: [ID " + item.getServicioId() + "] (NOMBRE SERV PENDIENTE)";
-                    } else {
-                        descripcionItem = "S: " + item.getServicioDescripcion(); 
-                    }
-                } else {
-                    descripcionItem = "Item Desconocido";
-                }
-                
-                String descCorta = descripcionItem.length() > 30 ? descripcionItem.substring(0, 27) + "..." : descripcionItem;
-                
-                System.out.printf("| %-4d | %-30s | $%-9.2f | $%-9.2f |%n", 
-                                  item.getCantidad(), 
-                                  descCorta, 
-                                  item.getPrecioUnitario(), 
-                                  item.getSubtotal());
-            }
-        }
-        System.out.println("-------------------------------------------------------");
-        
-        // 3. Resumen y Totales -
-        System.out.printf("SUBTOTAL: %54s $%.2f%n", "", f.getSubtotal());
-        System.out.printf("IMPUESTO: %54s $%.2f%n", "", f.getImpuesto());
-        System.out.printf("DESCUENTO: %53s -$%.2f%n", "", f.getDescuento());
-        System.out.println("-------------------------------------------------------");
-        System.out.printf("TOTAL A PAGAR: %49s **$%.2f**%n", "", f.getTotal());
-        System.out.println("-------------------------------------------------------");
-        
-        // 4. Información Adicional 
-        System.out.println("Método de Pago: " + (f.getMetodoPago() != null ? f.getMetodoPago().toString() : "N/A"));
-        System.out.println("Estado: " + f.getEstado().toString());
-        if (f.getObservaciones() != null && !f.getObservaciones().trim().isEmpty()) {
-            System.out.println("Observaciones: " + f.getObservaciones());
-        }
-        System.out.println("=======================================================");
-        System.out.println("             ¡Gracias por su visita!             ");
-        System.out.println("=======================================================\n");
+ private static void generarFacturaEnTextoPlano() {
+    int id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
+    Facturas f = facturasController.obtenerFacturaPorId(id);
+
+    if (f == null) {
+        System.out.println("❌ Factura con ID " + id + " no encontrada.");
+        return;
     }
+
+    // Obtener nombre del dueño
+     Dueños d = duenocontroller.buscarDuenoPorId(f.getDuenoId());
+    String nombreDueno = (d != null) ? d.getNombreCompleto(): "Desconocido";
+
+    // Obtener ítems
+    List<Items_factura> items = itemFacturaController.listarItemsPorFactura(id);
+
+    // Armar el contenido en un StringBuilder
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("\n=======================================================\n");
+    sb.append("         FACTURA DE VENTA - VETERINARIA VITAL          \n");
+    sb.append("=======================================================\n");
+
+    sb.append("Clínica: Veterinaria Vital\n");
+    sb.append("Dirección: Calle Ficticia #123\n");
+    sb.append("Teléfono: (555) 123-4567\n");
+    sb.append("-------------------------------------------------------\n");
+
+    sb.append("Cliente: ").append(nombreDueno)
+      .append(" (ID: ").append(f.getDuenoId()).append(")\n");
+    sb.append("Factura No.: ").append(f.getNumeroFactura()).append("\n");
+    sb.append("Fecha Emisión: ").append(f.getFechaEmision().format(FORMATTER)).append("\n");
+    sb.append("-------------------------------------------------------\n");
+
+    sb.append(String.format("| %-4s | %-30s | %-10s | %-10s |\n", "Cant", "Descripción", "P.Unitario", "Subtotal"));
+    sb.append("|------|--------------------------------|------------|------------|\n");
+
+    if (items.isEmpty()) {
+        sb.append("| ** NO HAY ÍTEMS REGISTRADOS PARA ESTA FACTURA **\n");
+    } else {
+        for (Items_factura item : items) {
+            String descripcionItem;
+
+            if (item.getTipoItem() == itemsFactura.PRODUCTO) {
+                Inventario i = inventariocontroller.(item.getProductoId());
+                descripcionItem = (i != null)
+                        ? "Producto: " + i.getNombre()
+                        : "Producto ID " + item.getProductoId();
+            } 
+             else {
+                descripcionItem = "Item Desconocido";
+            }
+
+            String descCorta = descripcionItem.length() > 30
+                    ? descripcionItem.substring(0, 27) + "..."
+                    : descripcionItem;
+
+            sb.append(String.format("| %-4d | %-30s | $%-9.2f | $%-9.2f |\n",
+                    item.getCantidad(),
+                    descCorta,
+                    item.getPrecioUnitario(),
+                    item.getSubtotal()));
+        }
+    }
+
+    sb.append("-------------------------------------------------------\n");
+    sb.append(String.format("SUBTOTAL: %54s $%.2f%n", "", f.getSubtotal()));
+    sb.append(String.format("IMPUESTO: %54s $%.2f%n", "", f.getImpuesto()));
+    sb.append(String.format("DESCUENTO: %53s -$%.2f%n", "", f.getDescuento()));
+    sb.append("-------------------------------------------------------\n");
+    sb.append(String.format("TOTAL A PAGAR: %49s **$%.2f**%n", "", f.getTotal()));
+    sb.append("-------------------------------------------------------\n");
+
+    sb.append("Método de Pago: ")
+      .append(f.getMetodoPago() != null ? f.getMetodoPago() : "N/A").append("\n");
+    sb.append("Estado: ")
+      .append(f.getEstado() != null ? f.getEstado() : "N/A").append("\n");
+
+    if (f.getObservaciones() != null && !f.getObservaciones().trim().isEmpty()) {
+        sb.append("Observaciones: ").append(f.getObservaciones()).append("\n");
+    }
+
+    sb.append("=======================================================\n");
+    sb.append("             ¡Gracias por su visita!             \n");
+    sb.append("=======================================================\n\n");
+
+    // Mostrar factura por consola
+    System.out.println(sb.toString());
+
+    // Preguntar si desea guardar
+    String opcion = leerTexto("¿Desea guardar la factura en un archivo .txt? (S/N): ");
+    if (opcion.equalsIgnoreCase("S")) {
+        try {
+            File archivo = new File("factura_" + f.getNumeroFactura() + ".txt");
+            try (FileWriter fw = new FileWriter(archivo)) {
+                fw.write(sb.toString());
+            }
+            System.out.println("✅ Factura guardada como: " + archivo.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("❌ Error al guardar la factura: " + e.getMessage());
+        }
+    }
+}
 
         // 5. REPORTES
     private static void menuReportes() {
@@ -456,10 +513,18 @@ public class Modulo4 {
         }
     }
 
-    private static String leerTexto(String mensaje) {
+     private static String leerTexto(String mensaje) {
+    String texto;
+    do {
         System.out.print(mensaje);
-        return scanner.nextLine();
-    }
+        texto = scanner.nextLine().trim(); // trim() elimina espacios al inicio y final
+        if (texto.isEmpty()) {
+            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+        }
+    } while (texto.isEmpty());
+    return texto;
+}
+
 
     private static String leerTextoOpcional(String mensaje) {
         System.out.print(mensaje);
@@ -488,6 +553,29 @@ public class Modulo4 {
         return BigDecimal.valueOf(valor);
     }
     
+     public static LocalDateTime leerFechaHora(String mensaje) {
+         String fechaStr;
+         String horaStr;
+        do{System.out.println(mensaje);
+        System.out.print("Fecha (YYYY-MM-DD): ");
+        fechaStr = scanner.nextLine();
+         if (fechaStr.isEmpty()) {
+            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+        }
+        }while(fechaStr.isEmpty());
+        
+        do{System.out.print("Hora (HH:MM): ");
+        horaStr = scanner.nextLine();
+         if (horaStr.isEmpty()) {
+            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+        }}while( horaStr.isEmpty());
+
+        LocalDate fecha = LocalDate.parse(fechaStr);
+        LocalTime hora = LocalTime.parse(horaStr);
+
+        return LocalDateTime.of(fecha, hora);
+        
+    }
 
 }
 
