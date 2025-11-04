@@ -13,11 +13,14 @@
     </properties>
     
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-     <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.33</version>
-    </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
     </dependencies>
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> 819cf752bc32864d3a93441bd592a9491d97f6d1
