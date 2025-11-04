@@ -378,9 +378,9 @@ public class Modulo4 {
             String descripcionItem;
 
             if (item.getTipoItem() == itemsFactura.PRODUCTO) {
-                Inventario i = inventariocontroller.(item.getProductoId());
-                descripcionItem = (i != null)
-                        ? "Producto: " + i.getNombre()
+                Inventario i = productoController.obtenerPorId(item.getProductoId());
+                descripcionItem = (1 != null)
+                        ? "Producto: " + .getNombre()
                         : "Producto ID " + item.getProductoId();
             } 
              else {
