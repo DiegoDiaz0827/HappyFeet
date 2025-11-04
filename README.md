@@ -83,15 +83,15 @@ IDE recomendado: IntelliJ IDEA / VS Code / Netbeans
 
 Clonar el repositorio:
 
-git clone https://github.com/usuario/HappyFeet_Veterinaria.git
-cd HappyFeet_Veterinaria
+git clone https://github.com/DiegoDiaz0827/HappyFeet.git
+cd Happyfeet
 
 Configurar la base de datos:
 Crear una base de datos en MySQL:
-CREATE DATABASE happy_feet_veterinaria;
+CREATE DATABASE happyfeet;
 Editar el archivo de configuración (por ejemplo: /src/main/resources/db.properties):
 
-db.url=jdbc:mysql://localhost:3306/happy_feet_veterinaria
+db.url=jdbc:mysql://localhost:3306/happyfeet
 db.user=root
 db.password=tu_contraseña
 
@@ -99,8 +99,8 @@ db.password=tu_contraseña
 Ejecutar los scripts SQL:
 En el orden:
 
-mysql -u root -p happy_feet_veterinaria < database/schema.sql
-mysql -u root -p happy_feet_veterinaria < database/data.sql
+mysql -u root -p happyfeet< database/schema.sql
+mysql -u root -p happyfeet < database/data.sql
 
 
 Compilar y ejecutar el proyecto:
