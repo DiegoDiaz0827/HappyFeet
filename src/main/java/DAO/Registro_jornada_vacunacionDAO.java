@@ -180,4 +180,23 @@ public class Registro_jornada_vacunacionDAO {
             return false;
         }
     }
+    
+    public int obtenerConteoPorJornada(int jornadaId) {
+    String sql = "SELECT COUNT(id) FROM registro_jornada_vacunacion WHERE jornada_id = ?";
+    int conteo = 0;
+    try (Connection conn = ConexionDB.conectar();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setInt(1, jornadaId);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                conteo = rs.getInt(1);
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error SQL al contar registros de vacunación: " + e.getMessage());
+        e.printStackTrace();
+    }
+    return conteo;
+}
 }

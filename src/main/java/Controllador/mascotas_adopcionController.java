@@ -26,15 +26,15 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
     public boolean registrarMascotaAdopcion(mascotas_adopcion mascotaAdopcion) {
         
         if (mascotaAdopcion.getMascotaId() <= 0) {
-            System.out.println("⚠️ ID de mascota inválido. Debe estar asociado a una mascota existente.");
+            System.out.println("️ ID de mascota inválido. Debe estar asociado a una mascota existente.");
             return false;
         }
         if (mascotaAdopcion.getFechaIngreso() == null || mascotaAdopcion.getFechaIngreso().after(new Date())) {
-            System.out.println("⚠️ La fecha de ingreso es obligatoria y no puede ser futura.");
+            System.out.println("️ La fecha de ingreso es obligatoria y no puede ser futura.");
             return false;
         }
         if (mascotaAdopcion.getMotivoIngreso() == null || mascotaAdopcion.getMotivoIngreso().isBlank()) {
-            System.out.println("⚠️ El motivo de ingreso al sistema de adopción es obligatorio.");
+            System.out.println("⚠ El motivo de ingreso al sistema de adopción es obligatorio.");
             return false;
         }
         
@@ -47,10 +47,10 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
 
         try {
             mascotasAdopcionDAO.agregar(mascotaAdopcion);
-            System.out.println("✅ Mascota registrada para adopción correctamente con ID: " + mascotaAdopcion.getId());
+            System.out.println(" Mascota registrada para adopción correctamente con ID: " + mascotaAdopcion.getId());
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar mascota para adopción: " + e.getMessage());
+            System.out.println(" Error al registrar mascota para adopción: " + e.getMessage());
             return false;
         }
     }
@@ -64,7 +64,7 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
    
     public mascotas_adopcion obtenerMascotaAdopcionPorId(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido para la búsqueda.");
+            System.out.println(" ID inválido para la búsqueda.");
             return null;
         }
         mascotas_adopcion mascota = mascotasAdopcionDAO.obtenerPorId(id);
@@ -78,20 +78,20 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
    
     public boolean actualizarMascotaAdopcion(mascotas_adopcion mascotaAdopcion) {
         if (mascotaAdopcion.getId() <= 0) {
-            System.out.println("⚠️ El registro debe tener un ID válido para ser actualizado.");
+            System.out.println(" El registro debe tener un ID válido para ser actualizado.");
             return false;
         }
         if (mascotaAdopcion.getMascotaId() <= 0) {
-             System.out.println("⚠️ El ID de mascota no puede ser inválido al actualizar.");
+             System.out.println(" El ID de mascota no puede ser inválido al actualizar.");
              return false;
         }
         if (mascotaAdopcion.getEstado() == null) {
-             System.out.println("⚠️ El estado de adopción es obligatorio.");
+             System.out.println("El estado de adopción es obligatorio.");
              return false;
         }
 
         boolean exito = mascotasAdopcionDAO.actualizar(mascotaAdopcion);
-        System.out.println(exito ? "✅ Registro de Adopción actualizado correctamente." : "❌ No se pudo actualizar el registro (ID no encontrado o error en DAO).");
+        System.out.println(exito ? "Registro de Adopción actualizado correctamente." : "No se pudo actualizar el registro (ID no encontrado o error en DAO).");
         return exito;
     }
 
@@ -99,12 +99,12 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
  
     public boolean eliminarMascotaAdopcion(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID de registro de adopción inválido.");
+            System.out.println("⚠ID de registro de adopción inválido.");
             return false;
         }
 
         boolean exito = mascotasAdopcionDAO.eliminar(id);
-        System.out.println(exito ? "🗑️ Registro de Adopción eliminado correctamente." : "❌ No se encontró el registro con ese ID para eliminar.");
+        System.out.println(exito ? "🗑️ Registro de Adopción eliminado correctamente." : " No se encontró el registro con ese ID para eliminar.");
         return exito;
     }
     
@@ -113,16 +113,16 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
         mascotas_adopcion mascotaAdopcion = obtenerMascotaAdopcionPorId(id);
         
         if (mascotaAdopcion == null) {
-            System.out.println("❌ No se encontró el registro para marcar como adoptado.");
+            System.out.println(" No se encontró el registro para marcar como adoptado.");
             return false;
         }
         
         if (mascotaAdopcion.getEstado() == EstadoAdopcion.DISPONIBLE) {
             mascotaAdopcion.setEstado(EstadoAdopcion.ADOPTADA);
-            System.out.println("✨ Mascota marcada como ADOPTADA. ¡Felicidades!");
+            System.out.println(" Mascota marcada como ADOPTADA. ¡Felicidades!");
             return actualizarMascotaAdopcion(mascotaAdopcion);
         } else {
-            System.out.println("⚠️ El estado actual es " + mascotaAdopcion.getEstado().name() + ". Solo se puede marcar como ADOPTADA si está DISPONIBLE.");
+            System.out.println("El estado actual es " + mascotaAdopcion.getEstado().name() + ". Solo se puede marcar como ADOPTADA si está DISPONIBLE.");
             return false;
         }
     }

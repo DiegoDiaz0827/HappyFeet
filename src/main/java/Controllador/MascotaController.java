@@ -17,8 +17,8 @@ import java.util.List;
 public class MascotaController {
     
     private MascotasDAO mascotaDAO;
-    private DueñoDAO duenoDAO;   // Para validar dueño
-    private RazasDAO razaDAO;     // Para validar raza
+    private DueñoDAO duenoDAO;   
+    private RazasDAO razaDAO;     
 
     public MascotaController(MascotasDAO mascotaDAO, DueñoDAO duenoDAO, RazasDAO razaDAO) {
         this.mascotaDAO = mascotaDAO;
@@ -26,7 +26,6 @@ public class MascotaController {
         this.razaDAO = razaDAO;
     }
 
-    // 🔹 Registrar mascota con validación de FK
     public boolean registrarMascota(Mascotas m) throws IllegalArgumentException{
        
         if (m.getDuenoId() <= 0 || duenoDAO.obtenerPorId(m.getDuenoId()) == null) {
@@ -38,13 +37,10 @@ public class MascotaController {
             
         }
         
-        
-        // Otras validaciones opcionales
         mascotaDAO.insertar(m);
         return true;
     }
 
-    // 🔹 Actualizar mascota con validación de FK
     public boolean actualizarMascota(Mascotas m) {
         if (m.getId() <= 0 || mascotaDAO.obtenerPorId(m.getId()) == null) {
             System.out.println("Error: Mascota no encontrada.");
@@ -61,7 +57,7 @@ public class MascotaController {
         return mascotaDAO.actualizar(m);
     }
 
-    // 🔹 Transferir mascota a otro dueño validando FK
+    // 🔹 Transferir mascota a otro dueño 
     public boolean transferirMascota(int idMascota, int idNuevoDueno) throws IllegalArgumentException {
         if (idMascota <= 0 || mascotaDAO.obtenerPorId(idMascota) == null) {
             throw new IllegalArgumentException("Error: Mascota no encontrada.");
@@ -76,7 +72,6 @@ public class MascotaController {
         return mascotaDAO.transferirmascota(m, idNuevoDueno);
     }
 
-    // 🔹 Otras funciones
     public boolean eliminarMascota(int id) {
         if (id <= 0 || mascotaDAO.obtenerPorId(id) == null) {
             System.out.println("Error: Mascota no encontrada.");

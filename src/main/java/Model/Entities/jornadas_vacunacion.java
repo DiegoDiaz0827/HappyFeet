@@ -25,6 +25,10 @@ public class jornadas_vacunacion {
     private EstadoVacunacion estado; 
 
     // CONSTRUCTORES
+    
+    
+    public jornadas_vacunacion(){};
+            
     public jornadas_vacunacion(int pId, String pNombre, Date pFecha, Time pHoraInicio, 
                                Time pHoraFin, String pUbicacion, String pDescripcion, 
                                Integer pCapacidadMaxima, EstadoVacunacion pEstado) {

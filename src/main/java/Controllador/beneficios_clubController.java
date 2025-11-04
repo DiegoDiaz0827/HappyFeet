@@ -8,20 +8,23 @@ import DAO.Beneficios_clubDAO;
 import Model.Entities.beneficios_club;
 import Model.Entities.ClubMascotas;
 import java.util.List;
+
 /**
  *
  * @author camper
  */
 public class beneficios_clubController {
-    
-// Instancia del DAO
-    Beneficios_clubDAO beneficiosDAO = new Beneficios_clubDAO();
+    private final Beneficios_clubDAO beneficiosDAO;
 
-    // --- 1. Registrar Beneficio 
+    public beneficios_clubController(Beneficios_clubDAO beneficiosDAO) {
+        this.beneficiosDAO = beneficiosDAO;
+        System.out.println("✅ beneficios_clubController inicializado y listo para usar.");
+    }
+
     public void registrarBeneficio(beneficios_club b){
         try {
-            if (b.isActivo() == false) {
-                 b.setActivo(true);
+            if (!b.isActivo()) {
+                b.setActivo(true);
             }
             
             beneficiosDAO.agregar(b);
@@ -62,7 +65,7 @@ public class beneficios_clubController {
         if (beneficio != null) {
             System.out.println("? Encontrado: **" + beneficio.getNombre() + "** (Costo: " + beneficio.getPuntosNecesarios() + " pts)");
         } else {
-            System.out.println("️ Beneficio ID " + id + " **no encontrado**.");
+            System.out.println("⚠️ Beneficio ID " + id + " **no encontrado**.");
         }
         return beneficio;
     }
@@ -75,6 +78,7 @@ public class beneficios_clubController {
         return lista;
     }
     
+    // --- 6. Verificar Canje (Lógica de negocio)
     public boolean verificarCanje(ClubMascotas club, beneficios_club beneficio) {
         System.out.println("\n--- VERIFICANDO CANJE DE BENEFICIO ---");
         
@@ -92,8 +96,8 @@ public class beneficios_clubController {
         // 2. Verificar Nivel Requerido
         String nivelRequerido = beneficio.getNivelRequerido();
         if (nivelRequerido != null && !nivelRequerido.isEmpty() && !club.getNivel().equalsIgnoreCase(nivelRequerido)) {
-             System.out.println("⚠️ Nivel no cumple. Requiere nivel '" + nivelRequerido + "' y el club es '" + club.getNivel() + "'.");
-             return false;
+            System.out.println("⚠️ Nivel no cumple. Requiere nivel '" + nivelRequerido + "' y el club es '" + club.getNivel() + "'.");
+            return false;
         }
         
         System.out.println(" ¡Canje permitido! Puntos y nivel cumplen los requisitos.");

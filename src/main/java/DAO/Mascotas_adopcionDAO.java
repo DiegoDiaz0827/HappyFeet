@@ -155,4 +155,36 @@ public class Mascotas_adopcionDAO {
             return false;
         }
     }
+    // --- 6. MÉTODO DE LÓGICA DE NEGOCIO
+    public boolean actualizarEstado(int mascotaAdopcionId, EstadoAdopcion nuevoEstado) {
+        
+        String SQL = "UPDATE mascotas_adopcion SET estado = ? WHERE id = ?";
+        
+        try (Connection con = ConexionDB.conectar(); 
+             PreparedStatement ps = con.prepareStatement(SQL)) {
+            
+            // 1. Convertir el Enum a String (esto es lo que la columna 'estado' almacena)
+            ps.setString(1, nuevoEstado.name()); 
+            
+            // 2. ID del registro a actualizar
+            ps.setInt(2, mascotaAdopcionId);
+            
+            int filasAfectadas = ps.executeUpdate();
+            
+            return filasAfectadas > 0;
+            
+        } catch (SQLException e) {
+            System.err.println("Error SQL al actualizar el estado de adopción: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean verificarDisponibilidad(int mascotaAdopcionId) {
+        // Llama a tu método existente
+        mascotas_adopcion m = obtenerPorId(mascotaAdopcionId);
+        
+        // Comprueba si la mascota existe y su estado es DISPONIBLE
+        return m != null && m.getEstado() == EstadoAdopcion.DISPONIBLE;
+    }
 }

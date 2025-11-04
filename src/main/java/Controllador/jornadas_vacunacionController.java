@@ -4,9 +4,13 @@
  */
 package Controllador;
 import DAO.Jornadas_vacunacionDAO;
+import DAO.Registro_jornada_vacunacionDAO;
+import Model.Entities.Mascotas;
 import Model.Entities.jornadas_vacunacion;
+import Model.Entities.registro_jornada_vacunacion;
 import Model.Enums.EstadoVacunacion;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 /**
@@ -15,17 +19,20 @@ import java.util.List;
  */
 public class jornadas_vacunacionController {
 private final Jornadas_vacunacionDAO jornadasVacunacionDAO;
+private final Registro_jornada_vacunacionDAO registroJornadaDAO;
+private final MascotaController mascotaController;
 
     // Inyección de dependencias
-    public jornadas_vacunacionController(Jornadas_vacunacionDAO jornadasVacunacionDAO) {
+    public jornadas_vacunacionController(Jornadas_vacunacionDAO jornadasVacunacionDAO, 
+    Registro_jornada_vacunacionDAO registroJornadaDAO, MascotaController mascotaController) {
         this.jornadasVacunacionDAO = jornadasVacunacionDAO;
+        this.registroJornadaDAO = registroJornadaDAO;
+        this.mascotaController = mascotaController;
     }
 
-    //  1️ Registrar una nueva jornada de vacunación (CREATE)
+    //  1️ Registrar una nueva jornada de vacunación 
    
     public boolean registrarJornada(jornadas_vacunacion jornada) {
-        
-        // 1. Validaciones básicas
         if (jornada.getNombre() == null || jornada.getNombre().isBlank()) {
             System.out.println("️ El nombre de la jornada es obligatorio.");
             return false;
@@ -39,7 +46,7 @@ private final Jornadas_vacunacionDAO jornadasVacunacionDAO;
             return false;
         }
         
-        // 2. Validaciones de tiempo
+        //  Validaciones de tiempo
         if (jornada.getHoraInicio() == null || jornada.getHoraFin() == null) {
             System.out.println(" La hora de inicio y fin son obligatorias.");
             return false;
@@ -49,13 +56,12 @@ private final Jornadas_vacunacionDAO jornadasVacunacionDAO;
             return false;
         }
 
-        // 3. Validaciones de capacidad
+        //  Validaciones de capacidad
         if (jornada.getCapacidadMaxima() != null && jornada.getCapacidadMaxima() <= 0) {
             System.out.println("️ La capacidad máxima debe ser un valor positivo si se especifica.");
             return false;
         }
-
-        // 4. Establecer estado inicial si es nulo (típicamente PLANIFICADA)
+        
         if (jornada.getEstado() == null) {
             jornada.setEstado(EstadoVacunacion.PLANIFICADA);
             System.out.println("ℹ️ Estado establecido a PLANIFICADA por defecto.");
@@ -71,7 +77,7 @@ private final Jornadas_vacunacionDAO jornadasVacunacionDAO;
         }
     }
 
-    // 2 ️ Listar todas las jornadas
+    // 2️ Listar todas las jornadas
     public List<jornadas_vacunacion> listarJornadas() {
         return jornadasVacunacionDAO.listar();
     }
@@ -90,7 +96,7 @@ private final Jornadas_vacunacionDAO jornadasVacunacionDAO;
         return jornada;
     }
 
-    //  4️ Actualizar jornada existente (UPDATE)
+    //  4️ Actualizar jornada existente 
   
     public boolean actualizarJornada(jornadas_vacunacion jornada) {
         if (jornada.getId() <= 0) {
@@ -144,5 +150,56 @@ private final Jornadas_vacunacionDAO jornadasVacunacionDAO;
         }
         
         return true;
+    }
+    
+    public boolean registrarAtencionRapida(int jornadaId, int mascotaId, int vacunaId, Integer veterinarioId, String loteVacuna) {
+        
+        jornadas_vacunacion jornada = obtenerJornadaPorId(jornadaId);
+        
+        //  Validar Jornada
+        if (jornada == null || jornada.getEstado() != EstadoVacunacion.PLANIFICADA) {
+            System.out.println("❌ Jornada no encontrada o no está en estado PLANIFICADA para recibir registros.");
+            return false;
+        }
+
+        // Validar Mascota y obtener Dueño 
+        Mascotas mascota = mascotaController.verMascota(mascotaId);
+        if (mascota == null) {
+            System.out.println("❌ Mascota con ID " + mascotaId + " no existe.");
+            return false;
+        }
+        
+        //  Validar Capacidad 
+        if (jornada.getCapacidadMaxima() != null) {
+            int atendidas = this.registroJornadaDAO.obtenerConteoPorJornada(jornadaId);
+            if (atendidas >= jornada.getCapacidadMaxima()) {
+                System.out.println("⚠️ La jornada ha alcanzado su capacidad máxima.");
+                return false;
+            }
+        }
+        
+        //  Crear el Registro (Optimizado para la rapidez)
+        registro_jornada_vacunacion registro = new registro_jornada_vacunacion(
+            0,
+            jornadaId,
+            mascotaId,
+            mascota.getDuenoId(), 
+            vacunaId,
+            veterinarioId,
+            new Timestamp(System.currentTimeMillis()),
+            loteVacuna,
+            null, 
+            "Vacunación en jornada " + jornada.getNombre()
+        );
+        
+        // E. Guardar y Concluir
+        try {
+            registroJornadaDAO.agregar(registro);
+            System.out.println("✅ Mascota " + mascotaId + " registrada exitosamente en la jornada.");
+            return true;
+        } catch (Exception e) {
+            System.out.println("❌ Error al guardar registro en la jornada: " + e.getMessage());
+            return false;
+        }
     }
 }

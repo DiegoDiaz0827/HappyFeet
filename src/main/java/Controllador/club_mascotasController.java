@@ -9,13 +9,21 @@ import Model.Entities.ClubMascotas;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import DAO.DueñoDAO;
 
 /**
  *
  * @author camper
  */
 public class club_mascotasController {
-    Club_mascotasDAO clubDAO = new Club_mascotasDAO();
+    
+    private final Club_mascotasDAO clubDAO;
+    private final DueñoDAO dueñoDAO;
+    public club_mascotasController(Club_mascotasDAO clubDAO, DueñoDAO dueñoDAO) {
+        this.clubDAO = clubDAO;
+        this.dueñoDAO = dueñoDAO;
+        System.out.println("✅ club_mascotasController inicializado con DAOs inyectados.");
+    }
 
     // --- 1. Registrar Membresía
     public void registrarMembresia(ClubMascotas club){
@@ -49,9 +57,9 @@ public class club_mascotasController {
         
         boolean actualizado = clubDAO.actualizar(club);
         if (actualizado) {
-            System.out.println("✅ Membresía del Dueño ID " + club.getDuenoId() + " **actualizada correctamente**.");
+            System.out.println(" Membresía del Dueño ID " + club.getDuenoId() + " **actualizada correctamente**.");
         } else {
-            System.out.println("❌ No se pudo actualizar la membresía del Dueño ID " + club.getDuenoId() + ".");
+            System.out.println(" No se pudo actualizar la membresía del Dueño ID " + club.getDuenoId() + ".");
         }
         return actualizado;
     }
