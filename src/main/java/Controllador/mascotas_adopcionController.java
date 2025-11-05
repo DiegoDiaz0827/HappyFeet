@@ -21,7 +21,7 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
         this.mascotasAdopcionDAO = mascotasAdopcionDAO;
     }
 
-    // 1️ Registrar un nuevo registro de adopción 
+   
  
     public boolean registrarMascotaAdopcion(mascotas_adopcion mascotaAdopcion) {
         
@@ -55,12 +55,12 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
         }
     }
 
-    //  2️ Listar todos los registros de adopción (READ)
+    
     public List<mascotas_adopcion> listarMascotasAdopcion() {
         return mascotasAdopcionDAO.listar();
     }
 
-    // Buscar registro de adopción por ID 
+  
    
     public mascotas_adopcion obtenerMascotaAdopcionPorId(int id) {
         if (id <= 0) {
@@ -74,7 +74,7 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
         return mascota;
     }
 
-    //  4️ Actualizar registro de adopción existente (UPDATE)
+    
    
     public boolean actualizarMascotaAdopcion(mascotas_adopcion mascotaAdopcion) {
         if (mascotaAdopcion.getId() <= 0) {
@@ -95,7 +95,7 @@ private final Mascotas_adopcionDAO mascotasAdopcionDAO;
         return exito;
     }
 
-    //  5️ Eliminar registro de adopción (DELETE)
+   
  
     public boolean eliminarMascotaAdopcion(int id) {
         if (id <= 0) {

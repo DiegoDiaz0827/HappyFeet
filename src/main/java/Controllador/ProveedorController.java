@@ -22,18 +22,18 @@ public class ProveedorController {
         this.proveedorDAO = proveedorDAO;
     }
 
-    // 1️ Registrar un nuevo proveedor
+ 
     public boolean registrarProveedor(Proveedor proveedor) {
         if (proveedor.getNombreEmpresa() == null || proveedor.getNombreEmpresa().isBlank()) {
-            System.out.println("⚠️ El nombre de la empresa es obligatorio.");
+            System.out.println("️ El nombre de la empresa es obligatorio.");
             return false;
         }
         if (proveedor.getEmail() != null && !proveedor.getEmail().isBlank() && !proveedor.getEmail().contains("@")) {
-            System.out.println("⚠️ El correo electrónico no es válido.");
+            System.out.println("️ El correo electrónico no es válido.");
             return false;
         }
         if (proveedor.getTelefono() != null && proveedor.getTelefono().length() < 7) {
-            System.out.println("⚠️ El número de teléfono parece inválido.");
+            System.out.println("️ El número de teléfono parece inválido.");
             return false;
         }
 
@@ -42,27 +42,27 @@ public class ProveedorController {
 
         try {
             boolean exito = proveedorDAO.insertar(proveedor);
-            System.out.println(exito ? "✅ Proveedor registrado correctamente." : "❌ No se pudo registrar el proveedor.");
+            System.out.println(exito ? " Proveedor registrado correctamente." : " No se pudo registrar el proveedor.");
             return exito;
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar proveedor: " + e.getMessage());
+            System.out.println(" Error al registrar proveedor: " + e.getMessage());
             return false;
         }
     }
 
-    // 2️ Listar todos los proveedores
+   
     public List<Proveedor> listarProveedores() {
         return proveedorDAO.listar();
     }
 
-    // 3️ Buscar proveedor por ID
+   
     public Proveedor obtenerProveedorPorId(int id) {
         if (id <= 0) {
             System.out.println("️ ID inválido.");
             return null;
         }
 
-        // No tienes un método específico en el DAO, así que buscamos en la lista
+        
         List<Proveedor> lista = proveedorDAO.listar();
         for (Proveedor p : lista) {
             if (p.getId() == id) {
@@ -73,7 +73,7 @@ public class ProveedorController {
         return null;
     }
 
-    // 4️ Actualizar un proveedor existente
+   
     public boolean actualizarProveedor(Proveedor proveedor) {
         if (proveedor.getId() <= 0) {
             System.out.println(" El proveedor debe tener un ID válido.");
@@ -89,7 +89,7 @@ public class ProveedorController {
         return exito;
     }
 
-    // 5️ Eliminar proveedor
+   
     public boolean eliminarProveedor(int id) {
         if (id <= 0) {
             System.out.println("️ ID inválido.");

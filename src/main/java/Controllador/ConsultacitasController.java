@@ -31,7 +31,7 @@ public class ConsultacitasController {
         this.citasDAO = citasDAO;
     }
 
-    // ? Registrar consulta con validación de FKs
+    //  Registrar consulta con validación de FKs
     public boolean registrarConsulta(ConsultasMedicas c) throws IllegalArgumentException {
         if (c.getMascotaId() <= 0 || mascotasDAO.obtenerPorId(c.getMascotaId()) == null) {
             throw new IllegalArgumentException("Error: Mascota no encontrada.");
@@ -95,7 +95,7 @@ public class ConsultacitasController {
         return consultasDAO.actualizar(c);
     }
 
-    // eliminar consulta
+   
     public boolean eliminarConsulta(int id) {
         if (id <= 0 || consultasDAO.obtenerPorId(id) == null) {
             System.out.println("Error: Consulta no encontrada.");
@@ -104,7 +104,7 @@ public class ConsultacitasController {
         return consultasDAO.eliminar(id);
     }
 
-    //  Ver consulta por ID
+   
     public ConsultasMedicas verConsulta(int id) throws IllegalArgumentException {
         if (id <= 0) {
             System.out.println("Error: ID inválido.");
@@ -119,7 +119,7 @@ public class ConsultacitasController {
         return consultasDAO.obtenerPorId(id);
     }
 
-    //  Listar todas las consultas
+    
     public List<ConsultasMedicas> listarConsultas() {
         return consultasDAO.listarTodos();
     }

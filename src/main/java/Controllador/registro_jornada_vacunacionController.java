@@ -16,26 +16,26 @@ import java.util.Date;
  */
 
 public class registro_jornada_vacunacionController {
-// Instancia del DAO para interactuar con la base de datos
+
     Registro_jornada_vacunacionDAO registroDAO = new Registro_jornada_vacunacionDAO();
 
     // --- 1. Registrar
     public void registrarRegistro(registro_jornada_vacunacion r){
         try {
-            // Lógica de negocio: Asignar la fecha y hora de registro si no está presente
+            
             if (r.getFechaHora() == null) {
                 r.setFechaHora(Timestamp.valueOf(LocalDateTime.now()));
             }
             
-            // Llama al método del DAO para agregar el registro
+           
             registroDAO.agregar(r);
             System.out.println("🎉 El registro de vacunación ID " + r.getId() + " ha sido **registrado exitosamente**.");
         } catch (Exception e) {
-            System.err.println("❌ Error al registrar la jornada de vacunación: " + e.getMessage());
+            System.err.println(" Error al registrar la jornada de vacunación: " + e.getMessage());
         }
     }
     
-    // --- 2. Actualizar
+   
     public boolean actualizarRegistro(registro_jornada_vacunacion r) {
         System.out.println("\n--- ACTUALIZANDO REGISTRO DE VACUNACIÓN ID: " + r.getId() + " ---");
         boolean actualizado = registroDAO.actualizar(r);
@@ -47,7 +47,7 @@ public class registro_jornada_vacunacionController {
         return actualizado;
     }
     
-    // --- 3. Eliminar
+    
     public boolean eliminarRegistro(int id) {
         System.out.println("\n--- ELIMINANDO REGISTRO DE VACUNACIÓN ID: " + id + " ---");
         boolean eliminado = registroDAO.eliminar(id);
@@ -59,7 +59,7 @@ public class registro_jornada_vacunacionController {
         return eliminado;
     }
 
-    // --- 4. Buscar por ID
+   
     public registro_jornada_vacunacion buscarRegistroPorId(int id) {
         System.out.println("\n--- BUSCANDO REGISTRO DE VACUNACIÓN ID: " + id + " ---");
         registro_jornada_vacunacion registro = registroDAO.obtenerPorId(id);
@@ -71,7 +71,7 @@ public class registro_jornada_vacunacionController {
         return registro;
     }
 
-    // --- 5. Obtener Todos
+    
     public List<registro_jornada_vacunacion> obtenerTodosLosRegistros() {
         System.out.println("\n--- LISTANDO TODOS LOS REGISTROS DE VACUNACIÓN ---");
         List<registro_jornada_vacunacion> lista = registroDAO.listar();

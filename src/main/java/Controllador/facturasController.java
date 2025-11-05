@@ -22,7 +22,7 @@ import DAO.DueñoDAO;
  * @author camper
  */
 public class facturasController {
-   // El DAO de Facturas
+   
     private FacturasDAO facturasDAO;
      private DueñoDAO dueñodao;
     
@@ -32,7 +32,6 @@ public class facturasController {
 
         this.facturasDAO = facturasDAO;
     }
-    // 1. Registrar una nueva factura 
 
 
    
@@ -82,7 +81,7 @@ try {
     return false;
 }
     }
-    // 2. Listar todas las facturas
+   
 
     public List<Facturas> listarFacturas() {
         return facturasDAO.listar();
@@ -92,7 +91,7 @@ try {
     
    
 
-    // --- 3️ Buscar factura por ID
+   
     public Facturas obtenerFacturaPorId(int id) throws IllegalArgumentException {
 
         if (id <= 0) {
@@ -108,7 +107,7 @@ try {
     }
 
 
-    // 4. Actualizar factura existente 
+   
 
     public boolean actualizarFactura(Facturas factura) {
         if (factura.getId() <= 0) {
@@ -126,7 +125,7 @@ try {
     }
 
 
-    // 5. Eliminar factura 
+   
     public boolean eliminarFactura(int id) {
         if (id <= 0) {
             System.out.println("️ ID de factura inválido.");
@@ -138,8 +137,6 @@ try {
         return exito;
     }
     
- 
-    // 6. Reporte de Facturación por Período
 
    
     public List<Map<String, Object>> getReporteFacturacionPorPeriodo() {
@@ -148,14 +145,11 @@ try {
         try {
             return facturasDAO.getReporteFacturacionPorPeriodo(); 
         } catch (Exception e) {
-            System.out.println("❌ Error en el Controller al obtener el reporte de facturación: " + e.getMessage());
+            System.out.println(" Error en el Controller al obtener el reporte de facturación: " + e.getMessage());
    
             return Collections.emptyList(); 
         }
     }
-
-
-    // 7. Método Auxiliar 
 
 
     public int obtenerUltimoIdRegistrado() {

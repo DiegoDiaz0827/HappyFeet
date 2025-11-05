@@ -36,10 +36,10 @@ public class AdopcionesController {
         System.out.println(" AdopcionesController inicializado con todas las dependencias.");
     }
 
-    // 1️ Registrar una nueva adopción (CREATE)
+   
     public boolean registrarAdopcion(adopciones adopcion) {  
         
-        // 1. Validaciones básicas de IDs
+        
         if (adopcion.getMascotaAdopcionId() <= 0) {
             System.out.println("️ ID de Mascota Adopción inválido. Debe especificar la mascota.");
             return false;
@@ -61,7 +61,7 @@ public class AdopcionesController {
              return false;
         }
         
-        // Lógica de generación de contrato (antes de guardar)
+     
         String contratoGenerado = generarContrato(
             adopcion.getMascotaAdopcionId(), 
             adopcion.getDuenoId(), 
@@ -71,7 +71,7 @@ public class AdopcionesController {
 
         try {
             
-            // 1. Guardar el registro de la adopción
+            //  Guardar el registro de la adopción
             adopcionesDAO.agregar(adopcion);
 
             mascotasAdopcionDAO.actualizarEstado(adopcion.getMascotaAdopcionId(), EstadoAdopcion.ADOPTADA);
@@ -84,13 +84,13 @@ public class AdopcionesController {
         }
     }
 
-    // --- 2️ Listar todas las adopciones (READ ALL)
+    
     public List<adopciones> listarAdopciones() {
         return adopcionesDAO.listar();
     }
     
     
-    // 6️ Generación del Contrato Simple en Texto 
+   
     public String generarContrato(int mascotaAdopcionId, int duenoId, String condicionesEspeciales) {
 
         String nombreMascota = "MASCOTA_ID_" + mascotaAdopcionId; 

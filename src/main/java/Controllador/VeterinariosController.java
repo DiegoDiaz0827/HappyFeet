@@ -22,7 +22,7 @@ public class VeterinariosController {
         this.veterinariosDAO = new VeterinariosDAO();
     }
 
-    // 🔹 Registrar nuevo veterinario
+   
     public boolean registrarVeterinario(Veterinarios v) {
         if (v.getDocumentoIdentidad() == null || v.getDocumentoIdentidad().length() != 10) {
         throw new IllegalArgumentException("El documento debe tener exactamente 10 números.");
@@ -40,7 +40,7 @@ public class VeterinariosController {
         throw new IllegalArgumentException("El teléfono solo debe contener números.");
     }
 
-    // Si pasa las validaciones:
+   
     if (v.getFechaRegistro() == null) {
         v.setFechaRegistro(LocalDate.now());
     }
@@ -49,29 +49,29 @@ public class VeterinariosController {
         return true;
     }
 
-    // 🔹 Actualizar veterinario existente
+   
     public boolean actualizarVeterinario(Veterinarios v) {
         Veterinarios existente = veterinariosDAO.obtenerPorId(v.getId());
         if (existente == null) {
-            System.out.println("❌ Veterinario no encontrado con ID " + v.getId());
+            System.out.println(" Veterinario no encontrado con ID " + v.getId());
             return false;
         }
 
         return veterinariosDAO.actualizar(v);
     }
 
-    // 🔹 Eliminar veterinario
+   
     public boolean eliminarVeterinario(int id) {
         Veterinarios existente = veterinariosDAO.obtenerPorId(id);
         if (existente == null) {
-            System.out.println("❌ No existe un veterinario con ID " + id);
+            System.out.println(" No existe un veterinario con ID " + id);
             return false;
         }
 
         return veterinariosDAO.eliminar(id);
     }
 
-    // 🔹 Buscar veterinario por ID
+   
     public Veterinarios verVeterinario(int id) {
         Veterinarios v = veterinariosDAO.obtenerPorId(id);
         if (v == null) {
@@ -82,11 +82,11 @@ public class VeterinariosController {
     
     
 
-    // 🔹 Listar todos los veterinarios
+    
     public List<Veterinarios> listarVeterinarios() {
         List<Veterinarios> lista = veterinariosDAO.listarTodos();
         if (lista.isEmpty()) {
-            System.out.println("⚠️ No hay veterinarios registrados.");
+            System.out.println("️ No hay veterinarios registrados.");
         }
         return lista;
     }

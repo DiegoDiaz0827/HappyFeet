@@ -28,10 +28,10 @@ public class ProcedimientosEspecialesController {
         this.dao = new Procedimientos_especialesDAO();
     }
 
-    //  Crear un nuevo procedimiento especial
+
     public boolean crearProcedimiento(ProcedimientosEspeciales pe) throws IllegalArgumentException {
 
-        //  Validaciones básicas
+       
          Mascotas mascota = mascotasdao.obtenerPorId(pe.getMascotaId());
         if (mascota == null) {
              throw new IllegalArgumentException("️ No existe una mascota con ese ID.");
@@ -70,7 +70,7 @@ public class ProcedimientosEspecialesController {
     }
          }
 
-        // ✅ Crear el objeto modelo
+       
     
         try {
             dao.agregar(pe);
@@ -82,49 +82,49 @@ public class ProcedimientosEspecialesController {
         }
     }
 
-    // 🔹 Listar todos los procedimientos
+   
     public List<ProcedimientosEspeciales> listarProcedimientos() throws IllegalArgumentException{
         return dao.listar();
     }
 
-    // 🔹 Obtener un procedimiento por ID
+   
     public ProcedimientosEspeciales obtenerPorId(int id) {
         if (id <= 0) {
-            throw new IllegalArgumentException("⚠️ ID inválido.");
+            throw new IllegalArgumentException("️ ID inválido.");
             
         }
         ProcedimientosEspeciales p = dao.obtenerPorId(id);
         if (p == null) {
-             throw new IllegalArgumentException("⚠️ No se encontró el procedimiento con ID " + id);
+             throw new IllegalArgumentException("️ No se encontró el procedimiento con ID " + id);
         }
         return p;
     }
 
-    // 🔹 Actualizar un procedimiento existente
+   
    public boolean actualizarProcedimiento(ProcedimientosEspeciales p) throws IllegalArgumentException {
-    // Validar mascota
+   
     Mascotas mascota = mascotasdao.obtenerPorId(p.getMascotaId());
     if (mascota == null) {
-        throw new IllegalArgumentException("⚠️ No existe una mascota con ese ID.");
+        throw new IllegalArgumentException("️ No existe una mascota con ese ID.");
     }
 
-    // Validar veterinario
+   
     Veterinarios veterinario = veterinariodao.obtenerPorId(p.getVeterinarioId());
     if (veterinario == null) {
-        throw new IllegalArgumentException("⚠️ No existe un veterinario con ese ID.");
+        throw new IllegalArgumentException("️ No existe un veterinario con ese ID.");
     }
 
-    // Validar campos obligatorios
+  
     if (p.getTipoProcedimiento() == null || p.getTipoProcedimiento().isBlank()) {
-        throw new IllegalArgumentException("⚠️ Error: el tipo de procedimiento no puede estar vacío.");
+        throw new IllegalArgumentException("️ Error: el tipo de procedimiento no puede estar vacío.");
     }
     if (p.getNombreProcedimiento() == null || p.getNombreProcedimiento().isBlank()) {
-        throw new IllegalArgumentException("⚠️ Error: el nombre del procedimiento no puede estar vacío.");
+        throw new IllegalArgumentException("️ Error: el nombre del procedimiento no puede estar vacío.");
     }
 
-    // Validar fecha del procedimiento
+   
     if (p.getFechaHora() == null || p.getFechaHora().isBefore(LocalDateTime.now())) {
-        throw new IllegalArgumentException("⚠️ Error: la fecha del procedimiento debe ser futura.");
+        throw new IllegalArgumentException("️ Error: la fecha del procedimiento debe ser futura.");
     }
 
     // Validar próxima fecha de control
@@ -133,28 +133,28 @@ public class ProcedimientosEspecialesController {
         LocalDate fechaProcedimiento = p.getFechaHora().toLocalDate();
 
         if (p.getProximoControl().isBefore(hoy)) {
-            throw new IllegalArgumentException("⚠️ Error: la fecha de control no puede ser anterior a la fecha actual.");
+            throw new IllegalArgumentException("️ Error: la fecha de control no puede ser anterior a la fecha actual.");
         }
 
         if (p.getProximoControl().isBefore(fechaProcedimiento)) {
-            throw new IllegalArgumentException("⚠️ Error: la fecha de control debe ser posterior a la fecha del procedimiento.");
+            throw new IllegalArgumentException("️ Error: la fecha de control debe ser posterior a la fecha del procedimiento.");
         }
     }
 
-    // Si todo está bien, actualizar
+    
     boolean actualizado = dao.actualizar(p);
     if (actualizado) {
-        System.out.println("✅ Procedimiento actualizado correctamente.");
+        System.out.println(" Procedimiento actualizado correctamente.");
     } else {
-        System.out.println("⚠️ No se encontró el procedimiento a actualizar.");
+        System.out.println("️ No se encontró el procedimiento a actualizar.");
     }
 
     return actualizado;
 }
-    // 🔹 Eliminar un procedimiento
+    
     public boolean eliminarProcedimiento(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido para eliminación.");
+            System.out.println("️ ID inválido para eliminación.");
             return false;
         }
 
@@ -162,7 +162,7 @@ public class ProcedimientosEspecialesController {
         if (eliminado) {
             System.out.println("🗑️ Procedimiento eliminado correctamente.");
         } else {
-            System.out.println("⚠️ No se encontró el procedimiento con ID " + id);
+            System.out.println("️ No se encontró el procedimiento con ID " + id);
         }
         return eliminado;
     }

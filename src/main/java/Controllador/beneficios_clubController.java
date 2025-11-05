@@ -18,7 +18,7 @@ public class beneficios_clubController {
 
     public beneficios_clubController(Beneficios_clubDAO beneficiosDAO) {
         this.beneficiosDAO = beneficiosDAO;
-        System.out.println("✅ beneficios_clubController inicializado y listo para usar.");
+        System.out.println(" beneficios_clubController inicializado y listo para usar.");
     }
 
     public void registrarBeneficio(beneficios_club b){
@@ -34,7 +34,7 @@ public class beneficios_clubController {
         }
     }
     
-    // --- 2. Actualizar Beneficio 
+    
     public boolean actualizarBeneficio(beneficios_club b) {
         System.out.println("\n--- ACTUALIZANDO BENEFICIO ID: " + b.getId() + " ---");
         boolean actualizado = beneficiosDAO.actualizar(b);
@@ -46,7 +46,7 @@ public class beneficios_clubController {
         return actualizado;
     }
     
-    // --- 3. Eliminar Beneficio
+    
     public boolean eliminarBeneficio(int id) {
         System.out.println("\n--- ELIMINANDO BENEFICIO ID: " + id + " ---");
         boolean eliminado = beneficiosDAO.eliminar(id);
@@ -58,19 +58,19 @@ public class beneficios_clubController {
         return eliminado;
     }
 
-    // --- 4. Buscar Beneficio por ID 
+   
     public beneficios_club buscarBeneficioPorId(int id) {
         System.out.println("\n--- BUSCANDO BENEFICIO ID: " + id + " ---");
         beneficios_club beneficio = beneficiosDAO.obtenerPorId(id);
         if (beneficio != null) {
             System.out.println("? Encontrado: **" + beneficio.getNombre() + "** (Costo: " + beneficio.getPuntosNecesarios() + " pts)");
         } else {
-            System.out.println("⚠️ Beneficio ID " + id + " **no encontrado**.");
+            System.out.println("️ Beneficio ID " + id + " **no encontrado**.");
         }
         return beneficio;
     }
 
-    // --- 5. Obtener Todos los Beneficios Activos 
+   
     public List<beneficios_club> obtenerBeneficiosActivos() {
         System.out.println("\n--- LISTANDO BENEFICIOS DISPONIBLES EN EL CATÁLOGO ---");
         List<beneficios_club> lista = beneficiosDAO.listarActivos();
@@ -78,7 +78,7 @@ public class beneficios_clubController {
         return lista;
     }
     
-    // --- 6. Verificar Canje (Lógica de negocio)
+   
     public boolean verificarCanje(ClubMascotas club, beneficios_club beneficio) {
         System.out.println("\n--- VERIFICANDO CANJE DE BENEFICIO ---");
         
@@ -87,13 +87,13 @@ public class beneficios_clubController {
             return false;
         }
         
-        // 1. Verificar Puntos
+       
         if (club.getPuntosDisponibles() < beneficio.getPuntosNecesarios()) {
             System.out.println(" Puntos insuficientes. Necesitas " + beneficio.getPuntosNecesarios() + " y tienes " + club.getPuntosDisponibles() + ".");
             return false;
         }
         
-        // 2. Verificar Nivel Requerido
+       
         String nivelRequerido = beneficio.getNivelRequerido();
         if (nivelRequerido != null && !nivelRequerido.isEmpty() && !club.getNivel().equalsIgnoreCase(nivelRequerido)) {
             System.out.println("⚠️ Nivel no cumple. Requiere nivel '" + nivelRequerido + "' y el club es '" + club.getNivel() + "'.");

@@ -20,7 +20,7 @@ public class item_facturaController {
         this.itemFacturasDAO = itemFacturasDAO;
     }
 
-    // --- 1️ Registrar un nuevo ítem de factura 
+ 
 
     public boolean registrarItemFactura(Items_factura item) {
         
@@ -78,7 +78,7 @@ public class item_facturaController {
         }
     }
 
-    // 2️ Listar ítems por ID de Factura 
+     
     
     public List<Items_factura> listarItemsPorFactura(int facturaId) throws IllegalArgumentException {
         if (facturaId <= 0) {
@@ -94,7 +94,7 @@ public class item_facturaController {
         return itemFacturasDAO.listarPorFactura(facturaId);
     }
 
-    // 3️ Buscar ítem de factura por ID 
+  
 
     public Items_factura obtenerItemPorId(int id) {
         if (id <= 0) {
@@ -108,7 +108,6 @@ public class item_facturaController {
         return item;
     }
 
-    // 4️ Actualizar ítem de factura existente 
 
     public boolean actualizarItemFactura(Items_factura item) {
         if (item.getId() <= 0) {
@@ -132,7 +131,7 @@ public class item_facturaController {
         return exito;
     }
 
-    // 5️ Eliminar ítem de factura 
+
 
     public boolean eliminarItemFactura(int id) {
         if (id <= 0) {
@@ -145,7 +144,6 @@ public class item_facturaController {
         return exito;
     }
     
-    //  6️ REPORTE: Servicios Más Solicitados
     
     public List<Map<String, Object>> getReporteServiciosMasSolicitados() {
         

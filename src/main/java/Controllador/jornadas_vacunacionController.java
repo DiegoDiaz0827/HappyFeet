@@ -30,7 +30,7 @@ private final MascotaController mascotaController;
         this.mascotaController = mascotaController;
     }
 
-    //  1️ Registrar una nueva jornada de vacunación 
+   
    
     public boolean registrarJornada(jornadas_vacunacion jornada) {
         if (jornada.getNombre() == null || jornada.getNombre().isBlank()) {
@@ -46,7 +46,7 @@ private final MascotaController mascotaController;
             return false;
         }
         
-        //  Validaciones de tiempo
+       
         if (jornada.getHoraInicio() == null || jornada.getHoraFin() == null) {
             System.out.println(" La hora de inicio y fin son obligatorias.");
             return false;
@@ -56,7 +56,7 @@ private final MascotaController mascotaController;
             return false;
         }
 
-        //  Validaciones de capacidad
+       
         if (jornada.getCapacidadMaxima() != null && jornada.getCapacidadMaxima() <= 0) {
             System.out.println("️ La capacidad máxima debe ser un valor positivo si se especifica.");
             return false;
@@ -77,12 +77,12 @@ private final MascotaController mascotaController;
         }
     }
 
-    // 2️ Listar todas las jornadas
+   
     public List<jornadas_vacunacion> listarJornadas() {
         return jornadasVacunacionDAO.listar();
     }
 
-    //  3️ Buscar jornada por ID 
+     
     
     public jornadas_vacunacion obtenerJornadaPorId(int id) {
         if (id <= 0) {
@@ -96,7 +96,7 @@ private final MascotaController mascotaController;
         return jornada;
     }
 
-    //  4️ Actualizar jornada existente 
+   
   
     public boolean actualizarJornada(jornadas_vacunacion jornada) {
         if (jornada.getId() <= 0) {
@@ -112,7 +112,7 @@ private final MascotaController mascotaController;
         return exito;
     }
 
-    //  5️ Eliminar jornada 
+   
 
     public boolean eliminarJornada(int id) {
         if (id <= 0) {
@@ -131,7 +131,7 @@ private final MascotaController mascotaController;
         return exito;
     }
 
-    // 6️ 
+   
     private boolean validarCoherenciaJornada(jornadas_vacunacion jornada) {
         if (jornada.getNombre() == null || jornada.getNombre().isBlank()) return false;
         if (jornada.getFecha() == null) return false;
@@ -156,20 +156,20 @@ private final MascotaController mascotaController;
         
         jornadas_vacunacion jornada = obtenerJornadaPorId(jornadaId);
         
-        //  Validar Jornada
+      
         if (jornada == null || jornada.getEstado() != EstadoVacunacion.PLANIFICADA) {
             System.out.println("❌ Jornada no encontrada o no está en estado PLANIFICADA para recibir registros.");
             return false;
         }
 
-        // Validar Mascota y obtener Dueño 
+       
         Mascotas mascota = mascotaController.verMascota(mascotaId);
         if (mascota == null) {
             System.out.println("❌ Mascota con ID " + mascotaId + " no existe.");
             return false;
         }
         
-        //  Validar Capacidad 
+       
         if (jornada.getCapacidadMaxima() != null) {
             int atendidas = this.registroJornadaDAO.obtenerConteoPorJornada(jornadaId);
             if (atendidas >= jornada.getCapacidadMaxima()) {
@@ -178,7 +178,7 @@ private final MascotaController mascotaController;
             }
         }
         
-        //  Crear el Registro (Optimizado para la rapidez)
+        //  Crear el Registro 
         registro_jornada_vacunacion registro = new registro_jornada_vacunacion(
             0,
             jornadaId,
@@ -195,10 +195,10 @@ private final MascotaController mascotaController;
         // E. Guardar y Concluir
         try {
             registroJornadaDAO.agregar(registro);
-            System.out.println("✅ Mascota " + mascotaId + " registrada exitosamente en la jornada.");
+            System.out.println(" Mascota " + mascotaId + " registrada exitosamente en la jornada.");
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al guardar registro en la jornada: " + e.getMessage());
+            System.out.println(" Error al guardar registro en la jornada: " + e.getMessage());
             return false;
         }
     }

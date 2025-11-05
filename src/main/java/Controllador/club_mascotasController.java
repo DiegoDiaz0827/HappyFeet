@@ -25,7 +25,7 @@ public class club_mascotasController {
         System.out.println("✅ club_mascotasController inicializado con DAOs inyectados.");
     }
 
-    // --- 1. Registrar Membresía
+   
     public void registrarMembresia(ClubMascotas club){
         try {
             if (club.getFechaInscripcion() == null) {
@@ -45,11 +45,11 @@ public class club_mascotasController {
             clubDAO.agregar(club);
             System.out.println("🎉 Membresía de Club registrada exitosamente para el Dueño ID: " + club.getDuenoId());
         } catch (Exception e) {
-            System.err.println("❌ Error al registrar la membresía del club: " + e.getMessage());
+            System.err.println(" Error al registrar la membresía del club: " + e.getMessage());
         }
     }
     
-    // --- 2. Actualizar Membresía 
+   
     public boolean actualizarMembresia(ClubMascotas club) {
         System.out.println("\n--- ACTUALIZANDO MEMBRESÍA CLUB DUEÑO ID: " + club.getDuenoId() + " ---");
         
@@ -64,7 +64,7 @@ public class club_mascotasController {
         return actualizado;
     }
     
-    // --- 3. Eliminar Membresía
+   
     public boolean eliminarMembresia(int duenoId) {
         System.out.println("\n--- ELIMINANDO MEMBRESÍA CLUB DUEÑO ID: " + duenoId + " ---");
         boolean eliminado = clubDAO.eliminar(duenoId);
@@ -76,7 +76,7 @@ public class club_mascotasController {
         return eliminado;
     }
 
-    // --- 4. Buscar Membresía por Dueño ID 
+   
     public ClubMascotas buscarMembresiaPorDuenoId(int duenoId) {
         System.out.println("\n--- BUSCANDO MEMBRESÍA CLUB DUEÑO ID: " + duenoId + " ---");
         ClubMascotas club = clubDAO.obtenerPorDuenoId(duenoId);
@@ -84,12 +84,12 @@ public class club_mascotasController {
             System.out.println("? Membresía encontrada. Nivel actual: " + club.getNivel());
             System.out.println("   Puntos disponibles: " + club.getPuntosDisponibles());
         } else {
-            System.out.println("⚠️ Membresía de Club para el Dueño ID " + duenoId + " **no encontrada**.");
+            System.out.println("️ Membresía de Club para el Dueño ID " + duenoId + " **no encontrada**.");
         }
         return club;
     }
 
-    // --- 5. Obtener Todas las Membresías (READ)
+   
     public List<ClubMascotas> obtenerTodasLasMembresias() {
         System.out.println("\n--- LISTANDO TODAS LAS MEMBRESÍAS DEL CLUB ---");
         List<ClubMascotas> lista = clubDAO.listar();
@@ -107,10 +107,10 @@ public class club_mascotasController {
             club.setPuntosAcumulados(nuevosAcumulados);
             club.setPuntosDisponibles(nuevosDisponibles);
             
-            System.out.println("⭐ Añadiendo **" + puntosAñadir + " puntos** al Dueño ID " + duenoId + ".");
+            System.out.println(" Añadiendo **" + puntosAñadir + " puntos** al Dueño ID " + duenoId + ".");
             return actualizarMembresia(club);
         } else {
-            System.out.println("❌ No se puede añadir puntos. Membresía para el Dueño ID " + duenoId + " no encontrada.");
+            System.out.println(" No se puede añadir puntos. Membresía para el Dueño ID " + duenoId + " no encontrada.");
             return false;
         }
     }

@@ -21,7 +21,7 @@ public class PrescripcionController {
         this.prescripcionDAO = prescripcionDAO;
     }
 
-    // 1️ Registrar una nueva prescripción
+    
     public boolean registrarPrescripcion(Prescripcion prescripcion) {
         if (prescripcion.getProductoId() <= 0) {
             System.out.println(" El producto es obligatorio.");
@@ -56,12 +56,12 @@ public class PrescripcionController {
         }
     }
 
-    // 2️ Listar todas las prescripciones
+   
     public List<Prescripcion> listarPrescripciones() {
         return prescripcionDAO.listar();
     }
 
-    // 3️ Obtener una prescripción por ID
+   
     public Prescripcion obtenerPrescripcionPorId(int id) {
         if (id <= 0) {
             System.out.println("ID inválido.");
@@ -78,7 +78,7 @@ public class PrescripcionController {
         return null;
     }
 
-    // 4️ Actualizar una prescripción existente
+  
     public boolean actualizarPrescripcion(Prescripcion prescripcion) {
         if (prescripcion.getId() <= 0) {
             System.out.println("️ La prescripción debe tener un ID válido.");
@@ -94,7 +94,7 @@ public class PrescripcionController {
         return exito;
     }
 
-    // 5️ Eliminar una prescripción
+    
     public boolean eliminarPrescripcion(int id) {
         if (id <= 0) {
             System.out.println(" ID inválido.");

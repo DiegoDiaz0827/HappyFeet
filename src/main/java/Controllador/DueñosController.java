@@ -36,7 +36,7 @@ public class DueñosController {
         throw new IllegalArgumentException("El teléfono solo debe contener números.");
     }
 
-    // Si pasa las validaciones:
+  
     if (d.getFechaRegistro() == null) {
         d.setFechaRegistro(LocalDateTime.now());
     }

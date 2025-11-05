@@ -15,16 +15,16 @@ import java.sql.Timestamp;
  */
 public class canjes_beneficiosController {
     
-    // 1. DECLARACIÓN DE ATRIBUTO FINAL 
+   
     private final Canjes_beneficiosDAO canjesDao;
     
-    // 2. CONSTRUCTOR 
+    
     public canjes_beneficiosController(Canjes_beneficiosDAO canjesDao) {
         this.canjesDao = canjesDao;
         System.out.println(" canjes_beneficiosController inicializado.");
     }
 
-    // --- 1. Registrar Canje
+   
     public void registrarCanje(canjes_beneficios c){
         try {
             if (c.getFechaCanje() == null) {
@@ -43,7 +43,7 @@ public class canjes_beneficiosController {
         }
     }
     
-    // --- 2. Actualizar Estado Canje
+  
     public boolean actualizarEstadoCanje(int id, EstadoCanjees nuevoEstado, Integer facturaId) {
         System.out.println("\n--- ACTUALIZANDO ESTADO DE CANJE ID: " + id + " a " + nuevoEstado.name() + " ---");
         // Usar la variable de instancia
@@ -56,7 +56,7 @@ public class canjes_beneficiosController {
         return actualizado;
     }
     
-    // --- 3. Eliminar Canje
+   
     public boolean eliminarCanje(int id) {
         System.out.println("\n--- ELIMINANDO CANJE ID: " + id + " ---");
         // Usar la variable de instancia
@@ -69,7 +69,7 @@ public class canjes_beneficiosController {
         return eliminado;
     }
 
-    // --- 4. Buscar Canje por ID
+
     public canjes_beneficios buscarCanjePorId(int id) {
         System.out.println("\n--- BUSCANDO CANJE ID: " + id + " ---");
         canjes_beneficios canje = canjesDao.obtenerPorId(id);
@@ -81,7 +81,6 @@ public class canjes_beneficiosController {
         return canje;
     }
 
-    // --- 5. Obtener Canjes por Club ID
     public List<canjes_beneficios> obtenerCanjesPorClubId(int clubMascotasId) {
         System.out.println("\n--- LISTANDO CANJES PARA CLUB ID: " + clubMascotasId + " ---");
         List<canjes_beneficios> lista = canjesDao.listarPorClubId(clubMascotasId);
