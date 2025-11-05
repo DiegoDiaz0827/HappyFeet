@@ -1150,16 +1150,16 @@ INSERT INTO servicios (nombre, descripcion, categoria, precio_base, duracion_est
 ('Radiografía', 'Toma e interpretación de una radiografía.', 'Diagnóstico', 40.00, 20, TRUE);
 
 INSERT INTO jornadas_vacunacion (nombre, fecha, hora_inicio, hora_fin, ubicacion, descripcion, capacidad_maxima, estado) VALUES
-('Jornada Canina Rabia', '2025-06-15', '09:00:00', '12:00:00', 'Parque Central', 'Campaña gratuita de vacunación antirrábica para perros.', 100, 'Planificada'),
-('Jornada Felina Anual', '2025-07-20', '10:00:00', '13:00:00', 'Clínica Veterinaria Principal', 'Vacunación triple felina a bajo costo.', 50, 'Planificada'),
-('Jornada Desparasitación', '2025-05-10', '14:00:00', '17:00:00', 'Centro Comunal', 'Jornada de desparasitación interna y externa.', 80, 'Finalizada'),
-('Jornada Canina Refuerzo', '2025-08-05', '08:30:00', '11:30:00', 'Parque de la Paz', 'Refuerzo de parvovirus y moquillo.', 90, 'Planificada'),
-('Jornada Mascota Nueva', '2025-04-01', '10:00:00', '12:00:00', 'Clínica Sede Norte', 'Primeras vacunas para cachorros y gatitos.', 40, 'Finalizada'),
-('Día de Microchip', '2025-09-01', '09:00:00', '14:00:00', 'Clínica Veterinaria Principal', 'Implantación de microchip a tarifa reducida.', 60, 'Planificada'),
-('Rabia Extraclínica', '2025-10-12', '10:00:00', '12:00:00', 'Barrio Las Flores', 'Vacunación antirrábica en zona rural.', 70, 'Planificada'),
-('Control de Garrapatas', '2025-03-05', '15:00:00', '18:00:00', 'Tienda Pet Shop', 'Aplicación de tratamientos antipulgas/garrapatas.', 55, 'Finalizada'),
-('Vacunación Aves y Exóticos', '2025-11-03', '11:00:00', '13:00:00', 'Clínica Sede Centro', 'Vacunas y chequeo para mascotas no convencionales.', 30, 'Planificada'),
-('Revisión Post-Adopción', '2025-02-14', '09:00:00', '11:00:00', 'Refugio Animal', 'Chequeo médico para mascotas recién adoptadas.', 25, 'Finalizada');
+('Jornada Canina Rabia', '2025-12-15', '09:00:00', '12:00:00', 'Parque Central', 'Campaña gratuita de vacunación antirrábica para perros.', 100, 'Planificada'),
+('Jornada Felina Anual', '2025-12-20', '10:00:00', '13:00:00', 'Clínica Veterinaria Principal', 'Vacunación triple felina a bajo costo.', 50, 'Planificada'),
+('Jornada Desparasitación', '2025-12-10', '14:00:00', '17:00:00', 'Centro Comunal', 'Jornada de desparasitación interna y externa.', 80, 'Finalizada'),
+('Jornada Canina Refuerzo', '2025-12-05', '08:30:00', '11:30:00', 'Parque de la Paz', 'Refuerzo de parvovirus y moquillo.', 90, 'Planificada'),
+('Jornada Mascota Nueva', '2025-12-01', '10:00:00', '12:00:00', 'Clínica Sede Norte', 'Primeras vacunas para cachorros y gatitos.', 40, 'Finalizada'),
+('Día de Microchip', '2025-12-01', '09:00:00', '14:00:00', 'Clínica Veterinaria Principal', 'Implantación de microchip a tarifa reducida.', 60, 'Planificada'),
+('Rabia Extraclínica', '2026-04-12', '10:00:00', '12:00:00', 'Barrio Las Flores', 'Vacunación antirrábica en zona rural.', 70, 'Planificada'),
+('Control de Garrapatas', '2025-12-05', '15:00:00', '18:00:00', 'Tienda Pet Shop', 'Aplicación de tratamientos antipulgas/garrapatas.', 55, 'Finalizada'),
+('Vacunación Aves y Exóticos', '2025-11-13', '11:00:00', '13:00:00', 'Clínica Sede Centro', 'Vacunas y chequeo para mascotas no convencionales.', 30, 'Planificada'),
+('Revisión Post-Adopción', '2025-12-14', '09:00:00', '11:00:00', 'Refugio Animal', 'Chequeo médico para mascotas recién adoptadas.', 25, 'Finalizada');
 
 INSERT INTO beneficios_club (nombre, descripcion, nivel_requerido, puntos_necesarios, tipo_beneficio, valor_beneficio, activo) VALUES
 ('Descuento 10% Consulta', '10% de descuento en la próxima Consulta General.', 'Bronce', 500, 'Descuento', 0.10, TRUE),
@@ -1174,16 +1174,16 @@ INSERT INTO beneficios_club (nombre, descripcion, nivel_requerido, puntos_necesa
 ('Baño Gratis', 'Prioridad para agendar citas de emergencia.', 'Plata', 0, 'Servicio Gratis', 0.00, TRUE);
 
 INSERT INTO mascotas (dueno_id, nombre, raza_id, fecha_nacimiento, sexo, peso_actual, microchip, alergias, condiciones_preexistentes, activo) VALUES
-(1, 'Max', 1, '2025-05-10', 'Macho', 30.50, '0011', 'Polen', 'Ninguna', TRUE),
-(2, 'Luna', 2, '2025-01-25', 'Hembra', 4.10, '002', 'Ninguna', 'Asma Felina', TRUE),
-(3, 'Rocky', 3, '2023-11-03', 'Macho', 38.90, '0033', 'Carne de res', 'Displasia de cadera leve', TRUE),
-(4, 'Miau', 4, '2025-08-12', 'Hembra', 3.50, '0044', 'Ninguna', 'Ninguna', TRUE),
-(5, 'Toby', 5, '2025-03-01', 'Macho', 12.20, '0055', 'Pollo', 'Ninguna', TRUE),
-(6, 'Spot', 6, '2015-07-19', 'Macho', 25.40, '0066', 'Ninguna', 'Sordera parcial', TRUE),
-(7, 'Nala', 7, '2025-02-29', 'Hembra', 6.80, '0077', 'Ninguna', 'Obesidad', TRUE),
+(1, 'Max', 1, '2023-05-10', 'Macho', 30.50, '0011', 'Polen', 'Ninguna', TRUE),
+(2, 'Luna', 2, '2022-01-25', 'Hembra', 4.10, '002', 'Ninguna', 'Asma Felina', TRUE),
+(3, 'Rocky', 3, '2021-11-03', 'Macho', 38.90, '0033', 'Carne de res', 'Displasia de cadera leve', TRUE),
+(4, 'Miau', 4, '2022-08-12', 'Hembra', 3.50, '0044', 'Ninguna', 'Ninguna', TRUE),
+(5, 'Toby', 5, '2022-03-01', 'Macho', 12.20, '0055', 'Pollo', 'Ninguna', TRUE),
+(6, 'Spot', 6, '2022-07-19', 'Macho', 25.40, '0066', 'Ninguna', 'Sordera parcial', TRUE),
+(7, 'Nala', 7, '2024-02-29', 'Hembra', 6.80, '0077', 'Ninguna', 'Obesidad', TRUE),
 (8, 'Coco', 8, '2024-10-05', 'Hembra', 5.90, '0088', 'Ninguna', 'Ninguna', TRUE),
-(9, 'Zeus', 9, '2025-04-17', 'Macho', 35.00, '0099', 'Pulgas', 'Problemas en piel', TRUE),
-(10, 'Kira', 10, '2025-01-01', 'Hembra', 4.50, '0100', 'Ninguna', 'Ninguna', TRUE);
+(9, 'Zeus', 9, '2023-04-17', 'Macho', 35.00, '0099', 'Pulgas', 'Problemas en piel', TRUE),
+(10, 'Kira', 10, '2023-01-01', 'Hembra', 4.50, '0100', 'Ninguna', 'Ninguna', TRUE);
 
 INSERT INTO inventario (nombre_producto, producto_tipo_id, descripcion, fabricante, proveedor_id, lote, cantidad_stock, stock_minimo, unidad_medida, fecha_vencimiento, precio_compra, precio_venta, requiere_receta, activo) VALUES
 ('Vacuna Antirrábica Canina', 1, 'Vacuna para la Rabia, dosis única.', 'VetPharma', 6, 'RAB202506', 50, 10, 'dosis', '2026-12-31', 5.00, 15.00, FALSE, TRUE),
@@ -1210,52 +1210,52 @@ INSERT INTO citas (mascota_id, veterinario_id, fecha_hora, motivo, estado_id, ob
 (10, 8, '2025-04-12 12:00:00', 'Fisioterapia', 1, 'Sesión inicial.');
 
 INSERT INTO consultas_medicas (mascota_id, veterinario_id, cita_id, fecha_hora, motivo, sintomas, diagnostico, recomendaciones, peso_registrado, temperatura) VALUES
-(1, 1, 1, '2025-04-05 10:15:00', 'Chequeo anual', 'Ninguno, control de rutina.', 'Mascota sana. Condición corporal ideal.', 'Continuar con alimentación balanceada. Próximo control en un año.', 30.50, 38.5),
-(6, 1, 6, '2025-04-08 10:45:00', 'Herida en pata', 'Laceración profunda en almohadilla, sangrado leve.', 'Herida abierta por objeto punzante.', 'Sutura, antibiótico oral por 7 días. Control en 5 días.', 25.30, 38.8),
-(9, 7, 9, '2025-04-11 09:45:00', 'Retiro de puntos', 'Recuperación de cirugía previa sin complicaciones.', 'Recuperación exitosa.', 'Mantener zona seca. Dieta normal.', 35.00, 38.6),
-(2, 2, 2, '2025-04-05 11:45:00', 'Tos persistente', 'Tos seca, especialmente de noche.', 'Sospecha de asma felina. Pendiente de placa.', 'Iniciar tratamiento con broncodilatador. Realizar radiografía ASAP.', 4.10, 39.2),
-(5, 4, NULL, '2025-03-20 12:00:00', 'Mal aliento', 'Halitosis, sarro visible.', 'Gingivitis y enfermedad periodontal.', 'Programar limpieza dental profunda.', 12.20, 38.4),
-(4, 2, 4, '2025-04-06 14:15:00', 'Control de peso', 'Pérdida de 50g desde el último control.', 'Evolución favorable de peso.', 'Continuar con el régimen alimenticio. Próximo control en 3 meses.', 3.45, 38.3),
-(3, 3, 3, '2025-04-06 09:15:00', 'Picazón', 'Rascado constante, enrojecimiento en abdomen y orejas.', 'Dermatitis alérgica a alimentos (sospecha).', 'Dieta de eliminación. Antihistamínico por 10 días.', 38.90, 38.9),
-(7, 5, 7, '2025-04-09 11:15:00', 'Chequeo cardíaco', 'Control de soplos previamente diagnosticados.', 'Soplo Grado II/VI, estable.', 'Mantener medicación. Ecocardiograma en 6 meses.', 6.80, 38.7),
-(8, 6, 8, '2025-04-10 15:15:00', 'Lagrimeo', 'Ojos llorosos y un poco rojos.', 'Conjuntivitis leve.', 'Gotas oftálmicas por 5 días. Control solo si no mejora.', 5.90, 38.5),
-(10, 8, 10, '2025-04-12 12:15:00', 'Sesión de fisioterapia', 'Rehabilitación post-fractura (antigua).', 'Inicio de protocolo de rehabilitación.', 'Realizar ejercicios en casa. Próxima sesión en una semana.', 4.50, 38.4);
+(1, 1, 1, '2025-12-05 10:15:00', 'Chequeo anual', 'Ninguno, control de rutina.', 'Mascota sana. Condición corporal ideal.', 'Continuar con alimentación balanceada. Próximo control en un año.', 30.50, 38.5),
+(6, 1, 6, '2025-12-08 10:45:00', 'Herida en pata', 'Laceración profunda en almohadilla, sangrado leve.', 'Herida abierta por objeto punzante.', 'Sutura, antibiótico oral por 7 días. Control en 5 días.', 25.30, 38.8),
+(9, 7, 9, '2025-12-11 09:45:00', 'Retiro de puntos', 'Recuperación de cirugía previa sin complicaciones.', 'Recuperación exitosa.', 'Mantener zona seca. Dieta normal.', 35.00, 38.6),
+(2, 2, 2, '2025-11-28 11:45:00', 'Tos persistente', 'Tos seca, especialmente de noche.', 'Sospecha de asma felina. Pendiente de placa.', 'Iniciar tratamiento con broncodilatador. Realizar radiografía ASAP.', 4.10, 39.2),
+(5, 4, NULL, '2025-11-20 12:00:00', 'Mal aliento', 'Halitosis, sarro visible.', 'Gingivitis y enfermedad periodontal.', 'Programar limpieza dental profunda.', 12.20, 38.4),
+(4, 2, 4, '2025-12-06 14:15:00', 'Control de peso', 'Pérdida de 50g desde el último control.', 'Evolución favorable de peso.', 'Continuar con el régimen alimenticio. Próximo control en 3 meses.', 3.45, 38.3),
+(3, 3, 3, '2025-12-06 09:15:00', 'Picazón', 'Rascado constante, enrojecimiento en abdomen y orejas.', 'Dermatitis alérgica a alimentos (sospecha).', 'Dieta de eliminación. Antihistamínico por 10 días.', 38.90, 38.9),
+(7, 5, 7, '2025-12-09 11:15:00', 'Chequeo cardíaco', 'Control de soplos previamente diagnosticados.', 'Soplo Grado II/VI, estable.', 'Mantener medicación. Ecocardiograma en 6 meses.', 6.80, 38.7),
+(8, 6, 8, '2025-12-10 15:15:00', 'Lagrimeo', 'Ojos llorosos y un poco rojos.', 'Conjuntivitis leve.', 'Gotas oftálmicas por 5 días. Control solo si no mejora.', 5.90, 38.5),
+(10, 8, 10, '2025-12-12 12:15:00', 'Sesión de fisioterapia', 'Rehabilitación post-fractura (antigua).', 'Inicio de protocolo de rehabilitación.', 'Realizar ejercicios en casa. Próxima sesión en una semana.', 4.50, 38.4);
 
 INSERT INTO procedimientos_especiales (mascota_id, veterinario_id, tipo_procedimiento, nombre_procedimiento, fecha_hora, duracion_estimada_minutos, detalle_procedimiento, seguimiento_postoperatorio, estado, costo_procedimiento) VALUES
-(6, 1, 'Sutura', 'Reparación de Laceración', '2025-04-08 11:00:00', 30, 'Limpieza y sutura con hilo 2-0 absorbible de herida en pata.', 'Retiro de puntos en 10 días. Antibiótico.', 'Finalizado', 80.00),
-(5, 4, 'Odontología', 'Limpieza y Pulido Dental', '2025-04-15 10:00:00', 90, 'Detartraje supragingival, pulido y flúor. Extracción de un incisivo con periodontitis avanzada.', 'Dieta blanda por 3 días. Control oral en 6 meses.', 'Programado', 150.00),
-(9, 1, 'Cirugía', 'Corrección de Entropión', '2025-03-25 14:00:00', 120, 'Cirugía correctiva de entropión bilateral en párpados inferiores.', 'Uso de collar isabelino. Gotas oftálmicas por 10 días.', 'Finalizado', 250.00),
-(3, 7, 'Diagnóstico', 'Radiografía de Cadera', '2025-04-07 10:00:00', 20, 'Toma de placa radiográfica para evaluación de displasia.', 'Pendiente de resultado.', 'Finalizado', 40.00),
-(2, 2, 'Diagnóstico', 'Ecocardiograma', '2025-04-18 16:00:00', 45, 'Estudio de ultrasonido para evaluar función cardíaca.', 'Programado por soplo.', 'Programado', 90.00),
-(1, 3, 'Dermatología', 'Biopsia de Piel', '2025-05-02 09:30:00', 60, 'Toma de muestra de piel para análisis histopatológico por nódulo.', 'Puntos de sutura. Esperar 1 semana por resultados.', 'Programado', 110.00),
-(4, 6, 'Oftalmología', 'Test de Schirmer', '2025-04-10 16:00:00', 10, 'Prueba para medir producción de lágrimas.', 'Resultado normal (15mm/min).', 'Finalizado', 15.00),
-(7, 8, 'Fisioterapia', 'Rehabilitación Acuática', '2025-04-20 11:00:00', 45, 'Primera sesión de terapia en agua para reducción de peso y fortalecimiento.', 'Dos sesiones semanales.', 'Programado', 55.00),
-(10, 9, 'Emergencia', 'Estabilización y Fluidoterapia', '2025-03-10 20:00:00', 180, 'Atención de emergencia por deshidratación y diarrea severa. Terapia con fluidos IV.', 'Dieta blanda. Control en 24h.', 'Finalizado', 95.00),
-(8, 4, 'Odontología', 'Extracción de Muela', '2025-05-10 13:00:00', 70, 'Extracción de premolar con fractura y absceso.', 'Antibiótico post-extracción. Dieta blanda.', 'Programado', 130.00);
+(6, 1, 'Sutura', 'Reparación de Laceración', '2025-12-08 11:00:00', 30, 'Limpieza y sutura con hilo 2-0 absorbible de herida en pata.', 'Retiro de puntos en 10 días. Antibiótico.', 'Finalizado', 80.00),
+(5, 4, 'Odontología', 'Limpieza y Pulido Dental', '2025-12-15 10:00:00', 90, 'Detartraje supragingival, pulido y flúor. Extracción de un incisivo con periodontitis avanzada.', 'Dieta blanda por 3 días. Control oral en 6 meses.', 'Programado', 150.00),
+(9, 1, 'Cirugía', 'Corrección de Entropión', '2025-12-25 14:00:00', 120, 'Cirugía correctiva de entropión bilateral en párpados inferiores.', 'Uso de collar isabelino. Gotas oftálmicas por 10 días.', 'Finalizado', 250.00),
+(3, 7, 'Diagnóstico', 'Radiografía de Cadera', '2025-12-07 10:00:00', 20, 'Toma de placa radiográfica para evaluación de displasia.', 'Pendiente de resultado.', 'Finalizado', 40.00),
+(2, 2, 'Diagnóstico', 'Ecocardiograma', '2025-12-18 16:00:00', 45, 'Estudio de ultrasonido para evaluar función cardíaca.', 'Programado por soplo.', 'Programado', 90.00),
+(1, 3, 'Dermatología', 'Biopsia de Piel', '2025-12-02 09:30:00', 60, 'Toma de muestra de piel para análisis histopatológico por nódulo.', 'Puntos de sutura. Esperar 1 semana por resultados.', 'Programado', 110.00),
+(4, 6, 'Oftalmología', 'Test de Schirmer', '2025-12-10 16:00:00', 10, 'Prueba para medir producción de lágrimas.', 'Resultado normal (15mm/min).', 'Finalizado', 15.00),
+(7, 8, 'Fisioterapia', 'Rehabilitación Acuática', '2025-12-20 11:00:00', 45, 'Primera sesión de terapia en agua para reducción de peso y fortalecimiento.', 'Dos sesiones semanales.', 'Programado', 55.00),
+(10, 9, 'Emergencia', 'Estabilización y Fluidoterapia', '2025-12-10 20:00:00', 180, 'Atención de emergencia por deshidratación y diarrea severa. Terapia con fluidos IV.', 'Dieta blanda. Control en 24h.', 'Finalizado', 95.00),
+(8, 4, 'Odontología', 'Extracción de Muela', '2025-12-10 13:00:00', 70, 'Extracción de premolar con fractura y absceso.', 'Antibiótico post-extracción. Dieta blanda.', 'Programado', 130.00);
 
 INSERT INTO historial_medico (mascota_id, fecha_evento, evento_tipo_id, descripcion, diagnostico, tratamiento_recomendado, veterinario_id, consulta_id, procedimiento_id) VALUES
-(1, '2025-04-05', 1, 'Vacunación anual: Rabia', 'Prevención', 'Próxima dosis en 1 año.', 1, 1, NULL),
-(6, '2025-04-08', 4, 'Reparación de herida con sutura.', 'Laceración', 'Antibiótico y curación diaria.', 1, 6, 1),
-(9, '2025-03-25', 4, 'Cirugía de Entropión bilateral.', 'Entropión', 'Gotas oftálmicas.', 1, NULL, 3),
-(2, '2025-04-05', 3, 'Consulta por tos. Sospecha de asma.', 'Sospecha de Asma Felina', 'Broncodilatador. Radiografía pendiente.', 2, 4, NULL),
-(5, '2025-03-20', 6, 'Examen de rutina con hallazgo de sarro.', 'Enfermedad Periodontal', 'Programar limpieza dental.', 4, 5, NULL),
-(3, '2025-04-06', 3, 'Dermatitis alérgica (sospecha).', 'Dermatitis Alérgica', 'Dieta de eliminación y antihistamínico.', 3, 7, NULL),
-(3, '2025-04-07', 8, 'Radiografía de cadera realizada.', 'Displasia Leve (Confirmada)', 'Control de peso y suplementos articulares.', 7, NULL, 4),
-(10, '2025-03-10', 9, 'Emergencia por deshidratación y diarrea.', 'Gastroenteritis', 'Fluidoterapia y probióticos.', 9, NULL, 9),
-(8, '2025-04-10', 6, 'Examen ocular por lagrimeo.', 'Conjuntivitis Leve', 'Gotas oftálmicas por 5 días.', 6, 9, 7),
-(7, '2025-04-09', 3, 'Chequeo cardiológico de rutina.', 'Soplo Grado II/VI', 'Continuar medicación cardíaca.', 5, 8, NULL);
+(1, '2025-12-05', 1, 'Vacunación anual: Rabia', 'Prevención', 'Próxima dosis en 1 año.', 1, 1, NULL),
+(6, '2025-12-08', 4, 'Reparación de herida con sutura.', 'Laceración', 'Antibiótico y curación diaria.', 1, 6, 1),
+(9, '2025-12-25', 4, 'Cirugía de Entropión bilateral.', 'Entropión', 'Gotas oftálmicas.', 1, NULL, 3),
+(2, '2025-12-05', 3, 'Consulta por tos. Sospecha de asma.', 'Sospecha de Asma Felina', 'Broncodilatador. Radiografía pendiente.', 2, 4, NULL),
+(5, '2025-12-20', 6, 'Examen de rutina con hallazgo de sarro.', 'Enfermedad Periodontal', 'Programar limpieza dental.', 4, 5, NULL),
+(3, '2025-12-06', 3, 'Dermatitis alérgica (sospecha).', 'Dermatitis Alérgica', 'Dieta de eliminación y antihistamínico.', 3, 7, NULL),
+(3, '2025-12-07', 8, 'Radiografía de cadera realizada.', 'Displasia Leve (Confirmada)', 'Control de peso y suplementos articulares.', 7, NULL, 4),
+(10, '2025-12-10', 9, 'Emergencia por deshidratación y diarrea.', 'Gastroenteritis', 'Fluidoterapia y probióticos.', 9, NULL, 9),
+(8, '2025-12-10', 6, 'Examen ocular por lagrimeo.', 'Conjuntivitis Leve', 'Gotas oftálmicas por 5 días.', 6, 9, 7),
+(7, '2025-12-09', 3, 'Chequeo cardiológico de rutina.', 'Soplo Grado II/VI', 'Continuar medicación cardíaca.', 5, 8, NULL);
 
 INSERT INTO facturas (dueno_id, numero_factura, fecha_emision, subtotal, impuesto, descuento, total, metodo_pago, estado, observaciones) VALUES
-(1, 'FAC-2025-0001', '2025-04-05 10:20:00', 60.00, 9.60, 0.00, 69.60, 'Tarjeta', 'Pagada', 'Consulta y Vacuna Antirrábica.'),
-(6, 'FAC-2025-0002', '2025-04-08 11:30:00', 110.00, 17.60, 0.00, 127.60, 'Efectivo', 'Pagada', 'Procedimiento de sutura y antibiótico.'),
-(9, 'FAC-2025-0003', '2025-03-25 16:00:00', 250.00, 40.00, 0.00, 290.00, 'Transferencia', 'Pagada', 'Cirugía de Entropión.'),
-(2, 'FAC-2025-0004', '2025-04-05 12:00:00', 45.00, 7.20, 0.00, 52.20, 'Tarjeta', 'Pagada', 'Consulta y medicamento.'),
-(3, 'FAC-2025-0005', '2025-04-06 10:00:00', 85.00, 13.60, 0.00, 98.60, 'Pendiente', 'Pendiente', 'Consulta, radiografía y medicamento.'),
-(5, 'FAC-2025-0006', '2025-04-07 16:30:00', 45.00, 7.20, 0.00, 52.20, 'Efectivo', 'Pagada', 'Consulta inicial por mal aliento.'),
-(7, 'FAC-2025-0007', '2025-04-09 11:45:00', 45.00, 7.20, 0.00, 52.20, 'Tarjeta', 'Pagada', 'Control cardiológico.'),
-(10, 'FAC-2025-0008', '2025-03-10 21:00:00', 105.00, 16.80, 0.00, 121.80, 'Efectivo', 'Pagada', 'Emergencia y fluidoterapia.'),
-(4, 'FAC-2025-0009', '2025-04-06 14:30:00', 45.00, 7.20, 0.00, 52.20, 'Tarjeta', 'Pagada', 'Consulta de control de peso.'),
-(8, 'FAC-2025-0010', '2025-04-10 15:30:00', 60.00, 9.60, 0.00, 69.60, 'Efectivo', 'Pagada', 'Consulta y Test de Schirmer.');
+(1, 'FAC-2025-0001', '2025-12-05 10:20:00', 60.00, 9.60, 0.00, 69.60, 'Tarjeta', 'Pagada', 'Consulta y Vacuna Antirrábica.'),
+(6, 'FAC-2025-0002', '2025-12-08 11:30:00', 110.00, 17.60, 0.00, 127.60, 'Efectivo', 'Pagada', 'Procedimiento de sutura y antibiótico.'),
+(9, 'FAC-2025-0003', '2025-12-25 16:00:00', 250.00, 40.00, 0.00, 290.00, 'Transferencia', 'Pagada', 'Cirugía de Entropión.'),
+(2, 'FAC-2025-0004', '2025-12-05 12:00:00', 45.00, 7.20, 0.00, 52.20, 'Tarjeta', 'Pagada', 'Consulta y medicamento.'),
+(3, 'FAC-2025-0005', '2025-12-06 10:00:00', 85.00, 13.60, 0.00, 98.60, 'Pendiente', 'Pendiente', 'Consulta, radiografía y medicamento.'),
+(5, 'FAC-2025-0006', '2025-12-07 16:30:00', 45.00, 7.20, 0.00, 52.20, 'Efectivo', 'Pagada', 'Consulta inicial por mal aliento.'),
+(7, 'FAC-2025-0007', '2025-12-09 11:45:00', 45.00, 7.20, 0.00, 52.20, 'Tarjeta', 'Pagada', 'Control cardiológico.'),
+(10, 'FAC-2025-0008', '2025-12-10 21:00:00', 105.00, 16.80, 0.00, 121.80, 'Efectivo', 'Pagada', 'Emergencia y fluidoterapia.'),
+(4, 'FAC-2025-0009', '2025-12-06 14:30:00', 45.00, 7.20, 0.00, 52.20, 'Tarjeta', 'Pagada', 'Consulta de control de peso.'),
+(8, 'FAC-2025-0010', '2025-12-10 15:30:00', 60.00, 9.60, 0.00, 69.60, 'Efectivo', 'Pagada', 'Consulta y Test de Schirmer.');
 
 INSERT INTO club_mascotas (dueno_id, puntos_acumulados, puntos_canjeados, puntos_disponibles, nivel, fecha_inscripcion) VALUES
 (1, 100, 0, 100, 'Bronce', '2024-10-01'),
@@ -1318,28 +1318,28 @@ INSERT INTO transacciones_puntos (club_mascotas_id, factura_id, puntos, tipo, de
 (1, NULL, 50, 'Expirados', 'Puntos de promoción de bienvenida expirados.', 170, 120);
 
 INSERT INTO mascotas_adopcion (mascota_id, fecha_ingreso, motivo_ingreso, estado, historia, temperamento, necesidades_especiales) VALUES
-(1, '2025-01-01', 'Fue rescatado de la calle, requiere un hogar.', 'Disponible', 'Max es un perro muy juguetón y cariñoso, ideal para familias con niños.', 'Juguetón, amigable', 'Requiere paseos diarios de alta intensidad.'),
-(2, '2025-01-15', 'Dueño anterior se mudó y no pudo llevarla.', 'Adoptada', 'Luna es una gata tranquila y reservada, prefiere la compañía de adultos.', 'Tranquila, reservada', 'Dieta especial por asma felina.'),
-(3, '2025-02-01', 'Abandono por condición médica.', 'Disponible', 'Rocky necesita un dueño responsable que maneje su displasia.', 'Leal, protector', 'Medicación diaria y ejercicio controlado.'),
-(4, '2025-02-10', 'Rescate de camada.', 'En Proceso', 'Miau es muy curiosa y le gusta explorar. Ideal para interiores.', 'Curiosa, activa', 'Ninguna.'),
-(5, '2025-03-01', 'Rescate animal.', 'Disponible', 'Toby es un cachorro enérgico que necesita entrenamiento.', 'Enérgico, travieso', 'Entrenamiento de obediencia.'),
-(7, '2025-03-15', 'Problemas de salud del dueño.', 'Disponible', 'Nala es una gata que necesita una dieta estricta para bajar de peso.', 'Perezosa, cariñosa', 'Dieta de control de peso.'),
-(8, '2025-04-01', 'Encontrada en la calle.', 'Disponible', 'Coco es una perra muy dócil y fácil de entrenar.', 'Dócil, obediente', 'Ninguna.'),
-(10, '2025-04-10', 'Problemas de espacio en hogar de paso.', 'Disponible', 'Kira es una gatita joven y sociable.', 'Sociable, juguetona', 'Ninguna.'),
-(6, '2025-04-15', 'Entrega voluntaria.', 'Retirada', 'Spot fue retirado por el dueño original tras un cambio de circunstancias.', 'Tranquilo, mayor', 'Revisiones periódicas de audición.'),
-(9, '2025-04-20', 'Maltrato en hogar anterior.', 'Disponible', 'Zeus necesita mucha paciencia y amor para superar sus traumas.', 'Tímido, desconfiado', 'Terapias de comportamiento.');
+(1, '2025-12-01', 'Fue rescatado de la calle, requiere un hogar.', 'Disponible', 'Max es un perro muy juguetón y cariñoso, ideal para familias con niños.', 'Juguetón, amigable', 'Requiere paseos diarios de alta intensidad.'),
+(2, '2025-12-15', 'Dueño anterior se mudó y no pudo llevarla.', 'Adoptada', 'Luna es una gata tranquila y reservada, prefiere la compañía de adultos.', 'Tranquila, reservada', 'Dieta especial por asma felina.'),
+(3, '2025-12-01', 'Abandono por condición médica.', 'Disponible', 'Rocky necesita un dueño responsable que maneje su displasia.', 'Leal, protector', 'Medicación diaria y ejercicio controlado.'),
+(4, '2025-12-10', 'Rescate de camada.', 'En Proceso', 'Miau es muy curiosa y le gusta explorar. Ideal para interiores.', 'Curiosa, activa', 'Ninguna.'),
+(5, '2025-12-01', 'Rescate animal.', 'Disponible', 'Toby es un cachorro enérgico que necesita entrenamiento.', 'Enérgico, travieso', 'Entrenamiento de obediencia.'),
+(7, '2025-12-15', 'Problemas de salud del dueño.', 'Disponible', 'Nala es una gata que necesita una dieta estricta para bajar de peso.', 'Perezosa, cariñosa', 'Dieta de control de peso.'),
+(8, '2025-12-01', 'Encontrada en la calle.', 'Disponible', 'Coco es una perra muy dócil y fácil de entrenar.', 'Dócil, obediente', 'Ninguna.'),
+(10, '2025-12-10', 'Problemas de espacio en hogar de paso.', 'Disponible', 'Kira es una gatita joven y sociable.', 'Sociable, juguetona', 'Ninguna.'),
+(6, '2025-12-15', 'Entrega voluntaria.', 'Retirada', 'Spot fue retirado por el dueño original tras un cambio de circunstancias.', 'Tranquilo, mayor', 'Revisiones periódicas de audición.'),
+(9, '2025-12-20', 'Maltrato en hogar anterior.', 'Disponible', 'Zeus necesita mucha paciencia y amor para superar sus traumas.', 'Tímido, desconfiado', 'Terapias de comportamiento.');
 
 INSERT INTO adopciones (mascota_adopcion_id, dueno_id, fecha_adopcion, contrato_texto, condiciones_especiales, seguimiento_requerido, fecha_primer_seguimiento) VALUES
-(2, 1, '2025-03-01', 'El adoptante se compromete a brindarle el cuidado veterinario necesario.', 'Mantener dieta especial por asma.', TRUE, '2025-04-01'),
-(4, 3, '2025-04-25', 'El adoptante se compromete a mantenerla en interiores.', 'Castración obligatoria al cumplir 6 meses.', TRUE, '2025-05-25'),
-(6, 2, '2025-05-01', 'Contrato de adopción estándar.', 'Ninguna.', TRUE, '2025-06-01'),
-(1, 4, '2025-05-10', 'El adoptante debe garantizar dos paseos diarios.', 'Seguimiento por alergias.', TRUE, '2025-06-10'),
-(3, 5, '2025-05-15', 'Contrato especial por condición médica.', 'Control de displasia cada 6 meses.', TRUE, '2025-06-15'),
-(5, 7, '2025-05-20', 'El adoptante debe asistir a un curso de adiestramiento.', 'Entrenamiento obligatorio.', TRUE, '2025-06-20'),
-(7, 8, '2025-06-01', 'El adoptante se compromete a seguir la dieta de control de peso.', 'Controles de peso mensuales.', TRUE, '2025-07-01'),
-(8, 9, '2025-06-10', 'Adopción por pareja de adultos mayores.', 'Ninguna.', TRUE, '2025-07-10'),
-(10, 10, '2025-06-15', 'Contrato de adopción estándar.', 'Ninguna.', TRUE, '2025-07-15'),
-(9, 6, '2025-06-20', 'El adoptante debe proporcionar un ambiente tranquilo.', 'Terapia de comportamiento.', TRUE, '2025-07-20');
+(2, 1, '2025-12-01', 'El adoptante se compromete a brindarle el cuidado veterinario necesario.', 'Mantener dieta especial por asma.', TRUE, '2025-04-01'),
+(4, 3, '2025-12-25', 'El adoptante se compromete a mantenerla en interiores.', 'Castración obligatoria al cumplir 6 meses.', TRUE, '2025-05-25'),
+(6, 2, '2025-12-01', 'Contrato de adopción estándar.', 'Ninguna.', TRUE, '2025-06-01'),
+(1, 4, '2025-12-10', 'El adoptante debe garantizar dos paseos diarios.', 'Seguimiento por alergias.', TRUE, '2025-06-10'),
+(3, 5, '2025-12-15', 'Contrato especial por condición médica.', 'Control de displasia cada 6 meses.', TRUE, '2025-06-15'),
+(5, 7, '2025-12-20', 'El adoptante debe asistir a un curso de adiestramiento.', 'Entrenamiento obligatorio.', TRUE, '2025-06-20'),
+(7, 8, '2025-12-01', 'El adoptante se compromete a seguir la dieta de control de peso.', 'Controles de peso mensuales.', TRUE, '2025-07-01'),
+(8, 9, '2025-12-10', 'Adopción por pareja de adultos mayores.', 'Ninguna.', TRUE, '2025-07-10'),
+(10, 10, '2025-12-15', 'Contrato de adopción estándar.', 'Ninguna.', TRUE, '2025-07-15'),
+(9, 6, '2025-12-20', 'El adoptante debe proporcionar un ambiente tranquilo.', 'Terapia de comportamiento.', TRUE, '2025-07-20');
 
 
 INSERT INTO movimientos_inventario (producto_id, tipo_movimiento, cantidad, stock_anterior, stock_nuevo, motivo, referencia_consulta_id, referencia_procedimiento_id, usuario) VALUES

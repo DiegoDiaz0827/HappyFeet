@@ -44,7 +44,6 @@ import util.ConexionDB;
 public class Modulo5 {
     
    // 1. DECLARACIÓN DE CONTROLADORES COMO ATRIBUTOS FINALES
-    // MÓDULO 1: Club de Mascotas
     private final club_mascotasController clubController;
     private final beneficios_clubController beneficioController;
     private final canjes_beneficiosController canjeController;
@@ -56,7 +55,6 @@ public class Modulo5 {
     private final AdopcionesController adopcionesController;
     private final MascotaController mascotaController; 
 
-    // 2. CONSTRUCTOR PARA INYECTAR TODAS LAS DEPENDENCIAS (SOLUCIÓN AL ERROR)
     public Modulo5() {
         // --- 2.1 INICIALIZACIÓN DE DAOS ---
         DueñoDAO duenoDAO = new DueñoDAO();
@@ -70,7 +68,7 @@ public class Modulo5 {
         Beneficios_clubDAO beneficioDAO = new Beneficios_clubDAO();
         Canjes_beneficiosDAO canjesDAO = new Canjes_beneficiosDAO();
 
-        // --- 2.2 INICIALIZACIÓN DE CONTROLLERS (Inyectando DAOs) ---
+        // --- 2 INICIALIZACIÓN DE CONTROLLERS 
         
         // Controllers base:
         this.mascotaController = new MascotaController(mascotaDAO, duenoDAO, razaDAO);
@@ -90,7 +88,7 @@ public class Modulo5 {
         modulo.iniciar();
     }
     
-    // 4. MÉTODO INICIAR (INTEGRACIÓN DE LAS 3 FUNCIONALIDADES)
+    // 4. MÉTODO INICIAR (
     public void iniciar() {
         System.out.println("=================================================");
         System.out.println("             INICIANDO MÓDULO 5:                ");
@@ -126,7 +124,7 @@ public class Modulo5 {
         clubController.registrarMembresia(club1);
         
         clubController.acumularPuntos(duenoClubId, 500);
-        clubController.acumularPuntos(duenoClubId, 250); // Total: 750
+        clubController.acumularPuntos(duenoClubId, 250); 
         
         ClubMascotas clubActualizado = clubController.buscarMembresiaPorDuenoId(duenoClubId);
         
@@ -135,18 +133,16 @@ public class Modulo5 {
         beneficios_club b1 = new beneficios_club(0, "Descuento 10% Alimento", "10% OFF en cualquier bulto de alimento.", 
                                                  "Bronce", 500, TipoBeneficio.DESCUENTO, new BigDecimal("10.00"), true);
         beneficios_club b2 = new beneficios_club(0, "Baño Gratis", "Servicio de baño completo para cualquier mascota.", 
-                                                 "Plata", 1000, TipoBeneficio.SERVICIOGRATIS, BigDecimal.ZERO, true); // Costo alto para fallar
+                                                 "Plata", 1000, TipoBeneficio.SERVICIOGRATIS, BigDecimal.ZERO, true); 
         
         beneficioController.registrarBeneficio(b1);
         beneficioController.registrarBeneficio(b2);
 
         System.out.println("\n--- PASO 3: SIMULACIÓN DE CANJES DE PUNTOS ---");
         if (clubActualizado != null) {
-            simularCanje(clubActualizado, b1); // DEBE FUNCIONAR (750 - 500 = 250)
-            
-            // Reobtener el club para la simulación de fallo
+            simularCanje(clubActualizado, b1); 
             clubActualizado = clubController.buscarMembresiaPorDuenoId(duenoClubId); 
-            simularCanje(clubActualizado, b2);  // DEBE FALLAR (250 < 1000)
+            simularCanje(clubActualizado, b2);  
 
             canjeController.obtenerCanjesPorClubId(clubActualizado.getId());
         }
@@ -158,8 +154,8 @@ public class Modulo5 {
         System.out.println("### 2. SIMULACIÓN: JORNADAS DE VACUNACIÓN RÁPIDA ###");
         System.out.println("#################################################");
 
-        int jornadaId = 1; // ID de ejemplo
-        int mascotaJornadaId = 201; // Mascota que existe
+        int jornadaId = 1; 
+        int mascotaJornadaId = 201; 
         int vacunaId = 1; 
         
         System.out.println("\n--- PASO 1: REGISTRO DE LA JORNADA ---");
@@ -170,7 +166,7 @@ jornadas_vacunacion jornada = new jornadas_vacunacion(
     new Time(System.currentTimeMillis()),
     new Time(System.currentTimeMillis()),
     "Parque Central",
-    "Vacunación gratuita de emergencia para el sector central.", // ⬅️ ¡AGREGAR ESTE ARGUMENTO! (String pDescripcion)
+    "Vacunación gratuita de emergencia para el sector central.", 
     1,
     EstadoVacunacion.PLANIFICADA
 );
@@ -179,8 +175,7 @@ jornadas_vacunacion jornada = new jornadas_vacunacion(
         jornadaController.registrarAtencionRapida(jornadaId, mascotaJornadaId, vacunaId, 1, "LOTE-XYZ123");
         
         System.out.println("\n--- PASO 3: INTENTO DE REGISTRO FALLIDO (Capacidad Máxima 1) ---");
-        // Esto demuestra la validación de capacidad del Controller
-        jornadaController.registrarAtencionRapida(jornadaId, 202, vacunaId, 1, "LOTE-ABC456"); 
+        jornadaController.registrarAtencionRapida(jornadaId, 2, vacunaId, 1, "LOTE-ABC456"); 
     }
     
     // C. SIMULACIÓN: DÍAS DE ADOPCIÓN (Nuevo)
@@ -189,11 +184,11 @@ jornadas_vacunacion jornada = new jornadas_vacunacion(
         System.out.println("### 3. SIMULACIÓN: DÍAS DE ADOPCIÓN Y CONTRATO ###");
         System.out.println("#################################################");
 
-        int mascotaAdopcionDisponibleId = 301; // Mascota en adopción DISPONIBLE
-        int nuevoAdoptanteId = 102; // Dueño que existe
+        int mascotaAdopcionDisponibleId = 1; 
+        int nuevoAdoptanteId = 1; 
         
-        // 1. Caso de éxito: Adopción con seguimiento requerido
-        System.out.println("\n--- PASO 1: REGISTRAR ADOPCIÓN EXITOSA (Mascota ID 301) ---");
+        // 1. Caso de éxito:
+        System.out.println("\n--- PASO 1: REGISTRAR ADOPCIÓN EXITOSA) ---");
         Date fechaAdopcion = new Date();
         Date fechaSeguimiento = new Date(fechaAdopcion.getTime() + TimeUnit.DAYS.toMillis(15)); 
 
@@ -212,7 +207,7 @@ jornadas_vacunacion jornada = new jornadas_vacunacion(
         adopciones adopcionFallida = new adopciones(
             0,
             mascotaAdopcionDisponibleId, 
-            103, // Otro dueño
+            1,
             new Date(), 
             null, 
             "Intentando adoptar de nuevo.",
@@ -223,7 +218,6 @@ jornadas_vacunacion jornada = new jornadas_vacunacion(
     }
 
 
-    // MÉTODO simularCanje (Mantener el código original, ahora dentro de la clase)
     private void simularCanje(ClubMascotas club, beneficios_club beneficio) {
         
         System.out.println("\n*** Intentando canjear: " + beneficio.getNombre() + " ***");
