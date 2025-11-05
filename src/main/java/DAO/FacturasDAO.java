@@ -95,7 +95,7 @@ public class FacturasDAO {
             }
             
             System.out.println("Factura agregada, filas afectadas: " + filas);
-            return filas > 0; // Devolvemos true si se afectó al menos una fila
+            return filas > 0; 
         
         }catch(SQLException ex){
             System.out.println(" Error SQL al agregar factura: " + ex.getMessage());

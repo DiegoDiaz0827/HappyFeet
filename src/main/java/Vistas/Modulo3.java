@@ -151,7 +151,7 @@ public class Modulo3 {
         String direccion = leerTextoOpcional("Direccion(opcional): ");
         String sitioWeb = leerTextoOpcional("Sitio web(opcional): ");
         
-        // método auxiliar para leer el booleano
+      
         boolean esActivo = leerBooleano("Es activo?"); 
         
         Proveedor p = new Proveedor();
@@ -194,7 +194,7 @@ public class Modulo3 {
             System.out.println("Búsqueda finalizada.");
         }
     }
-     // metodo imprimir detalles
+  
     private static void imprimirDetallesProveedor(Proveedor p) {
         System.out.println("\n*** 🔍 Proveedor Encontrado ***");
         System.out.println("ID: " + p.getId());
@@ -223,7 +223,7 @@ public class Modulo3 {
         BigDecimal precioVenta = leerDecimal("Precio de venta: ");
         String unidadMedida = leerTexto("Unidad de Medida: "); 
         
-        //  método auxiliar para leer el booleano
+        
         boolean requiereReceta = leerBooleano("Requiere receta?"); 
         boolean esActivo = leerBooleano("Es activo?"); 
         
@@ -245,7 +245,7 @@ public class Modulo3 {
         inv.setActivo(esActivo); 
         inv.setFechaVencimiento(fechaVencimiento);
         
-        // Establecer la fecha de registro en el objeto antes de enviarlo al DAO
+        // Establece la fecha de registro en el objeto antes de enviarlo al DAO
         inv.setFechaRegistro(LocalDateTime.now());
         
         inventarioController.registrarInventario(inv);
@@ -290,11 +290,11 @@ public class Modulo3 {
     
     // -------------------- MÉTODOS AUXILIARES --------------------
     
-    // Nuevo método auxiliar para leer booleanos
+    
     private static boolean leerBooleano(String mensaje) {
         System.out.print(mensaje + " (S/N): ");
         String input = sc.nextLine().trim().toUpperCase();
-        return input.equals("S"); // Devuelve true si el usuario ingresa 'S'
+        return input.equals("S"); 
     }
 
     private static String leerTexto(String mensaje) {
@@ -332,7 +332,7 @@ public class Modulo3 {
 
     private static BigDecimal leerDecimal(String mensaje) {
         System.out.print(mensaje);
-        // Manejo de errores de formato decimal más robusto
+        
         while (!sc.hasNextBigDecimal()) {
             System.out.print("Debe ingresar un número decimal válido (ej. 10.50): ");
             sc.next();
