@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * @author USUARIO
  */
 
-//modulo 4(completar)
+//modulo 4
 public class Facturas {
 private int id;
     private int duenoId;

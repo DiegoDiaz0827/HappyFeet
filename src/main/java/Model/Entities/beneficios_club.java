@@ -34,7 +34,7 @@ public class beneficios_club {
         this.activo = pActivo;
     }
     
-    // CONSTRUCTOR BASE PRIVADO (Inicializa todos los campos sin ID - Para inserción/llamadas internas)
+    // CONSTRUCTOR BASE PRIVADO 
     private beneficios_club(String pNombre, String pDescripcion, String pNivelRequerido, 
                             int pPuntosNecesarios, TipoBeneficio pTipoBeneficio, 
                             BigDecimal pValorBeneficio, boolean pActivo) {
@@ -47,7 +47,6 @@ public class beneficios_club {
         this.activo = pActivo;
     }
 
-    // Getters
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getDescripcion() { return descripcion; }
@@ -57,7 +56,6 @@ public class beneficios_club {
     public BigDecimal getValorBeneficio() { return valorBeneficio; }
     public boolean isActivo() { return activo; }
 
-    // Setters
     public void setId(int id) { this.id = id; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }

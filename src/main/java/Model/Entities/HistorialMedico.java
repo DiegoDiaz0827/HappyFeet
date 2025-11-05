@@ -19,9 +19,9 @@ public class HistorialMedico {
     private String descripcion;
     private String diagnostico;
     private String tratamientoRecomendado;
-    private Integer veterinarioId;   // Puede ser null
-    private Integer consultaId;      // Puede ser null
-    private Integer procedimientoId; // Puede ser null
+    private Integer veterinarioId;   
+    private Integer consultaId;      
+    private Integer procedimientoId; 
 
     // Constructor completo
     public HistorialMedico(int pId, int pMascotaId, LocalDate pFechaEvento, int pEventoTipoId,

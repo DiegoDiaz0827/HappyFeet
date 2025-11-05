@@ -16,7 +16,7 @@ public class Citas {
  private int id;
     private int mascotaId;
    private String estado;
-    private Integer veterinarioId; // Puede ser null (ON DELETE SET NULL)
+    private Integer veterinarioId; 
     private LocalDateTime fechaHora;
     private String motivo;
     private int estadoId;
@@ -39,7 +39,6 @@ public class Citas {
         fechaCreacion = pFechaCreacion;
     }
 
-    // Constructor sin id ni fechaCreacion (al crear una nueva cita)
     public Citas(int pMascotaId, Integer pVeterinarioId,
                  LocalDateTime pFechaHora, String pMotivo, int pEstadoId,
                  String pObservaciones) {

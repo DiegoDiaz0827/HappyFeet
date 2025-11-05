@@ -12,7 +12,7 @@ public class MovimientoInventario {
     
     private int id;
     private int productoId;
-    private String tipoMovimiento; // Entrada, Salida, Ajuste, Vencimiento
+    private String tipoMovimiento; 
     private int cantidad;
     private int stockAnterior;
     private int stockNuevo;

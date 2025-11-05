@@ -62,7 +62,7 @@ public class ProcedimientosEspeciales {
         costoProcedimiento = pCostoProcedimiento;
     }
 
-    // Constructor sin id (para crear un nuevo registro)
+    
     public ProcedimientosEspeciales(int pMascotaId, int pVeterinarioId, String pTipoProcedimiento,
                                     String pNombreProcedimiento, LocalDateTime pFechaHora, Integer pDuracionEstimadaMinutos,
                                     String pInformacionPreoperatoria, String pDetalleProcedimiento, String pComplicaciones,

@@ -58,7 +58,6 @@ public class Mascotas {
         activo = pActivo;
     }
 
-    // Constructor sin id ni fecha de registro (al crear una nueva mascota)
     public Mascotas(int pDuenoId, String pNombre, int pRazaId,
                     LocalDate pFechaNacimiento, Sexo pSexo, double pPesoActual,
                     String pMicrochip, String pTatuaje, String pUrlFoto,

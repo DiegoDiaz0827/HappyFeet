@@ -37,7 +37,7 @@ public class mascotas_adopcion {
         this.fotoAdicionalUrl = pFotoAdicionalUrl;
     }
     
-    // CONSTRUCTOR 2: BASE PRIVADO (Inicializa todos los campos sin ID - Único constructor de 8 parámetros)
+    // CONSTRUCTOR 2: BASE PRIVADO 
     private mascotas_adopcion(int pMascotaId, Date pFechaIngreso, String pMotivoIngreso, 
                               EstadoAdopcion pEstado, String pHistoria, String pTemperamento, 
                               String pNecesidadesEspeciales, String pFotoAdicionalUrl) {

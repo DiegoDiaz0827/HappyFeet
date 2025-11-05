@@ -15,7 +15,7 @@ public class ConsultasMedicas {
      private int id;
     private int mascotaId;
     private int veterinarioId;
-    private Integer citaId; // puede ser null (ON DELETE SET NULL)
+    private Integer citaId; 
     private LocalDateTime fechaHora;
     private String motivo;
     private String sintomas;

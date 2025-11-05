@@ -17,13 +17,12 @@ public class registro_jornada_vacunacion {
     private int mascotaId;
     private int duenoId;
     private int vacunaId;
-    private Integer veterinarioId; // Usamos Integer para permitir NULL (ON DELETE SET NULL)
-    private Timestamp fechaHora;   // Mapea DATETIME
+    private Integer veterinarioId; 
+    private Timestamp fechaHora;   
     private String loteVacuna;
     private Date proximaDosis;
     private String observaciones;
 
-    // CONSTRUCTOR COMPLETO (Con ID)
     public registro_jornada_vacunacion(int pId, int pJornadaId, int pMascotaId, int pDuenoId, 
                                        int pVacunaId, Integer pVeterinarioId, Timestamp pFechaHora, 
                                        String pLoteVacuna, Date pProximaDosis, String pObservaciones) {
@@ -39,7 +38,6 @@ public class registro_jornada_vacunacion {
         this.observaciones = pObservaciones;
     }
     
-    // CONSTRUCTOR BASE PRIVADO (Inicializa todos los campos sin ID - Para inserción/llamadas internas)
     private registro_jornada_vacunacion(int pJornadaId, int pMascotaId, int pDuenoId, 
                                         int pVacunaId, Integer pVeterinarioId, Timestamp pFechaHora, 
                                         String pLoteVacuna, Date pProximaDosis, String pObservaciones) {

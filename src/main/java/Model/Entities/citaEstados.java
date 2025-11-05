@@ -23,7 +23,7 @@ public class citaEstados {
         descripcion = pDescripcion;
     }
 
-    // Constructor sin id (por ejemplo, al crear un nuevo estado antes de guardar en DB)
+
     public citaEstados(String pNombre, String pDescripcion) {
         nombre = pNombre;
         descripcion = pDescripcion;

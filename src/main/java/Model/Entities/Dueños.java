@@ -40,7 +40,6 @@ public class Dueños {
         activo = pActivo;
     }
 
-    // Constructor sin id ni fecha (por ejemplo, antes de guardar en DB)
     public Dueños(String pNombreCompleto, String pDocumentoIdentidad, String pDireccion,
                   String pTelefono, String pEmail, String pContactoEmergencia, boolean pActivo) {
         nombreCompleto = pNombreCompleto;
