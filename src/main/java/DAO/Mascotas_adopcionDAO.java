@@ -37,7 +37,7 @@ public class Mascotas_adopcionDAO {
         );
     }
     
-    // --- 1. CREATE (Agregar) ➕ ---
+    // --- 1. CREATE 
     public void agregar(mascotas_adopcion m){
         String SQL = "INSERT INTO mascotas_adopcion(mascota_id, fecha_ingreso, motivo_ingreso, estado, historia, temperamento, necesidades_especiales, foto_adicional_url) VALUES (?,?,?,?,?,?,?,?)";
         
@@ -72,7 +72,7 @@ public class Mascotas_adopcionDAO {
         }
     }
     
-    // --- 2. READ (Listar todos) 📋 ---
+    // --- 2. READ 
     public List<mascotas_adopcion> listar(){
         List<mascotas_adopcion> lista = new ArrayList<>();
         String SQL = "SELECT * FROM mascotas_adopcion";
@@ -93,7 +93,7 @@ public class Mascotas_adopcionDAO {
         return lista;
     }
 
-    // --- 3. READ (Obtener por ID) 🔍 ---
+    // --- 3. READ 
     public mascotas_adopcion obtenerPorId(int id) {
         String sql = "SELECT * FROM mascotas_adopcion WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();

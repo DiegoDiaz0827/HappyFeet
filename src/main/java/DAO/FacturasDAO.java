@@ -63,7 +63,7 @@ public class FacturasDAO {
         );
     }
     
-    // 1. CREATE - CORREGIDO PARA DEVOLVER BOOLEAN
+    // 1. CREATE 
     public boolean agregar(Facturas f){
         String SQL = "INSERT INTO facturas(dueno_id, numero_factura, fecha_emision, subtotal, impuesto, descuento, total, metodo_pago, estado, observaciones) VALUES (?,?,?,?,?,?,?,?,?,?)";
         

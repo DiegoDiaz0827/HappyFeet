@@ -137,7 +137,7 @@ public class MascotasDAO {
         }
     }
 
-    // 🔹 OBTENER POR ID
+    
     public Mascotas obtenerPorId(int id) {
         String sql = "SELECT m.*,r.nombre AS Raza, d.nombre_completo AS nombredueño FROM mascotas m JOIN razas r ON m.raza_id = r.id JOIN duenos d ON m.dueno_id = d.id WHERE m.id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -173,7 +173,7 @@ public class MascotasDAO {
         return null;
     }
 
-    // 🔹 LISTAR TODAS
+    
     public List<Mascotas> listarTodas() {
         List<Mascotas> lista = new ArrayList<>();
         String sql = "SELECT m.*,r.nombre AS Raza, d.nombre_completo AS nombredueño FROM mascotas m JOIN razas r ON m.raza_id = r.id JOIN duenos d ON m.dueno_id = d.id";

@@ -68,7 +68,7 @@ public class Beneficios_clubDAO {
         }
     }
     
-    // --- 2. READ (Listar todos los beneficios activos) 📋 ---
+    // --- 2. READ 
     // Consulta común para mostrar el catálogo a los usuarios
     public List<beneficios_club> listarActivos(){
         List<beneficios_club> lista = new ArrayList<>();
@@ -90,7 +90,7 @@ public class Beneficios_clubDAO {
         return lista;
     }
 
-    // --- 3. READ (Obtener por ID) 🔍 ---
+    // --- 3. READ 
     public beneficios_club obtenerPorId(int id) {
         String sql = "SELECT * FROM beneficios_club WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -110,7 +110,7 @@ public class Beneficios_clubDAO {
         return null;
     }
     
-    // --- 4. UPDATE (Actualizar) ✏️ ---
+    // --- 4. UPDATE 
     public boolean actualizar(beneficios_club b) {
         String sql = "UPDATE beneficios_club SET nombre = ?, descripcion = ?, nivel_requerido = ?, puntos_necesarios = ?, tipo_beneficio = ?, valor_beneficio = ?, activo = ? WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();

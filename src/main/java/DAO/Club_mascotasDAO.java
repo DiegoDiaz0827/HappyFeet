@@ -146,7 +146,7 @@ public class Club_mascotasDAO {
         }
     }
     
-    // --- 5. DELETE (Eliminar por ID de Dueño )
+    // --- 5. DELETE 
     public boolean eliminar(int duenoId) {
         String sql = "DELETE FROM club_mascotas WHERE dueno_id = ?";
         try (Connection conn = ConexionDB.conectar();
