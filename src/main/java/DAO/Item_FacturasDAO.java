@@ -207,4 +207,37 @@ public class Item_FacturasDAO {
         }
         return reporte;
     }
+
+
+
+public List<Map<String, Object>> getReporteFacturacionPorPeriodo() {
+    List<Map<String, Object>> reporte = new ArrayList<>();
+
+    // Consulta MySQL para agrupar por mes
+    String SQL = "SELECT DATE_FORMAT(fecha_emision, '%Y-%m') AS periodo, " +
+                 "SUM(total) AS total_facturado, " +
+                 "COUNT(*) AS num_facturas " +
+                 "FROM facturas " +
+                 "GROUP BY DATE_FORMAT(fecha_emision, '%Y-%m') " +
+                 "ORDER BY periodo;";
+
+    try (Connection con = ConexionDB.conectar();
+         Statement st = con.createStatement();
+         ResultSet rs = st.executeQuery(SQL)) {
+
+        while (rs.next()) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("periodo", rs.getString("periodo"));
+            item.put("total_facturado", rs.getBigDecimal("total_facturado"));
+            item.put("num_facturas", rs.getLong("num_facturas"));
+            reporte.add(item);
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error SQL al generar reporte de facturación por período: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    return reporte;
+}
 }

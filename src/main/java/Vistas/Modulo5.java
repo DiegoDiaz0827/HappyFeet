@@ -4,8 +4,7 @@
  */
 package Vistas;
 
-import Controllador.*; 
-import DAO.*;
+
 import Controllador.AdopcionesController;
 import Controllador.MascotaController;
 import Controllador.beneficios_clubController;

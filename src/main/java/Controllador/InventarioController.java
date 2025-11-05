@@ -66,7 +66,7 @@ public class InventarioController {
     // 3️ OBTENER INVENTARIO POR ID 
     public Inventario obtenerInventarioPorId(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido.");
+            System.out.println("️ ID inválido.");
             return null;
         }
 
@@ -75,14 +75,14 @@ public class InventarioController {
                 return i;
             }
         }
-        System.out.println("❌ No se encontró el producto en inventario con ID: " + id);
+        System.out.println(" No se encontró el producto en inventario con ID: " + id);
         return null;
     }
     
     // 4️ Actualizar un registro existente
     public boolean actualizarInventario(Inventario inventario) {
         if (inventario.getId() <= 0) {
-            System.out.println("⚠️ El inventario debe tener un ID válido.");
+            System.out.println("️ El inventario debe tener un ID válido.");
             return false;
         }
         if (inventario.getNombreProducto() == null || inventario.getNombreProducto().isBlank()) {
@@ -111,7 +111,7 @@ public class InventarioController {
         }
 
         boolean exito = inventarioDAO.eliminarInventario(id);
-        System.out.println(exito ? "🗑️ Inventario eliminado correctamente." : " No se encontró el registro para eliminar.");
+        System.out.println(exito ? "️ Inventario eliminado correctamente." : " No se encontró el registro para eliminar.");
         return exito;
     }
 }

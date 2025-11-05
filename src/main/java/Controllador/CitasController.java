@@ -26,33 +26,33 @@ public class CitasController {
         this.citasDAO = citasDAO;
     }
 
-    // 1️⃣ Registrar una nueva cita
+    //registrar nueva cita
     public boolean registrarCita(Citas cita) throws IllegalArgumentException {
         if (cita.getMascotaId() <= 0) {
-            throw new IllegalArgumentException("⚠️ ID de mascota inválido.");
+            throw new IllegalArgumentException(" ID de mascota inválido.");
             
         }
         
             Mascotas mascota = mascotasDAO.obtenerPorId(cita.getMascotaId());
         if (mascota == null) {
-             throw new IllegalArgumentException("⚠️ No existe una mascota con ese ID.");
+             throw new IllegalArgumentException("️ No existe una mascota con ese ID.");
             
         }
         
         
            Veterinarios veterinario = veterinariosDAO.obtenerPorId(cita.getVeterinarioId());
         if (veterinario == null) {
-            throw new IllegalArgumentException("⚠️ No existe un veterinario con ese ID.");
+            throw new IllegalArgumentException("️ No existe un veterinario con ese ID.");
             
         }
         
         
         if (cita.getFechaHora().isBefore(LocalDateTime.now())) {
-             throw new IllegalArgumentException("⚠️ La fecha de la cita no puede ser anterior a la actual.");
+             throw new IllegalArgumentException("️ La fecha de la cita no puede ser anterior a la actual.");
            
         }
         if (cita.getMotivo() == null || cita.getMotivo().isBlank()) {
-             throw new IllegalArgumentException("⚠️ El motivo de la cita es obligatorio.");
+             throw new IllegalArgumentException("️ El motivo de la cita es obligatorio.");
             
         }
         
@@ -60,15 +60,15 @@ public class CitasController {
        citasDAO.agregar(cita);
     
 
-    return true; // ✅ necesario porque el método devuelve boolean
+    return true; 
     }
 
-    // 2️⃣ Listar todas las citas
+    // listar citas
     public List<Citas> listarCitas() {
         return citasDAO.listar();
     }
 
-    // 3️⃣ Buscar cita por ID
+    // buscar cita por id
     public Citas obtenerCitaPorId(int id) throws IllegalArgumentException {
         if (id <= 0) {
             System.out.println("⚠️ ID inválido.");
@@ -78,16 +78,16 @@ public class CitasController {
         Citas cita = citasDAO.obtenerPorId(id);
 
     if (cita == null) {
-        throw new IllegalArgumentException("⚠️ No existe una cita con el ID especificado.");
+        throw new IllegalArgumentException("️ No existe una cita con el ID especificado.");
         
     }
         return cita;
     }
 
-    // 4️⃣ Actualizar cita existente
+    //  actualizar cita
     public boolean actualizarCita(Citas cita) throws IllegalArgumentException {
         if (cita.getId() <= 0 ) {
-            System.out.println("⚠️ La cita debe tener un ID válido.");
+            System.out.println("️ La cita debe tener un ID válido.");
             return false;
         }
         
@@ -95,44 +95,44 @@ public class CitasController {
         
         Veterinarios veterinario = veterinariosDAO.obtenerPorId(cita.getVeterinarioId());
         if (veterinario == null) {
-            throw new IllegalArgumentException("⚠️ No existe un veterinario con ese ID.");
+            throw new IllegalArgumentException("️ No existe un veterinario con ese ID.");
             
         }
         
         
          Mascotas mascota = mascotasDAO.obtenerPorId(cita.getMascotaId());
         if (mascota == null) {
-            throw new IllegalArgumentException("⚠️ No existe una mascota con ese ID.");
+            throw new IllegalArgumentException("️ No existe una mascota con ese ID.");
             
         }
         
         if (cita.getFechaHora().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("⚠️ La nueva fecha no puede ser pasada.");
+            throw new IllegalArgumentException("️ La nueva fecha no puede ser pasada.");
            
         }
 
         boolean exito = citasDAO.actualizar(cita);
-        System.out.println(exito ? "✅ Cita actualizada correctamente." : "❌ No se pudo actualizar la cita.");
+        System.out.println(exito ? " Cita actualizada correctamente." : "No se pudo actualizar la cita.");
         return exito;
     }
 
-    // 5️⃣ Eliminar cita
+    // eliminar cita
     public boolean eliminarCita(int id) {
         if (id <= 0) {
-            System.out.println("⚠️ ID inválido.");
+            System.out.println("️ ID inválido.");
             return false;
         }
         
          Citas cita = citasDAO.obtenerPorId(id);
 
     if (cita == null) {
-        System.out.println("⚠️ No existe una cita con el ID especificado.");
+        System.out.println(" No existe una cita con el ID especificado.");
         return false;
     }
         
 
         boolean exito = citasDAO.eliminar(id);
-        System.out.println(exito ? "🗑️ Cita eliminada correctamente." : "❌ No se encontró la cita para eliminar.");
+        System.out.println(exito ? "️ Cita eliminada correctamente." : " No se encontró la cita para eliminar.");
         return exito;
     }
     

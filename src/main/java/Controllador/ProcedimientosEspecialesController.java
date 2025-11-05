@@ -28,33 +28,33 @@ public class ProcedimientosEspecialesController {
         this.dao = new Procedimientos_especialesDAO();
     }
 
-    // 🔹 Crear un nuevo procedimiento especial
+    //  Crear un nuevo procedimiento especial
     public boolean crearProcedimiento(ProcedimientosEspeciales pe) throws IllegalArgumentException {
 
-        // ✅ Validaciones básicas
+        //  Validaciones básicas
          Mascotas mascota = mascotasdao.obtenerPorId(pe.getMascotaId());
         if (mascota == null) {
-             throw new IllegalArgumentException("⚠️ No existe una mascota con ese ID.");
+             throw new IllegalArgumentException("️ No existe una mascota con ese ID.");
             
         }
         
         
            Veterinarios veterinario = veterinariodao.obtenerPorId(pe.getVeterinarioId());
         if (veterinario == null) {
-            throw new IllegalArgumentException("⚠️ No existe un veterinario con ese ID.");
+            throw new IllegalArgumentException("️ No existe un veterinario con ese ID.");
             
         }
         
         if (pe.getTipoProcedimiento() == null || pe.getTipoProcedimiento().isBlank()) {
-            throw new IllegalArgumentException("⚠️ Error: el tipo de procedimiento no puede estar vacío.");
+            throw new IllegalArgumentException("️ Error: el tipo de procedimiento no puede estar vacío.");
             
         }
         if (pe.getNombreProcedimiento() == null || pe.getNombreProcedimiento().isBlank()) {
-             throw new IllegalArgumentException("⚠️ Error: el nombre del procedimiento no puede estar vacío.");
+             throw new IllegalArgumentException("️ Error: el nombre del procedimiento no puede estar vacío.");
             
         }
         if (pe.getFechaHora() == null || pe.getFechaHora().isBefore(LocalDateTime.now())) {
-             throw new IllegalArgumentException("⚠️ Error: la fecha del procedimiento debe ser futura.");
+             throw new IllegalArgumentException("️ Error: la fecha del procedimiento debe ser futura.");
             
         }
         if (pe.getProximoControl() != null) {
@@ -62,11 +62,11 @@ public class ProcedimientosEspecialesController {
     LocalDate fechaProcedimiento = pe.getFechaHora().toLocalDate();
 
     if (pe.getProximoControl().isBefore(hoy)) {
-        throw new IllegalArgumentException("⚠️ Error: la fecha de control no puede ser anterior a la fecha actual.");
+        throw new IllegalArgumentException(" Error: la fecha de control no puede ser anterior a la fecha actual.");
     }
 
     if (pe.getProximoControl().isBefore(fechaProcedimiento)) {
-        throw new IllegalArgumentException("⚠️ Error: la fecha de control debe ser posterior a la fecha del procedimiento.");
+        throw new IllegalArgumentException("️ Error: la fecha de control debe ser posterior a la fecha del procedimiento.");
     }
          }
 
@@ -74,10 +74,10 @@ public class ProcedimientosEspecialesController {
     
         try {
             dao.agregar(pe);
-            System.out.println("✅ Procedimiento registrado correctamente con ID: " + pe.getId());
+            System.out.println(" Procedimiento registrado correctamente con ID: " + pe.getId());
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar el procedimiento: " + e.getMessage());
+            System.out.println(" Error al registrar el procedimiento: " + e.getMessage());
             return false;
         }
     }

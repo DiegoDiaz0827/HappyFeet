@@ -45,6 +45,12 @@ public class Servicios {
         this.activo = true; 
     }
 
+    public Servicios() {
+       
+    }
+
+   
+
 
 
     public int getId() {

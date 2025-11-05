@@ -42,7 +42,7 @@ public class DueñosController {
     }
 
     dueñodao.agregar(d);
-    System.out.println("🎉 El dueño " + d.getNombreCompleto() + " ha sido registrado exitosamente.");
+    System.out.println(" El dueño " + d.getNombreCompleto() + " ha sido registrado exitosamente.");
 }
     
     
@@ -51,9 +51,9 @@ public class DueñosController {
         System.out.println("\n--- ACTUALIZANDO DUEÑO ID: " + dueno.getId() + " ---");
         boolean actualizado = dueñodao.actualizar(dueno);
         if (actualizado) {
-            System.out.println("✅ Datos del dueño ID " + dueno.getId() + " actualizados correctamente.");
+            System.out.println(" Datos del dueño ID " + dueno.getId() + " actualizados correctamente.");
         } else {
-            System.out.println("❌ No se pudo actualizar el dueño ID " + dueno.getId() + ".");
+            System.out.println(" No se pudo actualizar el dueño ID " + dueno.getId() + ".");
         }
         
         
@@ -64,9 +64,9 @@ public class DueñosController {
         System.out.println("\n--- ELIMINANDO DUEÑO ID: " + id + " ---");
         boolean eliminado = dueñodao.eliminar(id);
         if (eliminado) {
-            System.out.println("✅ Dueño ID " + id + " eliminado correctamente.");
+            System.out.println(" Dueño ID " + id + " eliminado correctamente.");
         } else {
-            System.out.println("❌ No se pudo eliminar el dueño ID " + id + ".");
+            System.out.println(" No se pudo eliminar el dueño ID " + id + ".");
         }
         return eliminado;
     }
@@ -75,9 +75,9 @@ public class DueñosController {
         System.out.println("\n--- BUSCANDO DUEÑO ID: " + id + " ---");
         Dueños dueno = dueñodao.obtenerPorId(id);
         if (dueno != null) {
-            System.out.println("🔎 Encontrado: " + dueno.getNombreCompleto());
+            System.out.println(" Encontrado: " + dueno.getNombreCompleto());
         } else {
-            throw new IllegalArgumentException("⚠️ Dueño ID " + id + " no encontrado.");
+            throw new IllegalArgumentException("️ Dueño ID " + id + " no encontrado.");
         }
         return dueno;
     }
@@ -85,7 +85,7 @@ public class DueñosController {
     public List<Dueños> obtenerTodosLosDuenos() {
         System.out.println("\n--- LISTANDO TODOS LOS DUEÑOS ---");
         List<Dueños> lista = dueñodao.listarTodos();
-        System.out.println("📊 Se encontraron " + lista.size() + " dueños.");
+        System.out.println(" Se encontraron " + lista.size() + " dueños.");
         return lista;
     }
     

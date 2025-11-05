@@ -28,19 +28,19 @@ public class PrescripcionController {
             return false;
         }
         if (prescripcion.getCantidad() <= 0) {
-            System.out.println("⚠La cantidad debe ser mayor que 0.");
+            System.out.println("La cantidad debe ser mayor que 0.");
             return false;
         }
         if (prescripcion.getDosis() == null || prescripcion.getDosis().isBlank()) {
-            System.out.println("⚠La dosis es obligatoria.");
+            System.out.println("La dosis es obligatoria.");
             return false;
         }
         if (prescripcion.getFrecuencia() == null || prescripcion.getFrecuencia().isBlank()) {
-            System.out.println("⚠La frecuencia es obligatoria.");
+            System.out.println("La frecuencia es obligatoria.");
             return false;
         }
         if (prescripcion.getDuracionDias() != null && prescripcion.getDuracionDias() <= 0) {
-            System.out.println("⚠La duración debe ser mayor que 0 días.");
+            System.out.println("La duración debe ser mayor que 0 días.");
             return false;
         }
 
@@ -64,7 +64,7 @@ public class PrescripcionController {
     // 3️ Obtener una prescripción por ID
     public Prescripcion obtenerPrescripcionPorId(int id) {
         if (id <= 0) {
-            System.out.println("⚠ID inválido.");
+            System.out.println("ID inválido.");
             return null;
         }
 
@@ -90,7 +90,7 @@ public class PrescripcionController {
         }
 
         boolean exito = prescripcionDAO.actualizar(prescripcion);
-        System.out.println(exito ? "🔄 Prescripción actualizada correctamente." : " No se pudo actualizar la prescripción.");
+        System.out.println(exito ? " Prescripción actualizada correctamente." : " No se pudo actualizar la prescripción.");
         return exito;
     }
 
@@ -102,7 +102,7 @@ public class PrescripcionController {
         }
 
         boolean exito = prescripcionDAO.eliminar(id);
-        System.out.println(exito ? "🗑️ Prescripción eliminada correctamente." : " No se encontró la prescripción para eliminar.");
+        System.out.println(exito ? "️ Prescripción eliminada correctamente." : " No se encontró la prescripción para eliminar.");
         return exito;
     }
 }

@@ -17,13 +17,13 @@ import Model.Enums.EstadoAdopcion;
  */
 
 public class AdopcionesController {
-// 1. ATRIBUTOS: LOS 4 ELEMENTOS NECESARIOS
+
     private final AdopcionesDAO adopcionesDAO;
     private final Mascotas_adopcionDAO mascotasAdopcionDAO; 
-    private final MascotaController mascotaController; // Para obtener datos de la mascota
-    private final DueñoDAO dueñoDAO; // Para obtener datos del dueño
+    private final MascotaController mascotaController;
+    private final DueñoDAO dueñoDAO;
 
-    // 2. CONSTRUCTOR (¡ESTO RESUELVE EL ERROR EN Modulo5.java!)
+    // 2. CONSTRUCTOR 
     public AdopcionesController(
             AdopcionesDAO adopcionesDAO,
             Mascotas_adopcionDAO mascotasAdopcionDAO,
@@ -33,12 +33,12 @@ public class AdopcionesController {
         this.mascotasAdopcionDAO = mascotasAdopcionDAO;
         this.mascotaController = mascotaController;
         this.dueñoDAO = dueñoDAO;
-        System.out.println("✅ AdopcionesController inicializado con todas las dependencias.");
+        System.out.println(" AdopcionesController inicializado con todas las dependencias.");
     }
 
     // 1️ Registrar una nueva adopción (CREATE)
     public boolean registrarAdopcion(adopciones adopcion) {  
-        // 1. Validaciones  de IDs
+        
         // 1. Validaciones básicas de IDs
         if (adopcion.getMascotaAdopcionId() <= 0) {
             System.out.println("️ ID de Mascota Adopción inválido. Debe especificar la mascota.");
@@ -50,14 +50,14 @@ public class AdopcionesController {
         }
 
         if (!mascotasAdopcionDAO.verificarDisponibilidad(adopcion.getMascotaAdopcionId())) {
-             System.out.println("❌ Error de lógica: La mascota ID " + adopcion.getMascotaAdopcionId() + " NO está disponible para adopción.");
+             System.out.println(" Error de lógica: La mascota ID " + adopcion.getMascotaAdopcionId() + " NO está disponible para adopción.");
              return false;
         }
         
-        // El resto de tus validaciones de fechas (mantenidas)...
+        
         Date hoy = new Date();
         if (adopcion.getFechaAdopcion() == null || adopcion.getFechaAdopcion().after(hoy)) {
-             System.out.println("⚠️ La fecha de adopción es obligatoria y no puede ser futura.");
+             System.out.println("️ La fecha de adopción es obligatoria y no puede ser futura.");
              return false;
         }
         
@@ -76,10 +76,10 @@ public class AdopcionesController {
 
             mascotasAdopcionDAO.actualizarEstado(adopcion.getMascotaAdopcionId(), EstadoAdopcion.ADOPTADA);
             
-            System.out.println("🎉 Adopción registrada y Mascota ID " + adopcion.getMascotaAdopcionId() + " marcada como ADOPTADA.");
+            System.out.println(" Adopción registrada y Mascota ID " + adopcion.getMascotaAdopcionId() + " marcada como ADOPTADA.");
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar adopción (posiblemente la mascota ya estaba adoptada o error de DB): " + e.getMessage());
+            System.out.println(" Error al registrar adopción (posiblemente la mascota ya estaba adoptada o error de DB): " + e.getMessage());
             return false;
         }
     }

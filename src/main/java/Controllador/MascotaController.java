@@ -57,7 +57,7 @@ public class MascotaController {
         return mascotaDAO.actualizar(m);
     }
 
-    // 🔹 Transferir mascota a otro dueño 
+    //  Transferir mascota a otro dueño 
     public boolean transferirMascota(int idMascota, int idNuevoDueno) throws IllegalArgumentException {
         if (idMascota <= 0 || mascotaDAO.obtenerPorId(idMascota) == null) {
             throw new IllegalArgumentException("Error: Mascota no encontrada.");

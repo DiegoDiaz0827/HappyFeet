@@ -92,12 +92,56 @@ public class Modulo4 {
         System.out.println("0. Volver al menú principal (Salir del Módulo 4)");
     }
 
-    private static void menuServicios() { }
-    private static void registrarServicio() {}
-    private static void listarServicios() { }
-    private static void obtenerServicio() {}
-    private static void actualizarServicio() {}
-    private static void eliminarServicio() {}
+    private static void menuServicios() { 
+        while(true){System.out.println("Menu de servicios");
+        System.out.println("1. Registrar nuevo servicio");
+        System.out.println("2.buscar servicio por id");
+        System.out.println("3.listar servicios");
+        System.out.println("0.salir");
+        int opcion = leerEntero("seleccione una opcion: ");
+        switch (opcion) {
+                case 1: registrarservicio(); break;
+                case 2: Listartodas(); break;
+                case 3: Obtenerporid(); break;
+                case 0: return;
+            }
+        
+        
+        }
+    }
+    
+    
+    
+   public static void registrarservicio() {
+    System.out.println("\n--- Registrar Nuevo Servicio ---");
+
+    String nombre = leerTexto("Nombre del Servicio: ");
+    String descripcion = leerTextoOpcional("Descripción (opcional): ");
+    String categoria = leerTextoOpcional("Categoría (opcional): ");
+
+    BigDecimal precioBase = leerBigDecimal("Precio Base: ");
+    int duracion = leerEntero("Duración Estimada (minutos): ");
+
+    boolean activo = true;
+    // Crear el objeto de modelo
+     Servicios s = new Servicios();
+    s.setNombre(nombre);
+    s.setDescripcion(descripcion);
+    s.setCategoria(categoria);
+    s.setPrecioBase(precioBase);
+    s.setDuracionEstimadaMinutos(duracion);
+    s.setActivo(activo);
+
+    // Registrar usando el controlador
+    if (serviciosController.registrarServicio(s)) {
+        System.out.println("✅ Servicio registrado exitosamente con ID: " + s.getId());
+    } else {
+        System.out.println("❌ No se pudo registrar el servicio.");
+    }
+}
+    
+    
+  
 
     private static void menuFacturas() {
         while (true) {
@@ -107,8 +151,8 @@ public class Modulo4 {
             System.out.println("3. Buscar factura por ID");
             System.out.println("4. Listar ítems de una factura");
             System.out.println("5. Actualizar factura (Totales/Estado/Pago)");
-            System.out.println("6. Eliminar factura");
-            System.out.println("7. **Generar Factura en Texto Plano**");
+            
+            System.out.println("6. **Generar Factura en Texto Plano**");
             System.out.println("0. Volver al menú principal");
             
             int opcion = leerEntero("Seleccione una opción: ");
@@ -118,8 +162,8 @@ public class Modulo4 {
                 case 3: Obtenerporid(); break;
                 case 4: ListarItems(); break;
                case 5: actualizarFactura(); break;
-                //case 6: eliminarFactura(); break;
-                case 7: generarFacturaEnTextoPlano(); break;
+                
+                case 6: generarFacturaEnTextoPlano(); break;
                 case 0: return;
                 default: System.out.println("Opción inválida."); break;
             }
@@ -578,6 +622,10 @@ try {
 
         return LocalDateTime.of(fecha, hora);
         
+    }
+
+    private boolean leer(String el_servicio_está_activo_sn_) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
