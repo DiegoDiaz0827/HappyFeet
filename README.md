@@ -118,3 +118,12 @@ Inventario: Agregar productos, verificar stock y movimientos.
 Facturación: Generar facturas automáticas después de cada servicio.
 Reportes: Consultar estadísticas y rendimiento general.
 Actividades Especiales: Gestionar adopciones, campañas y beneficios del club.
+
+👥 Autores
+
+Estudiantes:
+
+    Luis Guerrero - Desarrollo del Sistema
+    Diego Diaz - Desarrollo del Sistema
+    Yessica jaramillo -- Desarrollo del Sistema
+
