@@ -181,10 +181,8 @@ public class Mascotas_adopcionDAO {
     }
     
     public boolean verificarDisponibilidad(int mascotaAdopcionId) {
-        // Llama a tu método existente
         mascotas_adopcion m = obtenerPorId(mascotaAdopcionId);
         
-        // Comprueba si la mascota existe y su estado es DISPONIBLE
         return m != null && m.getEstado() == EstadoAdopcion.DISPONIBLE;
     }
 }

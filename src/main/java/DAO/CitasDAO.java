@@ -44,7 +44,7 @@ public class CitasDAO {
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
                     int idGenerado = rs.getInt(1);
-                    cita.setId(idGenerado); // Asignamos el ID al objeto.
+                    cita.setId(idGenerado); 
                     System.out.println("Cita insertada con ID = " + idGenerado);
                 }
             }

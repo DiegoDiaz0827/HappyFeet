@@ -19,7 +19,6 @@ import util.ConexionDB;
  * @author camper
  */
 public class Transacciones_puntosDAO {
-     // permite devolver los datos en un objeto para usar
     private transacciones_puntos mapearResultSetATransaccion(ResultSet rs) throws SQLException {
         
         Integer facturaId = rs.getObject("factura_id") != null ? rs.getInt("factura_id") : null;

@@ -92,10 +92,6 @@ public class EventosTiposDAO {
         }
     }
 
-     
-     
-     
-     
       public EventosTipos obtenerPorId(int id) {
         String sql = "SELECT * FROM eventos_tipos WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();

@@ -213,7 +213,6 @@ public class Item_FacturasDAO {
 public List<Map<String, Object>> getReporteFacturacionPorPeriodo() {
     List<Map<String, Object>> reporte = new ArrayList<>();
 
-    // Consulta MySQL para agrupar por mes
     String SQL = "SELECT DATE_FORMAT(fecha_emision, '%Y-%m') AS periodo, " +
                  "SUM(total) AS total_facturado, " +
                  "COUNT(*) AS num_facturas " +

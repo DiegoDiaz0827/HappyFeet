@@ -33,7 +33,7 @@ public class Jornadas_vacunacionDAO {
             rs.getString("ubicacion"),
             rs.getString("descripcion"),
             capacidadMaxima,
-            EstadoVacunacion.valueOf(rs.getString("estado")) // Mapeo del Enum
+            EstadoVacunacion.valueOf(rs.getString("estado")) 
         );
     }
     

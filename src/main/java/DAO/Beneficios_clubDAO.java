@@ -123,7 +123,7 @@ public class Beneficios_clubDAO {
             ps.setString(5, b.getTipoBeneficio().name());
             ps.setBigDecimal(6, b.getValorBeneficio());
             ps.setBoolean(7, b.isActivo());
-            ps.setInt(8, b.getId()); // Condición WHERE
+            ps.setInt(8, b.getId()); 
             
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas > 0;

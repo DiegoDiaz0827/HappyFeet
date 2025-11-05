@@ -78,8 +78,6 @@ public class DueñoDAO {
     }
 
      
-     
-     
      public boolean actualizar(Dueños d) {
         String sql = "UPDATE duenos SET nombre_completo = ?,documento_identidad = ?,direccion = ?, telefono = ?,email = ?,"
                 + "contacto_emergencia = ?,fecha_registro = ?,activo = ? WHERE id = ?";
@@ -103,10 +101,7 @@ public class DueñoDAO {
             return false;
         }
     }
-
-     
-     
-     
+   
      
       public Dueños obtenerPorId(int id) {
         String sql = "SELECT * FROM duenos WHERE id = ?";
