@@ -44,7 +44,7 @@ public class Modulo4 {
     private static item_facturaController itemFacturaController;
     private static DueñosController duenocontroller;
     private static InventarioController inventariocontroller;
-    // Corregido a 'scanner' para claridad.
+   
     private static Scanner scanner = new Scanner(System.in); 
     
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -134,9 +134,9 @@ public class Modulo4 {
 
     // Registrar usando el controlador
     if (serviciosController.registrarServicio(s)) {
-        System.out.println("✅ Servicio registrado exitosamente con ID: " + s.getId());
+        System.out.println(" Servicio registrado exitosamente con ID: " + s.getId());
     } else {
-        System.out.println("❌ No se pudo registrar el servicio.");
+        System.out.println(" No se pudo registrar el servicio.");
     }
 }
     
@@ -194,8 +194,7 @@ public class Modulo4 {
         String observaciones = leerTextoOpcional("Observaciones (opcional): ");
 
         Facturas f = new Facturas(duenoId, numeroFactura, subtotal, impuesto, descuento, total, metodoPago, EstadoFacturas.PENDIENTE, observaciones);
-        f.setFechaEmision(LocalDateTime.now()); // Asegurar la fecha
-        
+        f.setFechaEmision(LocalDateTime.now()); 
         if (facturasController.registrarFactura(f)) {
             System.out.println("¿Desea agregar ítems a esta factura ahora? (s/n)");
             if (scanner.nextLine().trim().equalsIgnoreCase("s")) {
@@ -323,7 +322,7 @@ public class Modulo4 {
             System.out.println("encontrada");
              System.out.println("Items de la factura " + id + ":");
         for (Items_factura item : items) {
-            System.out.println(item); // o formatea como quieras
+            System.out.println(item); 
         }
         } catch (IllegalArgumentException e) {
              System.out.println("❌ Error al obtener la factura: " + e.getMessage());
@@ -377,7 +376,7 @@ public class Modulo4 {
     
    
     // ====================================================================
-    // === Generación de Factura en Texto Plano (Módulo 4 Requerimiento) ===
+    // === Generación de Factura en Texto Plano  ===
     // ====================================================================
 
  private static void generarFacturaEnTextoPlano() {
@@ -389,24 +388,24 @@ public class Modulo4 {
         id = leerEntero("Ingrese ID de la factura a generar en texto plano: ");
         try {
             f = facturasController.obtenerFacturaPorId(id);
-            if (f != null) break; // ✅ salir del bucle si encontró la factura
-            System.out.println("❌ No se encontró la factura con ese ID. Intente de nuevo.");
+            if (f != null) break; // 
+            System.out.println(" No se encontró la factura con ese ID. Intente de nuevo.");
         } catch (IllegalArgumentException e) {
-            System.out.println("⚠️ Error al obtener la factura: " + e.getMessage());
+            System.out.println(" Error al obtener la factura: " + e.getMessage());
         }
     }
 
-    // Si por alguna razón sigue sin encontrarse (extra seguridad)
+    
     if (f == null) {
-        System.out.println("❌ Factura con ID " + id + " no encontrada.");
+        System.out.println(" Factura con ID " + id + " no encontrada.");
         return;
     }
 
-    // Obtener nombre del dueño
+
     Dueños d = duenocontroller.buscarDuenoPorId(f.getDuenoId());
     String nombreDueno = (d != null) ? d.getNombreCompleto() : "Desconocido";
 
-    // Obtener ítems
+
    List<Items_factura> items = new ArrayList<>();
 try {
     items = itemFacturaController.listarItemsPorFactura(id);
@@ -414,7 +413,7 @@ try {
     System.out.println("| ** NO HAY ÍTEMS REGISTRADOS PARA ESTA FACTURA **");
 }
 
-    // Armar el contenido en un StringBuilder
+   
     StringBuilder sb = new StringBuilder();
 
     sb.append("\n=======================================================\n");
@@ -465,10 +464,10 @@ try {
     sb.append("             ¡Gracias por su visita!             \n");
     sb.append("=======================================================\n\n");
 
-    // Mostrar factura por consola
+    
     System.out.println(sb.toString());
 
-    // Preguntar si desea guardar
+    
     String opcion = leerTexto("¿Desea guardar la factura en un archivo .txt? (S/N): ");
     if (opcion.equalsIgnoreCase("S")) {
         try {
@@ -476,9 +475,9 @@ try {
             try (FileWriter fw = new FileWriter(archivo)) {
                 fw.write(sb.toString());
             }
-            System.out.println("✅ Factura guardada como: " + archivo.getAbsolutePath());
+            System.out.println(" Factura guardada como: " + archivo.getAbsolutePath());
         } catch (IOException e) {
-            System.out.println("❌ Error al guardar la factura: " + e.getMessage());
+            System.out.println(" Error al guardar la factura: " + e.getMessage());
         }
     }
 }
@@ -564,9 +563,9 @@ try {
     String texto;
     do {
         System.out.print(mensaje);
-        texto = scanner.nextLine().trim(); // trim() elimina espacios al inicio y final
+        texto = scanner.nextLine().trim(); 
         if (texto.isEmpty()) {
-            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
         }
     } while (texto.isEmpty());
     return texto;
@@ -607,14 +606,14 @@ try {
         System.out.print("Fecha (YYYY-MM-DD): ");
         fechaStr = scanner.nextLine();
          if (fechaStr.isEmpty()) {
-            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
         }
         }while(fechaStr.isEmpty());
         
         do{System.out.print("Hora (HH:MM): ");
         horaStr = scanner.nextLine();
          if (horaStr.isEmpty()) {
-            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
         }}while( horaStr.isEmpty());
 
         LocalDate fecha = LocalDate.parse(fechaStr);
@@ -624,9 +623,6 @@ try {
         
     }
 
-    private boolean leer(String el_servicio_está_activo_sn_) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
 }
 

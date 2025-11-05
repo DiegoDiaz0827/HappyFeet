@@ -67,7 +67,7 @@ public class Modulo2 {
                     System.out.println("Saliendo del módulo de servicios médicos...");
                     return;
                 }
-                default -> System.out.println("❌ Opción inválida. Intente de nuevo.");
+                default -> System.out.println(" Opción inválida. Intente de nuevo.");
             }
         }
     }
@@ -116,10 +116,10 @@ public class Modulo2 {
         
             try {
                veterinarioController.registrarVeterinario(v);
-        System.out.println("✅ Veterinario registrado correctamente."); 
+        System.out.println(" Veterinario registrado correctamente."); 
         break;
             } catch (Exception e) {
-                 System.out.println("❌ Error al actualizar el dueño: " + e.getMessage());
+                 System.out.println(" Error al actualizar el dueño: " + e.getMessage());
             }
      
     }
@@ -193,13 +193,13 @@ public class Modulo2 {
         
 
         veterinarioController.actualizarVeterinario(v);
-        System.out.println("✅ Veterinario actualizado correctamente.");
+        System.out.println(" Veterinario actualizado correctamente.");
     }
 
     private static void eliminarVeterinario() {
         int id = leerEntero("ID del veterinario a eliminar: ");
         veterinarioController.eliminarVeterinario(id);
-        System.out.println("✅ Veterinario eliminado correctamente.");
+        System.out.println(" Veterinario eliminado correctamente.");
     }
 
     // ========================= CITAS =========================
@@ -241,7 +241,7 @@ public class Modulo2 {
                 System.out.println("Cita registrada con exito");
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("❌ Error al registrar cita: " + e.getMessage());
+                System.out.println(" Error al registrar cita: " + e.getMessage());
             }
         
         }
@@ -258,11 +258,10 @@ public class Modulo2 {
              c = citaController.obtenerCitaPorId(id);
              break;
         } catch (IllegalArgumentException e) {
-             System.out.println("❌ Error al ver cita: " + e.getMessage());
+             System.out.println(" Error al ver cita: " + e.getMessage());
         }
     }
 
-    // ✅ Si llegó aquí, c no es null, así que se puede imprimir sin error
     System.out.println("\n--- Detalle de la Cita ---");
     System.out.println("ID: " + c.getId());
     System.out.println("Mascota ID: " + c.getMascotaId());
@@ -328,7 +327,7 @@ public class Modulo2 {
                 citaController.actualizarCita(c);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("❌ Error al ver cita: " + e.getMessage());
+                System.out.println(" Error al ver cita: " + e.getMessage());
             }
             
             c.setMascotaId(originalmascota);
@@ -345,7 +344,7 @@ public class Modulo2 {
     private static void eliminarCita() {
         int id = leerEntero("ID de la cita a eliminar: ");
         citaController.eliminarCita(id);
-        System.out.println("✅ Cita eliminada.");
+        System.out.println(" Cita eliminada.");
     }
 
     // ========================= CONSULTAS =========================
@@ -391,7 +390,7 @@ public class Modulo2 {
                 consultaController.registrarConsulta(c);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("❌ Error al registrar cita: " + e.getMessage());
+                System.out.println(" Error al registrar cita: " + e.getMessage());
             }
         
         }
@@ -407,7 +406,7 @@ public class Modulo2 {
            ce = consultaController.verConsulta(id);
            break;
         } catch (IllegalArgumentException e) {
-            System.out.println("❌ Error al ver cita: " + e.getMessage());
+            System.out.println(" Error al ver cita: " + e.getMessage());
         }
     }
     
@@ -459,7 +458,7 @@ public class Modulo2 {
                 System.out.println("actualizada exitosamente");
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("❌ Error al actualizar cita: " + e.getMessage());
+                System.out.println(" Error al actualizar cita: " + e.getMessage());
             }
         
            c.setDiagnostico(origidag);
@@ -473,7 +472,7 @@ public class Modulo2 {
     private static void eliminarConsulta() {
         int id = leerEntero("ID consulta a eliminar: ");
         consultaController.eliminarConsulta(id);
-        System.out.println("✅ Consulta eliminada.");
+        System.out.println(" Consulta eliminada.");
     }
 
     // ========================= PROCEDIMIENTOS =========================
@@ -520,7 +519,7 @@ public class Modulo2 {
        try {
     estado = ProcedimientosEspeciales.EstadoProcedimiento.valueOf(nombre).valueOf(estadoTexto);
 } catch (IllegalArgumentException e) {
-    System.out.println("⚠️ Estado no válido. Se usará PROGRAMADO por defecto.");
+    System.out.println(" Estado no válido. Se usará PROGRAMADO por defecto.");
     estado = EstadoProcedimiento.PROGRAMADO;
 }
         
@@ -533,7 +532,7 @@ public class Modulo2 {
                  procedimientoController.crearProcedimiento(p);
                  break;
             } catch (IllegalArgumentException e) {
-                 System.out.println("❌ Error al registrar procedimiento: " + e.getMessage());
+                 System.out.println(" Error al registrar procedimiento: " + e.getMessage());
             }
         }
     }
@@ -562,7 +561,7 @@ public class Modulo2 {
            pe = procedimientoController.obtenerPorId(id);
            break;
         } catch (IllegalArgumentException e) {
-            System.out.println("❌ Error al ver procedimiento: " + e.getMessage());
+            System.out.println(" Error al ver procedimiento: " + e.getMessage());
         }
     }
     
@@ -635,10 +634,10 @@ public class Modulo2 {
         
            try {
                procedimientoController.actualizarProcedimiento(p);
-        System.out.println("✅ Procedimiento actualizado.");
+        System.out.println(" Procedimiento actualizado.");
         break;
            } catch (IllegalArgumentException e) {
-               System.out.println("❌ Error al actualizar procedimiento: " + e.getMessage());
+               System.out.println(" Error al actualizar procedimiento: " + e.getMessage());
            }
         
         p.setVeterinarioId(originalvet);
@@ -670,9 +669,9 @@ public class Modulo2 {
     String texto;
     do {
         System.out.print(mensaje);
-        texto = sc.nextLine().trim(); // trim() elimina espacios al inicio y final
+        texto = sc.nextLine().trim(); 
         if (texto.isEmpty()) {
-            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
         }
     } while (texto.isEmpty());
     return texto;
@@ -712,14 +711,14 @@ public class Modulo2 {
         System.out.print("Fecha (YYYY-MM-DD): ");
         fechaStr = sc.nextLine();
          if (fechaStr.isEmpty()) {
-            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
         }
         }while(fechaStr.isEmpty());
         
         do{System.out.print("Hora (HH:MM): ");
         horaStr = sc.nextLine();
          if (horaStr.isEmpty()) {
-            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
         }}while( horaStr.isEmpty());
 
         LocalDate fecha = LocalDate.parse(fechaStr);

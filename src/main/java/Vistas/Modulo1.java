@@ -32,7 +32,7 @@ public class Modulo1 {
         DueñoDAO duenoDAO = new DueñoDAO();
         RazasDAO razaDAO = new RazasDAO();
 
-        // === Inicialización de Controladores ===
+        //  Controladores
         mascotaController = new MascotaController(mascotaDAO, duenoDAO, razaDAO);
         duenoController = new DueñosController();
 
@@ -77,9 +77,9 @@ public class Modulo1 {
         System.out.println("0. Salir");
     }
 
-    // -------------------- DUEÑO --------------------
+    // dueño
     private static void registrarDueno() {
-    while (true) { // Repite hasta que se registre correctamente
+    while (true) { 
         System.out.println("\n--- Registrar Dueño ---");
 
         String nombre = leerTexto("Nombre completo: ");
@@ -94,13 +94,13 @@ public class Modulo1 {
 
         try {
             duenoController.registrarDueño(dueno);
-            System.out.println("✅ Dueño registrado correctamente.");
-            break; // Salimos del while si todo sale bien
+            System.out.println(" Dueño registrado correctamente.");
+            break; 
 
         } catch (IllegalArgumentException e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
-            System.out.println("🔁 Por favor, vuelve a ingresar los datos.\n");
-            // El ciclo while vuelve a empezar
+            System.out.println("️ Error: " + e.getMessage());
+            System.out.println(" Por favor, vuelve a ingresar los datos.\n");
+            
         }
     }
 }
@@ -124,7 +124,7 @@ public class Modulo1 {
         int duenoId = leerEntero("Ingrese ID del dueño: ");
 
         String nombre = leerTexto("Nombre de la mascota: ");
-        int razaId = leerEntero("ID de la raza: "); // Para simplificar, suponemos que conoces las razas
+        int razaId = leerEntero("ID de la raza: "); 
         LocalDate fechaNacimiento = leerFecha("Fecha de nacimiento (AAAA-MM-DD): ");
         double peso = leerDouble("Peso actual(KG): ");
         String microchip = leerTextoOpcional("Número de microchip (opcional): ");
@@ -153,8 +153,8 @@ public class Modulo1 {
                System.out.println("mascota registrado correctamente");
                break;
            } catch (IllegalArgumentException e) {
-                System.out.println("⚠️ Error: " + e.getMessage());
-            System.out.println("🔁 Por favor, vuelve a ingresar los datos.\n");
+                System.out.println("️ Error: " + e.getMessage());
+            System.out.println(" Por favor, vuelve a ingresar los datos.\n");
            }
     }
     }
@@ -180,7 +180,7 @@ public class Modulo1 {
                 System.out.println("encontrada correctamente");
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("⚠️ Error: " + e.getMessage());
+                System.out.println("️ Error: " + e.getMessage());
             }
         }
         
@@ -199,7 +199,7 @@ public class Modulo1 {
                 System.out.println("encontrada correctamente");
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("⚠️ Error: " + e.getMessage());
+                System.out.println("️ Error: " + e.getMessage());
             }
         }
         
@@ -220,8 +220,8 @@ public class Modulo1 {
                System.out.println("Mascota transferida exitosamente");
                break;
            } catch (IllegalArgumentException e) {
-               System.out.println("⚠️ Error: " + e.getMessage());
-            System.out.println("🔁 Por favor, vuelve a ingresar los datos.\n");
+               System.out.println("️ Error: " + e.getMessage());
+            System.out.println(" Por favor, vuelve a ingresar los datos.\n");
            }
         
     }
@@ -252,7 +252,7 @@ public class Modulo1 {
         
         String alergias = leerTexto("alergias: ("+ m.getAlergias()+"):");
         m.setAlergias(alergias);
-        // Aquí puedes agregar más campos opcionales
+        
         mascotaController.actualizarMascota(m);
     }
     
@@ -261,18 +261,18 @@ public class Modulo1 {
 
     Dueños d = null;
 
-    // 1️⃣ Repetir hasta que se encuentre un dueño válido
+    // 
     while (d == null) {
         int id = leerEntero("Ingrese el ID del dueño a actualizar: ");
         try {
             d = duenoController.buscarDuenoPorId(id);
             
         } catch (IllegalArgumentException e) {
-            System.out.println("❌ Error al buscar el dueño: " + e.getMessage());
+            System.out.println(" Error al buscar el dueño: " + e.getMessage());
         }
     }
 
-    // 2️⃣ Si se encontró, pedir los nuevos datos (opcionales)
+    // 
     String nombre = leerTextoOpcional("Nombre (" + d.getNombreCompleto() + "): ");
     if (!nombre.isEmpty()) d.setNombreCompleto(nombre);
 
@@ -288,7 +288,7 @@ public class Modulo1 {
     String contacto = leerTextoOpcional("Contacto de emergencia (" + d.getContactoEmergencia() + "): ");
     if (!contacto.isEmpty()) d.setContactoEmergencia(contacto);
 
-    // 3️⃣ Validar estado (activo/inactivo)
+    // 
     boolean activoValido = false;
     while (!activoValido) {
         int activo = leerEntero("¿Está activo el dueño? (1.Activo | 2.Inactivo): ");
@@ -299,16 +299,16 @@ public class Modulo1 {
             d.setActivo(false);
             activoValido = true;
         } else {
-            System.out.println("⚠️ Debes escoger entre 1 y 2.");
+            System.out.println("️ Debes escoger entre 1 y 2.");
         }
     }
 
-    // 4️⃣ Guardar cambios
+    // 
     try {
         duenoController.actualizarDueno(d);
-        System.out.println("✅ Dueño actualizado correctamente.");
+        System.out.println(" Dueño actualizado correctamente.");
     } catch (Exception e) {
-        System.out.println("❌ Error al actualizar el dueño: " + e.getMessage());
+        System.out.println(" Error al actualizar el dueño: " + e.getMessage());
     }
 }
     
@@ -331,9 +331,9 @@ public class Modulo1 {
     String texto;
     do {
         System.out.print(mensaje);
-        texto = sc.nextLine().trim(); // trim() elimina espacios al inicio y final
+        texto = sc.nextLine().trim(); 
         if (texto.isEmpty()) {
-            System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+            System.out.println(" Debes ingresar un valor. Intenta de nuevo.");
         }
     } while (texto.isEmpty());
     return texto;
@@ -351,7 +351,7 @@ public class Modulo1 {
             sc.next();
         }
         int valor = sc.nextInt();
-        sc.nextLine(); // limpiar buffer
+        sc.nextLine(); 
         return valor;
     }
 

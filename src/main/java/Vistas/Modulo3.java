@@ -34,7 +34,7 @@ public class Modulo3 {
 
     public static void main(String[] args) {
 
-        // Inicializar los controladores con los DAOs reales
+        
         prescripcionController = new PrescripcionController(new PrescripcionDAO());
         proveedorController = new ProveedorController(new ProveedorDAO());
         inventarioController = new InventarioController(new InventarioDAO());
@@ -245,7 +245,7 @@ public class Modulo3 {
         inv.setActivo(esActivo); 
         inv.setFechaVencimiento(fechaVencimiento);
         
-        // Establece la fecha de registro en el objeto antes de enviarlo al DAO
+      
         inv.setFechaRegistro(LocalDateTime.now());
         
         inventarioController.registrarInventario(inv);

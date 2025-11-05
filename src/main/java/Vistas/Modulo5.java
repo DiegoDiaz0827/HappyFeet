@@ -43,12 +43,12 @@ import util.ConexionDB;
  */
 public class Modulo5 {
     
-   // 1. DECLARACIÓN DE CONTROLADORES COMO ATRIBUTOS FINALES
+  
     private final club_mascotasController clubController;
     private final beneficios_clubController beneficioController;
     private final canjes_beneficiosController canjeController;
     
-    // MÓDULO 2: Jornadas de Vacunación
+    
     private final jornadas_vacunacionController jornadaController; 
 
     // MÓDULO 3: Días de Adopción
@@ -70,10 +70,10 @@ public class Modulo5 {
 
         // --- 2 INICIALIZACIÓN DE CONTROLLERS 
         
-        // Controllers base:
+ 
         this.mascotaController = new MascotaController(mascotaDAO, duenoDAO, razaDAO);
         
-        // Controllers de Club:
+      
         this.clubController = new club_mascotasController(clubMascotasDAO, duenoDAO);
         this.beneficioController = new beneficios_clubController(beneficioDAO);
         this.canjeController = new canjes_beneficiosController(canjesDAO);

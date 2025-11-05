@@ -19,7 +19,7 @@ import util.ConexionDB;
  * @author camper
  */
 public class Beneficios_clubDAO {
-    // permite devolver los datos en un objeto para usar
+    
     private beneficios_club mapearResultSetABeneficio(ResultSet rs) throws SQLException {
         
         return new beneficios_club(
@@ -28,8 +28,8 @@ public class Beneficios_clubDAO {
             rs.getString("descripcion"),
             rs.getString("nivel_requerido"),
             rs.getInt("puntos_necesarios"),
-            TipoBeneficio.valueOf(rs.getString("tipo_beneficio")), // Mapeo del Enum
-            rs.getBigDecimal("valor_beneficio"), // java.math.BigDecimal
+            TipoBeneficio.valueOf(rs.getString("tipo_beneficio")), 
+            rs.getBigDecimal("valor_beneficio"),
             rs.getBoolean("activo")
         );
     }
@@ -69,7 +69,7 @@ public class Beneficios_clubDAO {
     }
     
     // --- 2. READ 
-    // Consulta común para mostrar el catálogo a los usuarios
+   
     public List<beneficios_club> listarActivos(){
         List<beneficios_club> lista = new ArrayList<>();
         String SQL = "SELECT * FROM beneficios_club WHERE activo = TRUE ORDER BY puntos_necesarios ASC";
