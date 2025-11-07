@@ -22,7 +22,7 @@ import util.ConexionDB;
  */
 public class ConsultasMedicasDAO {
     
-    public void insertar(ConsultasMedicas c) {
+    public void insertar(ConsultasMedicas c) throws SQLException {
         String SQL = "INSERT INTO consultas_medicas(mascota_id, veterinario_id, cita_id, fecha_hora, motivo, sintomas, diagnostico, recomendaciones, observaciones, peso_registrado, temperatura) "
                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

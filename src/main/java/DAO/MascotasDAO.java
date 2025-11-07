@@ -14,8 +14,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import util.ConexionDB;
 
 /**
@@ -210,6 +214,32 @@ public class MascotasDAO {
         return lista;
     }
     
+    
+     public List<Mascotas> obtenerpeso(int id) {
+          List<Mascotas> listapesos = new ArrayList<>();
+        String sql = "SELECT m.*, cm.peso_registrado AS peso,cm.fecha_hora AS Fecha FROM mascotas m JOIN consultas_medicas cm ON m.id = cm.mascota_id  WHERE cm.mascota_id = ? AND cm.peso_registrado IS NOT NULL";
+        try (Connection conn = ConexionDB.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+               Mascotas m = new Mascotas(
+                        rs.getString("nombre"),
+                        rs.getInt("peso"),
+                        rs.getTimestamp("Fecha").toLocalDateTime());
+                    
+                    
+                     listapesos.add(m);     
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL al obtener mascota: " + e.getMessage());
+        }
+        return listapesos;
+    }
+    
      public Mascotas obtenerprocedimiento(int id) {
         String sql = "SELECT m.*, p.nombre_procedimiento as nombrepro FROM mascotas m JOIN procedimientos_especiales p ON m.id = p.mascota_id  WHERE p.mascota_id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -237,6 +267,13 @@ public class MascotasDAO {
         }
         return null;
     }
+     
+     
+     
+     
+    
+    
+     
     
     
     

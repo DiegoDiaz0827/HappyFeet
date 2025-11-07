@@ -9,6 +9,7 @@ import DAO.ConsultasMedicasDAO;
 import DAO.MascotasDAO;
 import DAO.VeterinariosDAO;
 import Model.Entities.ConsultasMedicas;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,38 +33,43 @@ public class ConsultacitasController {
     }
 
     //  Registrar consulta con validación de FKs
-    public boolean registrarConsulta(ConsultasMedicas c) throws IllegalArgumentException {
+   public boolean registrarConsulta(ConsultasMedicas c) {
+    try {
         if (c.getMascotaId() <= 0 || mascotasDAO.obtenerPorId(c.getMascotaId()) == null) {
-            throw new IllegalArgumentException("Error: Mascota no encontrada.");
+            throw new IllegalArgumentException("Mascota no encontrada");
             
         }
+
         if (c.getVeterinarioId() <= 0 || veterinariosDAO.obtenerPorId(c.getVeterinarioId()) == null) {
-             throw new IllegalArgumentException("Error: Veterinario no encontrado.");
-           
+            throw new IllegalArgumentException("Veterinario no encontrado");
         }
+
         if (c.getCitaId() != null && citasDAO.obtenerPorId(c.getCitaId()) == null) {
-            throw new IllegalArgumentException("Error: Cita no encontrada.");
-            
+            throw new IllegalArgumentException("Cita no encontrada");
         }
-        
-         if (c.getFechaHora().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("️ La nueva fecha no puede ser pasada.");
-           
+
+        if (c.getFechaHora().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("La fecha no puede ser pasada");
         }
-       
+
         if (c.getMotivo() == null || c.getMotivo().isEmpty()) {
-            throw new IllegalArgumentException("Error: El motivo de la consulta es obligatorio.");
-            
+            throw new IllegalArgumentException("El motivo es obligatorio");
         }
+
         if (c.getSintomas() == null || c.getSintomas().isEmpty()) {
-            throw new IllegalArgumentException("Error: Los síntomas son obligatorios.");
-            
+            throw new IllegalArgumentException("Los síntomas son obligatorios");
         }
 
+        // Si todo está bien, intenta insertar
         consultasDAO.insertar(c);
+        System.out.println("✅ Consulta registrada correctamente.");
         return true;
-    }
 
+    } catch (IllegalArgumentException | SQLException e) {
+        System.out.println("⚠️ Error al registrar consulta: " + e.getMessage());
+        return false;
+    }
+}
     // actualizar consulta
     public boolean actualizarConsulta(ConsultasMedicas c) throws IllegalArgumentException {
         if (c.getId() <= 0 || consultasDAO.obtenerPorId(c.getId()) == null) {

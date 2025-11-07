@@ -30,6 +30,8 @@ public class Mascotas {
     private String alergias;
     private String condicionesPreexistentes;
     private LocalDateTime fechaRegistro;
+    private LocalDateTime fechaconsulta;
+    private int peso;
     private boolean activo;
     private String nombreprocedimeinto;
 
@@ -57,8 +59,16 @@ public class Mascotas {
         fechaRegistro = pFechaRegistro;
         activo = pActivo;
     }
-
-    public Mascotas(int pDuenoId, String pNombre, int pRazaId,
+    
+    public Mascotas(String pNombre, int ppeso, LocalDateTime pfechaconsulta){
+    nombre = pNombre;
+    peso = ppeso;
+    fechaconsulta = pfechaconsulta;
+           
+    }
+    
+    
+      public Mascotas(int pDuenoId, String pNombre, int pRazaId,
                     LocalDate pFechaNacimiento, Sexo pSexo, double pPesoActual,
                     String pMicrochip, String pTatuaje, String pUrlFoto,
                     String pAlergias, String pCondicionesPreexistentes,
@@ -100,6 +110,14 @@ public class Mascotas {
     // Getters
     public int getId() {
         return id;
+    }
+    
+     public LocalDateTime getIfechaconsulta() {
+        return fechaconsulta;
+    }
+     
+        public int getIpesoconsulta() {
+        return peso;
     }
 
     public String getnombrepro(){

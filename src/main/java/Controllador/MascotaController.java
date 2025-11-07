@@ -8,6 +8,7 @@ import DAO.DueñoDAO;
 import DAO.MascotasDAO;
 import DAO.RazasDAO;
 import Model.Entities.Mascotas;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -103,4 +104,20 @@ public class MascotaController {
         }
         return mascotaDAO.obtenerprocedimiento(id);
     }
+     
+     public List<Mascotas> PesoMacotas(int id){
+       List<Mascotas> listades = mascotaDAO.obtenerpeso(id);
+
+       List<Mascotas> ordenadas = listades.stream()
+    .sorted(Comparator.comparing(Mascotas::getIfechaconsulta))
+    .toList();
+
+return ordenadas;
+
 }
+     
+     
+}
+
+
+

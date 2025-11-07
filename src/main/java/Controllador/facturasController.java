@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Collections;
 
 import DAO.DueñoDAO;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -154,5 +155,21 @@ try {
 
     public int obtenerUltimoIdRegistrado() {
         return 0; 
+    }
+    
+    
+    
+    
+    public List<Facturas> obtenerproductos(LocalDateTime fechainicio,LocalDateTime fechafin){
+    
+    List<Facturas> listaya = facturasDAO.obtenerproducto(fechainicio, fechafin);
+    
+    if(listaya == null){
+    throw new IllegalArgumentException("no hay productos en estas fechas");
+    }else{
+    return listaya;
+    }
+    
+    
     }
 }

@@ -221,4 +221,41 @@ public class FacturasDAO {
         }
         return reporte;
     }
+    
+    public List<Facturas> obtenerproducto(LocalDateTime fechainicio,LocalDateTime fechafin) {
+          List<Facturas> facturas = new ArrayList<>();
+        String sql = "SELECT f.*,SUM(itf.cantidad) AS cantidadtotal ,SUM(itf.subtotal) AS subtotal, i.nombre_producto AS nombre "
+                + "FROM facturas f "
+                + "JOIN items_factura itf ON f.id = itf.factura_id "
+                + "JOIN inventario i ON itf.producto_id = i.id "
+                + "WHERE itf.tipo_item = 'Producto' AND f.fecha_emision BETWEEN ? AND ? "
+                + "GROUP BY f.id, i.nombre_producto "
+                + "ORDER BY subtotal DESC ";
+                
+                
+        try (Connection conn = ConexionDB.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setTimestamp(1, Timestamp.valueOf(fechainicio));
+            ps.setTimestamp(2, Timestamp.valueOf(fechafin));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+              Facturas f = new Facturas(
+                      rs.getString("nombre"),
+                      rs.getInt("subtotal"),
+                      rs.getInt("cantidadtotal")
+              );
+                    
+                     facturas.add(f);     
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL al obtener producto: " + e.getMessage());
+        }
+        return facturas;
+    }
+    
+   
+     
 }

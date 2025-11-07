@@ -78,8 +78,8 @@ public class Modulo3 {
     // -------------------- PRESCRIPCIÓN --------------------
     private static void registrarPrescripcion() {
         System.out.println("\n--- Registrar Prescripción ---");
-        Integer consultaId = leerEnteroOpcional("ID de la consulta: ");
-        Integer procedimientoId = leerEnteroOpcional("ID del procedimiento: ");
+        Integer consultaId = leerEntero("ID de la consulta: ");
+        Integer procedimientoId = leerEntero("ID del procedimiento: ");
         int productoId = leerEntero("ID del producto: ");
         int cantidad = leerEntero("Cantidad: ");
         String dosis = leerTexto("Dosis: ");
@@ -298,8 +298,15 @@ public class Modulo3 {
     }
 
     private static String leerTexto(String mensaje) {
+    String texto;
+    do {
         System.out.print(mensaje);
-        return sc.nextLine();
+        texto = sc.nextLine().trim(); 
+        if (texto.isEmpty()) {
+            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
+        }
+    } while (texto.isEmpty());
+    return texto;
     }
 
     private static String leerTextoOpcional(String mensaje) {

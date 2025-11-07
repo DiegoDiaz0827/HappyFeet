@@ -18,6 +18,9 @@ public class Facturas {
 private int id;
     private int duenoId;
     private String numeroFactura;
+    private String nombreproducto;
+    private int subtotal2;
+    private int cantidad;
     private LocalDateTime fechaEmision;
     private BigDecimal subtotal;
     private BigDecimal impuesto;
@@ -44,6 +47,14 @@ private int id;
         estado = pEstado;
         observaciones = pObservaciones;
     }
+    
+   public Facturas(String pnombreproducto,int psubtotal2, int pcantidad){
+   
+   nombreproducto = pnombreproducto;
+   subtotal2 = psubtotal2;
+   cantidad = pcantidad;
+   
+   }
 
     public Facturas(int pDuenoId, String pNumeroFactura, BigDecimal pSubtotal,
                     BigDecimal pImpuesto, BigDecimal pDescuento, BigDecimal pTotal,
@@ -62,6 +73,18 @@ private int id;
     public int getId() {
         return id;
     }
+    
+     public String getnombreinventario() {
+        return nombreproducto;
+    }
+     
+     public int getcantidadtotal(){
+     return cantidad;
+     }
+     
+     public int getsubtotal(){
+     return subtotal2;
+     }
 
     public int getDuenoId() {
         return duenoId;

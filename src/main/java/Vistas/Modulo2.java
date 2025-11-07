@@ -23,6 +23,7 @@ import Model.Enums.EstadoProcedimientos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -168,17 +169,17 @@ public class Modulo2 {
             System.out.println("No se encontró el veterinario.");
             return;
         }
-        String nuevoNombre = leerTextoOpcional("Nuevo nombre (" + v.getNombreCompleto()+ "): ");
+        String nuevoNombre = leerTexto("Nuevo nombre (" + v.getNombreCompleto()+ "): ");
         if (!nuevoNombre.isEmpty()) v.setNombreCompleto(nuevoNombre);
 
         
-        String especialidad = leerTextoOpcional("Especialidad (" + v.getEspecialidad() + "): ");
+        String especialidad = leerTexto("Especialidad (" + v.getEspecialidad() + "): ");
         if (!especialidad.isEmpty()) v.setEspecialidad(especialidad);
         
-        String Telefono = leerTextoOpcional("telefono (" + v.getTelefono()+ "): ");
+        String Telefono = leerTexto("telefono (" + v.getTelefono()+ "): ");
         if (!Telefono.isEmpty()) v.setTelefono(Telefono);
         
-        String email = leerTextoOpcional("email (" + v.getEmail()+ "): ");
+        String email = leerTexto("email (" + v.getEmail()+ "): ");
         if (!email.isEmpty()) v.setEmail(email);
         boolean activo1 = true;
         int activo = leerEntero("esta asctivo el veterinario: 1.Activo 2.Inactivo");
@@ -386,12 +387,14 @@ public class Modulo2 {
         ConsultasMedicas c = new ConsultasMedicas(mascotaId, veterinarioid, citaid, fechahora, 
          motivo,sintomas,diagnostico,recomendaciones,observaciones,peso,temperatura );
         
-            try {
-                consultaController.registrarConsulta(c);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(" Error al registrar cita: " + e.getMessage());
-            }
+           boolean exito = consultaController.registrarConsulta(c);
+           if(exito){
+           break;
+           }else{
+               System.out.println("no se pudo hacer el registro");
+           }
+               
+            
         
         }
     }
@@ -704,27 +707,44 @@ public class Modulo2 {
         }
     }
     
-     public static LocalDateTime leerFechaHora(String mensaje) {
-         String fechaStr;
-         String horaStr;
-        do{System.out.println(mensaje);
-        System.out.print("Fecha (YYYY-MM-DD): ");
-        fechaStr = sc.nextLine();
-         if (fechaStr.isEmpty()) {
-            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
+    public static LocalDateTime leerFechaHora(String mensaje) {
+    while (true) {
+        try {
+            System.out.println(mensaje);
+
+            // Leer fecha
+            String fechaStr;
+            do {
+                System.out.print("Fecha (YYYY-MM-DD): ");
+                fechaStr = sc.nextLine();
+                if (fechaStr.isEmpty()) {
+                    System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+                }
+            } while (fechaStr.isEmpty());
+
+            // Leer hora
+            String horaStr;
+            do {
+                System.out.print("Hora (HH:MM): ");
+                horaStr = sc.nextLine();
+                if (horaStr.isEmpty()) {
+                    System.out.println("⚠️ Debes ingresar un valor. Intenta de nuevo.");
+                }
+            } while (horaStr.isEmpty());
+
+            // Intentar parsear
+            LocalDate fecha = LocalDate.parse(fechaStr);
+            LocalTime hora = LocalTime.parse(horaStr);
+
+            // Si todo sale bien, retornar el LocalDateTime
+            return LocalDateTime.of(fecha, hora);
+
+        } catch (DateTimeParseException
+                e) {
+            System.out.println("⚠️ Formato inválido. Usa el formato correcto:");
+            System.out.println("   Fecha → YYYY-MM-DD  (ej: 2025-11-06)");
+            System.out.println("   Hora  → HH:MM  (ej: 14:30, entre 00 y 23 horas)\n");
         }
-        }while(fechaStr.isEmpty());
-        
-        do{System.out.print("Hora (HH:MM): ");
-        horaStr = sc.nextLine();
-         if (horaStr.isEmpty()) {
-            System.out.println("️ Debes ingresar un valor. Intenta de nuevo.");
-        }}while( horaStr.isEmpty());
-
-        LocalDate fecha = LocalDate.parse(fechaStr);
-        LocalTime hora = LocalTime.parse(horaStr);
-
-        return LocalDateTime.of(fecha, hora);
-        
     }
+}
 }
