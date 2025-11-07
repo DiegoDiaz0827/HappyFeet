@@ -160,14 +160,15 @@ try {
     
     
     
-    public List<Facturas> obtenerproductos(LocalDateTime fechainicio,LocalDateTime fechafin){
+  
+     public List<Facturas> obtenerfactura(String documento){
     
-    List<Facturas> listaya = facturasDAO.obtenerproducto(fechainicio, fechafin);
+    List<Facturas> listafacturas = facturasDAO.obtenerFactura(documento);
     
-    if(listaya == null){
+    if(listafacturas == null){
     throw new IllegalArgumentException("no hay productos en estas fechas");
     }else{
-    return listaya;
+    return listafacturas;
     }
     
     

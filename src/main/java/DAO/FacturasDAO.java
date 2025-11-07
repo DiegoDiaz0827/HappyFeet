@@ -7,13 +7,16 @@ package DAO;
 import Model.Entities.Facturas;
 import Model.Enums.MetodoPago;
 import Model.Enums.EstadoFacturas;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -222,30 +225,36 @@ public class FacturasDAO {
         return reporte;
     }
     
-    public List<Facturas> obtenerproducto(LocalDateTime fechainicio,LocalDateTime fechafin) {
+    
+    
+    
+     public List<Facturas> obtenerFactura(String documento) {
           List<Facturas> facturas = new ArrayList<>();
-        String sql = "SELECT f.*,SUM(itf.cantidad) AS cantidadtotal ,SUM(itf.subtotal) AS subtotal, i.nombre_producto AS nombre "
+        String sql = "SELECT f.*,SUM(f.total) AS total1 ,  d.nombre_completo AS nombrecliente,  "
                 + "FROM facturas f "
-                + "JOIN items_factura itf ON f.id = itf.factura_id "
+                + "JOIN dueños d  ON f.dueno_id = d.id "
                 + "JOIN inventario i ON itf.producto_id = i.id "
-                + "WHERE itf.tipo_item = 'Producto' AND f.fecha_emision BETWEEN ? AND ? "
-                + "GROUP BY f.id, i.nombre_producto "
-                + "ORDER BY subtotal DESC ";
+                + "WHERE d.documento_identidad = ?  ";
+               
                 
                 
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setTimestamp(1, Timestamp.valueOf(fechainicio));
-            ps.setTimestamp(2, Timestamp.valueOf(fechafin));
+            ps.setString(1, documento);
+            
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-              Facturas f = new Facturas(
-                      rs.getString("nombre"),
-                      rs.getInt("subtotal"),
-                      rs.getInt("cantidadtotal")
-              );
+              Facturas f;
+              LocalDateTime fecha = Timestamp.valueOf("fecha_emision").toLocalDateTime();
+                f = new Facturas(
+                        rs.getInt("id"),
+                        fecha,
+                        rs.getInt("total"),
+                        rs.getInt("total1"),
+                        rs.getString(documento)
+                );
                     
                      facturas.add(f);     
             }
@@ -259,3 +268,8 @@ public class FacturasDAO {
    
      
 }
+
+    
+   
+     
+

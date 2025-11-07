@@ -29,6 +29,10 @@ private int id;
     private MetodoPago metodoPago;
     private EstadoFacturas estado;   
     private String observaciones;
+    private int totalfacturado;
+    private int idcliente;
+    private String doccliente;
+    private int total2;
 
 // Constructores
     public Facturas(int pId, int pDuenoId, String pNumeroFactura, LocalDateTime pFechaEmision,
@@ -55,6 +59,20 @@ private int id;
    cantidad = pcantidad;
    
    }
+   
+   
+   public Facturas(int pid , LocalDateTime pfechaemision, int ptotal2,int pTtotal,String pdoc ){
+   
+   
+   id = pid;
+   fechaEmision = pfechaemision;
+   total2 = ptotal2;
+   totalfacturado = pTtotal;
+   
+   doccliente = pdoc;
+   
+   
+   }
 
     public Facturas(int pDuenoId, String pNumeroFactura, BigDecimal pSubtotal,
                     BigDecimal pImpuesto, BigDecimal pDescuento, BigDecimal pTotal,
@@ -70,6 +88,19 @@ private int id;
         observaciones = pObservaciones;
     }
 
+    public int getidcliente(){
+    return idcliente;
+    }
+    
+    public int gettotal2(){
+    return total2;
+    }
+    
+    public int gettotalfacturado(){
+    return totalfacturado;
+    }
+    
+    
     public int getId() {
         return id;
     }
